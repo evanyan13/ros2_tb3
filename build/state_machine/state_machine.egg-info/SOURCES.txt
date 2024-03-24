@@ -1,0 +1,12 @@
+package.xml
+setup.cfg
+setup.py
+resource/state_machine
+state_machine/__init__.py
+state_machine.egg-info/PKG-INFO
+state_machine.egg-info/SOURCES.txt
+state_machine.egg-info/dependency_links.txt
+state_machine.egg-info/entry_points.txt
+state_machine.egg-info/requires.txt
+state_machine.egg-info/top_level.txt
+state_machine.egg-info/zip-safe

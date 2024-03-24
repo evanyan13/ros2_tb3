@@ -1,0 +1,24 @@
+[1.215s] Invoking command in '/home/evanyan13/colcon_ws/build/navi_main': PYTHONPATH=/home/evanyan13/colcon_ws/build/navi_main/prefix_override:/home/evanyan13/colcon_ws/install/navi_main/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/navi_main/build --no-deps install_data
+[1.432s] running develop
+[1.433s] running egg_info
+[1.433s] creating navi_main.egg-info
+[1.433s] writing navi_main.egg-info/PKG-INFO
+[1.434s] writing dependency_links to navi_main.egg-info/dependency_links.txt
+[1.435s] writing entry points to navi_main.egg-info/entry_points.txt
+[1.435s] writing requirements to navi_main.egg-info/requires.txt
+[1.436s] writing top-level names to navi_main.egg-info/top_level.txt
+[1.436s] writing manifest file 'navi_main.egg-info/SOURCES.txt'
+[1.436s] reading manifest file 'navi_main.egg-info/SOURCES.txt'
+[1.436s] writing manifest file 'navi_main.egg-info/SOURCES.txt'
+[1.444s] running build_ext
+[1.445s] Creating /home/evanyan13/colcon_ws/install/navi_main/lib/python3.8/site-packages/site.py
+[1.445s] Creating /home/evanyan13/colcon_ws/install/navi_main/lib/python3.8/site-packages/navi-main.egg-link (link to .)
+[1.446s] 
+[1.446s] Installed /home/evanyan13/colcon_ws/build/navi_main
+[1.446s] running install_data
+[1.446s] creating /home/evanyan13/colcon_ws/install/navi_main/share/ament_index
+[1.446s] creating /home/evanyan13/colcon_ws/install/navi_main/share/ament_index/resource_index
+[1.446s] creating /home/evanyan13/colcon_ws/install/navi_main/share/ament_index/resource_index/packages
+[1.446s] copying resource/navi_main -> /home/evanyan13/colcon_ws/install/navi_main/share/ament_index/resource_index/packages
+[1.446s] copying package.xml -> /home/evanyan13/colcon_ws/install/navi_main/share/navi_main
+[1.463s] Invoked command in '/home/evanyan13/colcon_ws/build/navi_main' returned '0': PYTHONPATH=/home/evanyan13/colcon_ws/build/navi_main/prefix_override:/home/evanyan13/colcon_ws/install/navi_main/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/navi_main/build --no-deps install_data
