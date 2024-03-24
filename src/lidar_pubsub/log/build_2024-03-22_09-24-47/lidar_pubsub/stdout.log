@@ -1,0 +1,9 @@
+running develop
+running egg_info
+creating lidar_pubsub.egg-info
+writing lidar_pubsub.egg-info/PKG-INFO
+writing dependency_links to lidar_pubsub.egg-info/dependency_links.txt
+writing entry points to lidar_pubsub.egg-info/entry_points.txt
+writing requirements to lidar_pubsub.egg-info/requires.txt
+writing top-level names to lidar_pubsub.egg-info/top_level.txt
+writing manifest file 'lidar_pubsub.egg-info/SOURCES.txt'

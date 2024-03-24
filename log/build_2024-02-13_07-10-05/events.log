@@ -1,0 +1,8 @@
+[0.000000] (-) TimerEvent: {}
+[0.000336] (-) JobUnselected: {'identifier': 'auto_nav'}
+[0.000358] (-) JobUnselected: {'identifier': 'py_pubsub'}
+[0.000369] (-) JobUnselected: {'identifier': 'py_pubsub'}
+[0.000380] (-) JobUnselected: {'identifier': 'turtlebot3_fake_node'}
+[0.000412] (-) JobUnselected: {'identifier': 'turtlebot3_gazebo'}
+[0.000422] (-) JobUnselected: {'identifier': 'turtlebot3_simulations'}
+[0.000683] (-) EventReactorShutdown: {}

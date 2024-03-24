@@ -1,0 +1,21 @@
+[0.636s] Invoking command in '/home/evanyan13/colcon_ws/src/py_pubsub/build/lidar_pubsub': PYTHONPATH=/home/evanyan13/colcon_ws/src/py_pubsub/build/lidar_pubsub/prefix_override:/home/evanyan13/colcon_ws/src/py_pubsub/install/lidar_pubsub/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/src/py_pubsub/build/lidar_pubsub/build --no-deps install_data
+[0.773s] running develop
+[0.835s] running egg_info
+[0.835s] writing py_pubsub.egg-info/PKG-INFO
+[0.835s] writing dependency_links to py_pubsub.egg-info/dependency_links.txt
+[0.835s] writing entry points to py_pubsub.egg-info/entry_points.txt
+[0.835s] writing requirements to py_pubsub.egg-info/requires.txt
+[0.836s] writing top-level names to py_pubsub.egg-info/top_level.txt
+[0.853s] reading manifest file 'py_pubsub.egg-info/SOURCES.txt'
+[0.853s] writing manifest file 'py_pubsub.egg-info/SOURCES.txt'
+[0.873s] running build_ext
+[0.874s] Creating /home/evanyan13/colcon_ws/src/py_pubsub/install/lidar_pubsub/lib/python3.8/site-packages/py-pubsub.egg-link (link to .)
+[0.874s] Installing listener script to /home/evanyan13/colcon_ws/src/py_pubsub/install/lidar_pubsub/lib/py_pubsub
+[0.874s] Installing talker script to /home/evanyan13/colcon_ws/src/py_pubsub/install/lidar_pubsub/lib/py_pubsub
+[0.874s] 
+[0.874s] Installed /home/evanyan13/colcon_ws/src/py_pubsub/build/lidar_pubsub
+[0.875s] running install_data
+[0.875s] copying resource/py_pubsub -> /home/evanyan13/colcon_ws/src/py_pubsub/install/lidar_pubsub/share/ament_index/resource_index/packages
+[0.875s] creating /home/evanyan13/colcon_ws/src/py_pubsub/install/lidar_pubsub/share/py_pubsub
+[0.875s] copying package.xml -> /home/evanyan13/colcon_ws/src/py_pubsub/install/lidar_pubsub/share/py_pubsub
+[0.890s] Invoked command in '/home/evanyan13/colcon_ws/src/py_pubsub/build/lidar_pubsub' returned '0': PYTHONPATH=/home/evanyan13/colcon_ws/src/py_pubsub/build/lidar_pubsub/prefix_override:/home/evanyan13/colcon_ws/src/py_pubsub/install/lidar_pubsub/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/src/py_pubsub/build/lidar_pubsub/build --no-deps install_data

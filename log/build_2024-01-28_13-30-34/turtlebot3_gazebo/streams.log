@@ -1,0 +1,260 @@
+[0.213s] Invoking command in '/home/evanyan13/colcon_ws/build/turtlebot3_gazebo': CMAKE_PREFIX_PATH=/home/evanyan13/colcon_ws/install/py_pubsub:/home/evanyan13/colcon_ws/install/auto_nav:/opt/ros/foxy /usr/bin/cmake /home/evanyan13/colcon_ws/src/turtlebot3_simulations/turtlebot3_gazebo -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/evanyan13/colcon_ws/install/turtlebot3_gazebo
+[0.554s] -- The C compiler identification is GNU 9.4.0
+[0.554s] -- The CXX compiler identification is GNU 9.4.0
+[0.554s] -- Check for working C compiler: /usr/bin/cc
+[0.555s] -- Check for working C compiler: /usr/bin/cc -- works
+[0.555s] -- Detecting C compiler ABI info
+[0.555s] -- Detecting C compiler ABI info - done
+[0.555s] -- Detecting C compile features
+[0.555s] -- Detecting C compile features - done
+[0.555s] -- Check for working CXX compiler: /usr/bin/c++
+[0.581s] -- Check for working CXX compiler: /usr/bin/c++ -- works
+[0.582s] -- Detecting CXX compiler ABI info
+[0.633s] -- Detecting CXX compiler ABI info - done
+[0.639s] -- Detecting CXX compile features
+[0.639s] -- Detecting CXX compile features - done
+[0.643s] -- Found ament_cmake: 0.9.12 (/opt/ros/foxy/share/ament_cmake/cmake)
+[0.662s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.10", minimum required is "3") 
+[0.662s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[0.750s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.790s] -- Found PkgConfig: /usr/bin/pkg-config (found version "0.29.1") 
+[0.794s] -- Checking for module 'bullet>=2.82'
+[0.811s] --   Found bullet, version 2.88
+[0.898s] -- Found ccd: /usr/include (found suitable version "2.0", minimum required is "2.0") 
+[0.930s] -- Found fcl: /usr/include (found suitable version "0.5.0", minimum required is "0.3.2") 
+[0.962s] -- Found assimp: /usr/include (found version "5.0.0") 
+[0.994s] -- Found DART: /usr/include (Required is at least version "6.6") found components: dart 
+[1.180s] -- Found Boost: /usr/lib/aarch64-linux-gnu/cmake/Boost-1.71.0/BoostConfig.cmake (found suitable version "1.71.0", minimum required is "1.40.0") found components: thread system filesystem program_options regex iostreams date_time 
+[1.200s] -- Found Protobuf: /usr/lib/aarch64-linux-gnu/libprotobuf.so;-lpthread (found version "3.6.1") 
+[1.204s] -- Looking for ignition-math6 -- found version 6.15.0
+[1.212s] -- Searching for dependencies of ignition-math6
+[1.213s] -- Looking for OGRE...
+[1.214s] -- OGRE_PREFIX_WATCH changed.
+[1.216s] -- Checking for module 'OGRE'
+[1.224s] --   Found OGRE, version 1.9.0
+[1.246s] -- Found Ogre Ghadamon (1.9.0)
+[1.250s] -- Found OGRE: optimized;/usr/lib/aarch64-linux-gnu/libOgreMain.so;debug;/usr/lib/aarch64-linux-gnu/libOgreMain.so
+[1.257s] -- Looking for OGRE_Paging...
+[1.260s] -- Found OGRE_Paging: optimized;/usr/lib/aarch64-linux-gnu/libOgrePaging.so;debug;/usr/lib/aarch64-linux-gnu/libOgrePaging.so
+[1.260s] -- Looking for OGRE_Terrain...
+[1.264s] -- Found OGRE_Terrain: optimized;/usr/lib/aarch64-linux-gnu/libOgreTerrain.so;debug;/usr/lib/aarch64-linux-gnu/libOgreTerrain.so
+[1.264s] -- Looking for OGRE_Property...
+[1.268s] -- Found OGRE_Property: optimized;/usr/lib/aarch64-linux-gnu/libOgreProperty.so;debug;/usr/lib/aarch64-linux-gnu/libOgreProperty.so
+[1.268s] -- Looking for OGRE_RTShaderSystem...
+[1.271s] -- Found OGRE_RTShaderSystem: optimized;/usr/lib/aarch64-linux-gnu/libOgreRTShaderSystem.so;debug;/usr/lib/aarch64-linux-gnu/libOgreRTShaderSystem.so
+[1.271s] -- Looking for OGRE_Volume...
+[1.275s] -- Found OGRE_Volume: optimized;/usr/lib/aarch64-linux-gnu/libOgreVolume.so;debug;/usr/lib/aarch64-linux-gnu/libOgreVolume.so
+[1.275s] -- Looking for OGRE_Overlay...
+[1.279s] -- Found OGRE_Overlay: optimized;/usr/lib/aarch64-linux-gnu/libOgreOverlay.so;debug;/usr/lib/aarch64-linux-gnu/libOgreOverlay.so
+[1.352s] -- Looking for ignition-math6 -- found version 6.15.0
+[1.354s] -- Looking for ignition-transport8 -- found version 8.3.0
+[1.354s] -- Searching for dependencies of ignition-transport8
+[1.366s] -- Found Protobuf: /usr/lib/aarch64-linux-gnu/libprotobuf.so;-lpthread (found suitable version "3.6.1", minimum required is "3") 
+[1.374s] -- Config-file not installed for ZeroMQ -- checking for pkg-config
+[1.377s] -- Checking for module 'libzmq >= 4'
+[1.387s] --   Found libzmq , version 4.3.2
+[1.407s] -- Found ZeroMQ: TRUE (Required is at least version "4") 
+[1.411s] -- Checking for module 'uuid'
+[1.419s] --   Found uuid, version 2.34.0
+[1.437s] -- Found UUID: TRUE  
+[1.440s] -- Looking for ignition-msgs5 -- found version 5.10.0
+[1.440s] -- Searching for dependencies of ignition-msgs5
+[1.452s] -- Looking for ignition-math6 -- found version 6.15.0
+[1.455s] -- Checking for module 'tinyxml2'
+[1.463s] --   Found tinyxml2, version 6.2.0
+[1.484s] -- Looking for ignition-msgs5 -- found version 5.10.0
+[1.487s] -- Looking for ignition-common3 -- found version 3.14.2
+[1.487s] -- Searching for dependencies of ignition-common3
+[1.487s] -- Looking for dlfcn.h - found
+[1.488s] -- Looking for libdl - found
+[1.489s] -- Found DL: TRUE  
+[1.493s] -- Searching for <ignition-common3> component [graphics]
+[1.495s] -- Looking for ignition-common3-graphics -- found version 3.14.2
+[1.495s] -- Searching for dependencies of ignition-common3-graphics
+[1.495s] -- Looking for ignition-math6 -- found version 6.15.0
+[1.498s] -- Looking for ignition-fuel_tools4 -- found version 4.6.0
+[1.498s] -- Searching for dependencies of ignition-fuel_tools4
+[1.537s] -- Found CURL: /usr/lib/aarch64-linux-gnu/libcurl.so (found version "7.68.0")  
+[1.542s] -- Checking for module 'jsoncpp'
+[1.549s] --   Found jsoncpp, version 1.7.4
+[1.568s] -- Found JSONCPP: TRUE  
+[1.571s] -- Checking for module 'libzip'
+[1.579s] --   Found libzip, version 1.5.1
+[1.599s] -- Found ZIP: TRUE  
+[1.599s] -- Looking for ignition-common3 -- found version 3.14.2
+[1.600s] -- Looking for ignition-math6 -- found version 6.15.0
+[1.600s] -- Looking for ignition-msgs5 -- found version 5.10.0
+[1.603s] -- Found gazebo_ros_pkgs: 3.5.3 (/opt/ros/foxy/share/gazebo_ros_pkgs/cmake)
+[1.604s] -- Found geometry_msgs: 2.0.5 (/opt/ros/foxy/share/geometry_msgs/cmake)
+[1.618s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.622s] -- Found rosidl_adapter: 1.3.1 (/opt/ros/foxy/share/rosidl_adapter/cmake)
+[1.675s] -- Found OpenSSL: /usr/lib/aarch64-linux-gnu/libcrypto.so (found version "1.1.1f")  
+[1.692s] -- Found FastRTPS: /opt/ros/foxy/include  
+[1.739s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.786s] -- Found nav_msgs: 2.0.5 (/opt/ros/foxy/share/nav_msgs/cmake)
+[1.830s] -- Found rclcpp: 2.4.3 (/opt/ros/foxy/share/rclcpp/cmake)
+[1.854s] -- Found rmw_implementation_cmake: 1.0.4 (/opt/ros/foxy/share/rmw_implementation_cmake/cmake)
+[1.855s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.856s] -- Found Threads: TRUE  
+[1.938s] -- Found sensor_msgs: 2.0.5 (/opt/ros/foxy/share/sensor_msgs/cmake)
+[1.981s] -- Found tf2: 0.13.14 (/opt/ros/foxy/share/tf2/cmake)
+[2.023s] -- Configuring done
+[2.065s] -- Generating done
+[2.066s] -- Build files have been written to: /home/evanyan13/colcon_ws/build/turtlebot3_gazebo
+[2.072s] Invoked command in '/home/evanyan13/colcon_ws/build/turtlebot3_gazebo' returned '0': CMAKE_PREFIX_PATH=/home/evanyan13/colcon_ws/install/py_pubsub:/home/evanyan13/colcon_ws/install/auto_nav:/opt/ros/foxy /usr/bin/cmake /home/evanyan13/colcon_ws/src/turtlebot3_simulations/turtlebot3_gazebo -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/evanyan13/colcon_ws/install/turtlebot3_gazebo
+[2.074s] Invoking command in '/home/evanyan13/colcon_ws/build/turtlebot3_gazebo': CMAKE_PREFIX_PATH=/home/evanyan13/colcon_ws/install/py_pubsub:/home/evanyan13/colcon_ws/install/auto_nav:/opt/ros/foxy /usr/bin/cmake --build /home/evanyan13/colcon_ws/build/turtlebot3_gazebo -- -j6 -l6
+[2.096s] [35m[1mScanning dependencies of target obstacles[0m
+[2.097s] [35m[1mScanning dependencies of target turtlebot3_drive[0m
+[2.097s] [35m[1mScanning dependencies of target obstacle1[0m
+[2.101s] [35m[1mScanning dependencies of target obstacle2[0m
+[2.129s] [ 12%] [32mBuilding CXX object CMakeFiles/turtlebot3_drive.dir/src/turtlebot3_drive.cpp.o[0m
+[2.305s] [ 25%] [32mBuilding CXX object CMakeFiles/obstacles.dir/models/turtlebot3_dqn_world/obstacle_plugin/obstacles.cc.o[0m
+[2.309s] [ 37%] [32mBuilding CXX object CMakeFiles/obstacle1.dir/models/turtlebot3_dqn_world/obstacle_plugin/obstacle1.cc.o[0m
+[2.311s] [ 50%] [32mBuilding CXX object CMakeFiles/obstacle2.dir/models/turtlebot3_dqn_world/obstacle_plugin/obstacle2.cc.o[0m
+[6.030s] [ 62%] [32m[1mLinking CXX executable turtlebot3_drive[0m
+[6.220s] [ 62%] Built target turtlebot3_drive
+[8.603s] [100%] [32m[1mLinking CXX shared library libobstacles.so[0m
+[8.603s] [100%] [32m[1mLinking CXX shared library libobstacle1.so[0m
+[8.603s] [100%] [32m[1mLinking CXX shared library libobstacle2.so[0m
+[8.987s] [100%] Built target obstacle1
+[8.987s] [100%] Built target obstacles
+[8.987s] [100%] Built target obstacle2
+[8.999s] Invoked command in '/home/evanyan13/colcon_ws/build/turtlebot3_gazebo' returned '0': CMAKE_PREFIX_PATH=/home/evanyan13/colcon_ws/install/py_pubsub:/home/evanyan13/colcon_ws/install/auto_nav:/opt/ros/foxy /usr/bin/cmake --build /home/evanyan13/colcon_ws/build/turtlebot3_gazebo -- -j6 -l6
+[9.017s] Invoking command in '/home/evanyan13/colcon_ws/build/turtlebot3_gazebo': CMAKE_PREFIX_PATH=/home/evanyan13/colcon_ws/install/py_pubsub:/home/evanyan13/colcon_ws/install/auto_nav:/opt/ros/foxy /usr/bin/cmake --install /home/evanyan13/colcon_ws/build/turtlebot3_gazebo
+[9.022s] -- Install configuration: ""
+[9.023s] -- Execute custom install script
+[9.023s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/lib/turtlebot3_gazebo/turtlebot3_drive
+[9.028s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//launch/empty_world.launch.py
+[9.032s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//launch/robot_state_publisher.launch.py
+[9.035s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//launch/turtlebot3_autorace.launch.py
+[9.039s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//launch/turtlebot3_dqn_stage1.launch.py
+[9.043s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//launch/turtlebot3_dqn_stage2.launch.py
+[9.047s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//launch/turtlebot3_dqn_stage3.launch.py
+[9.050s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//launch/turtlebot3_dqn_stage4.launch.py
+[9.054s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//launch/turtlebot3_house.launch.py
+[9.058s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//launch/turtlebot3_world.launch.py
+[9.069s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/course/materials/scripts/course.material
+[9.072s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/course/materials/textures/course.png
+[9.076s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/course/model.config
+[9.080s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/course/model.sdf
+[9.084s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/ground/model.config
+[9.087s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/ground/model.sdf
+[9.091s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/lights/model.config
+[9.094s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/lights/model.sdf
+[9.098s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/model.config
+[9.102s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/traffic_bar_down/materials/scripts/traffic_bar.material
+[9.105s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/traffic_bar_down/materials/textures/traffic_bar.png
+[9.108s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/traffic_bar_down/model.config
+[9.112s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/traffic_bar_down/model.sdf
+[9.115s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/traffic_bar_up/materials/scripts/traffic_bar.material
+[9.119s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/traffic_bar_up/materials/textures/traffic_bar.png
+[9.122s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/traffic_bar_up/model.config
+[9.126s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/traffic_bar_up/model.sdf
+[9.130s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/traffic_light_green/model.config
+[9.133s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/traffic_light_green/model.sdf
+[9.136s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/traffic_light_red/model.config
+[9.140s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/traffic_light_red/model.sdf
+[9.143s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/traffic_light_yellow/model.config
+[9.147s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/traffic_light_yellow/model.sdf
+[9.150s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/traffic_parking/materials/scripts/traffic_parking.material
+[9.154s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/traffic_parking/materials/textures/traffic_parking.png
+[9.158s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/traffic_parking/model.config
+[9.162s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/traffic_parking/model.sdf
+[9.166s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/traffic_stop/materials/scripts/traffic_stop.material
+[9.171s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/traffic_stop/materials/textures/traffic_stop.png
+[9.174s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/traffic_stop/model.config
+[9.178s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/traffic_stop/model.sdf
+[9.182s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/traffic_tunnel/materials/scripts/tunnel.material
+[9.185s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/traffic_tunnel/materials/textures/tunnel.png
+[9.189s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/traffic_tunnel/model.config
+[9.192s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/traffic_tunnel/model.sdf
+[9.195s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/tunnel_obstacles/model.config
+[9.199s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/tunnel_obstacles/model.sdf
+[9.202s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/tunnel_wall/model.config
+[9.207s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_autorace/tunnel_wall/model.sdf
+[9.211s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_burger/meshes/burger_base.dae
+[9.215s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_burger/meshes/lds.dae
+[9.218s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_burger/meshes/tire.dae
+[9.222s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_burger/model-1_4.sdf
+[9.226s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_burger/model.config
+[9.230s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_burger/model.sdf
+[9.234s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/goal_box/model.config
+[9.238s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/goal_box/model.sdf
+[9.242s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/inner_walls/model.config
+[9.245s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/inner_walls/model.sdf
+[9.249s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/model.config
+[9.252s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/model.sdf
+[9.255s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/obstacle1/model.config
+[9.259s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/obstacle1/model.sdf
+[9.263s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/obstacle2/model.config
+[9.267s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/obstacle2/model.sdf
+[9.270s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/obstacle_plugin/CMakeLists.txt
+[9.274s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/obstacle_plugin/obstacle1.cc
+[9.278s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/obstacle_plugin/obstacle2.cc
+[9.281s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/obstacle_plugin/obstacles.cc
+[9.284s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/obstacles/model.config
+[9.289s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_dqn_world/obstacles/model.sdf
+[9.293s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_house/model.config
+[9.297s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_house/model.sdf
+[9.300s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle/meshes/lds.dae
+[9.303s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle/meshes/r200.dae
+[9.307s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle/meshes/tire.dae
+[9.310s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle/meshes/waffle_base.dae
+[9.314s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle/model-1_4.sdf
+[9.318s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle/model.config
+[9.322s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle/model.sdf
+[9.326s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle_pi/meshes/lds.dae
+[9.330s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle_pi/meshes/tire.dae
+[9.334s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle_pi/meshes/waffle_pi_base.dae
+[9.337s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle_pi/model-1_4_.sdf
+[9.341s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle_pi/model.config
+[9.344s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_waffle_pi/model.sdf
+[9.348s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_world/meshes/hexagon.dae
+[9.351s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_world/meshes/wall.dae
+[9.354s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_world/model-1_4.sdf
+[9.358s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_world/model.config
+[9.362s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//models/turtlebot3_world/model.sdf
+[9.366s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//rviz/tb3_gazebo.rviz
+[9.373s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/empty_worlds/burger.model
+[9.376s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/empty_worlds/waffle.model
+[9.380s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/empty_worlds/waffle_pi.model
+[9.384s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/turtlebot3_autoraces/burger.model
+[9.388s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/turtlebot3_autoraces/waffle.model
+[9.392s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/turtlebot3_autoraces/waffle_pi.model
+[9.395s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/turtlebot3_dqn_stage1/burger.model
+[9.398s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/turtlebot3_dqn_stage1/waffle.model
+[9.402s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/turtlebot3_dqn_stage1/waffle_pi.model
+[9.405s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/turtlebot3_dqn_stage2/burger.model
+[9.409s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/turtlebot3_dqn_stage2/waffle.model
+[9.412s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/turtlebot3_dqn_stage2/waffle_pi.model
+[9.415s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/turtlebot3_dqn_stage3/burger.model
+[9.419s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/turtlebot3_dqn_stage3/waffle.model
+[9.422s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/turtlebot3_dqn_stage3/waffle_pi.model
+[9.426s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/turtlebot3_dqn_stage4/burger.model
+[9.429s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/turtlebot3_dqn_stage4/waffle.model
+[9.432s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/turtlebot3_dqn_stage4/waffle_pi.model
+[9.436s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/turtlebot3_houses/burger.model
+[9.439s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/turtlebot3_houses/waffle.model
+[9.442s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/turtlebot3_houses/waffle_pi.model
+[9.446s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/turtlebot3_worlds/burger.model
+[9.450s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/turtlebot3_worlds/waffle.model
+[9.454s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo//worlds/turtlebot3_worlds/waffle_pi.model
+[9.458s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/include//turtlebot3_gazebo/turtlebot3_drive.hpp
+[9.463s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/ament_index/resource_index/package_run_dependencies/turtlebot3_gazebo
+[9.467s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/ament_index/resource_index/parent_prefix_path/turtlebot3_gazebo
+[9.470s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/environment/ament_prefix_path.sh
+[9.475s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/environment/ament_prefix_path.dsv
+[9.479s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/environment/path.sh
+[9.482s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/environment/path.dsv
+[9.487s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/local_setup.bash
+[9.491s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/local_setup.sh
+[9.495s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/local_setup.zsh
+[9.498s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/local_setup.dsv
+[9.502s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/package.dsv
+[9.506s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/ament_index/resource_index/packages/turtlebot3_gazebo
+[9.509s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/cmake/ament_cmake_export_include_directories-extras.cmake
+[9.513s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/cmake/ament_cmake_export_dependencies-extras.cmake
+[9.517s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/cmake/turtlebot3_gazeboConfig.cmake
+[9.520s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/cmake/turtlebot3_gazeboConfig-version.cmake
+[9.523s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/package.xml
+[9.528s] Invoked command in '/home/evanyan13/colcon_ws/build/turtlebot3_gazebo' returned '0': CMAKE_PREFIX_PATH=/home/evanyan13/colcon_ws/install/py_pubsub:/home/evanyan13/colcon_ws/install/auto_nav:/opt/ros/foxy /usr/bin/cmake --install /home/evanyan13/colcon_ws/build/turtlebot3_gazebo

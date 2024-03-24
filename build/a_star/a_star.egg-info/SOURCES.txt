@@ -1,0 +1,12 @@
+package.xml
+setup.cfg
+setup.py
+a_star/__init__.py
+a_star.egg-info/PKG-INFO
+a_star.egg-info/SOURCES.txt
+a_star.egg-info/dependency_links.txt
+a_star.egg-info/entry_points.txt
+a_star.egg-info/requires.txt
+a_star.egg-info/top_level.txt
+a_star.egg-info/zip-safe
+resource/a_star

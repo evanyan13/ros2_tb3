@@ -1,0 +1,35 @@
+[0.548s] Invoking command in '/home/evanyan13/colcon_ws/build/turtlebot3_fake': /usr/bin/cmake /home/evanyan13/colcon_ws/src/turtlebot3_simulations/turtlebot3_fake -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCATKIN_SYMLINK_INSTALL=ON -DCMAKE_INSTALL_PREFIX=/home/evanyan13/colcon_ws/install/turtlebot3_fake
+[1.176s] -- The C compiler identification is GNU 9.4.0
+[1.176s] -- The CXX compiler identification is GNU 9.4.0
+[1.176s] -- Check for working C compiler: /usr/bin/cc
+[1.176s] -- Check for working C compiler: /usr/bin/cc -- works
+[1.177s] -- Detecting C compiler ABI info
+[1.178s] -- Detecting C compiler ABI info - done
+[1.178s] -- Detecting C compile features
+[1.178s] -- Detecting C compile features - done
+[1.178s] -- Check for working CXX compiler: /usr/bin/c++
+[1.179s] -- Check for working CXX compiler: /usr/bin/c++ -- works
+[1.179s] -- Detecting CXX compiler ABI info
+[1.179s] -- Detecting CXX compiler ABI info - done
+[1.180s] -- Detecting CXX compile features
+[1.180s] -- Detecting CXX compile features - done
+[1.180s] -- Configuring incomplete, errors occurred!
+[1.180s] See also "/home/evanyan13/colcon_ws/build/turtlebot3_fake/CMakeFiles/CMakeOutput.log".
+[1.180s] CMake Error at CMakeLists.txt:11 (find_package):
+[1.180s]   By not providing "Findcatkin.cmake" in CMAKE_MODULE_PATH this project has
+[1.180s]   asked CMake to find a package configuration file provided by "catkin", but
+[1.180s]   CMake did not find one.
+[1.180s] 
+[1.181s]   Could not find a package configuration file provided by "catkin" with any
+[1.181s]   of the following names:
+[1.181s] 
+[1.181s]     catkinConfig.cmake
+[1.183s]     catkin-config.cmake
+[1.183s] 
+[1.183s]   Add the installation prefix of "catkin" to CMAKE_PREFIX_PATH or set
+[1.183s]   "catkin_DIR" to a directory containing one of the above files.  If "catkin"
+[1.183s]   provides a separate development package or SDK, be sure it has been
+[1.183s]   installed.
+[1.183s] 
+[1.184s] 
+[1.196s] Invoked command in '/home/evanyan13/colcon_ws/build/turtlebot3_fake' returned '1': /usr/bin/cmake /home/evanyan13/colcon_ws/src/turtlebot3_simulations/turtlebot3_fake -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCATKIN_SYMLINK_INSTALL=ON -DCMAKE_INSTALL_PREFIX=/home/evanyan13/colcon_ws/install/turtlebot3_fake

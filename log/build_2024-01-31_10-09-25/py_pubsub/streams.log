@@ -1,0 +1,22 @@
+[0.896s] Invoking command in '/home/evanyan13/colcon_ws/src/py_pubsub': PYTHONPATH=/home/evanyan13/colcon_ws/build/py_pubsub/prefix_override:/home/evanyan13/colcon_ws/install/py_pubsub/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/py_pubsub build --build-base /home/evanyan13/colcon_ws/build/py_pubsub/build install --record /home/evanyan13/colcon_ws/build/py_pubsub/install.log --install-scripts $base/lib/py_pubsub --single-version-externally-managed
+[0.998s] running egg_info
+[0.999s] writing ../../build/py_pubsub/py_pubsub.egg-info/PKG-INFO
+[0.999s] writing dependency_links to ../../build/py_pubsub/py_pubsub.egg-info/dependency_links.txt
+[1.000s] writing entry points to ../../build/py_pubsub/py_pubsub.egg-info/entry_points.txt
+[1.000s] writing requirements to ../../build/py_pubsub/py_pubsub.egg-info/requires.txt
+[1.000s] writing top-level names to ../../build/py_pubsub/py_pubsub.egg-info/top_level.txt
+[1.020s] reading manifest file '../../build/py_pubsub/py_pubsub.egg-info/SOURCES.txt'
+[1.021s] writing manifest file '../../build/py_pubsub/py_pubsub.egg-info/SOURCES.txt'
+[1.021s] running build
+[1.021s] running build_py
+[1.021s] running install
+[1.022s] running install_lib
+[1.022s] running install_data
+[1.022s] running install_egg_info
+[1.024s] removing '/home/evanyan13/colcon_ws/install/py_pubsub/lib/python3.8/site-packages/py_pubsub-0.0.0-py3.8.egg-info' (and everything under it)
+[1.024s] Copying ../../build/py_pubsub/py_pubsub.egg-info to /home/evanyan13/colcon_ws/install/py_pubsub/lib/python3.8/site-packages/py_pubsub-0.0.0-py3.8.egg-info
+[1.026s] running install_scripts
+[1.034s] Installing listener script to /home/evanyan13/colcon_ws/install/py_pubsub/lib/py_pubsub
+[1.034s] Installing talker script to /home/evanyan13/colcon_ws/install/py_pubsub/lib/py_pubsub
+[1.034s] writing list of installed files to '/home/evanyan13/colcon_ws/build/py_pubsub/install.log'
+[1.154s] Invoked command in '/home/evanyan13/colcon_ws/src/py_pubsub' returned '0': PYTHONPATH=/home/evanyan13/colcon_ws/build/py_pubsub/prefix_override:/home/evanyan13/colcon_ws/install/py_pubsub/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/py_pubsub build --build-base /home/evanyan13/colcon_ws/build/py_pubsub/build install --record /home/evanyan13/colcon_ws/build/py_pubsub/install.log --install-scripts $base/lib/py_pubsub --single-version-externally-managed

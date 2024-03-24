@@ -1,0 +1,29 @@
+[1.775s] Invoking command in '/home/evanyan13/colcon_ws/src/auto_nav': PYTHONPATH=/home/evanyan13/colcon_ws/build/auto_nav/prefix_override:/home/evanyan13/colcon_ws/install/auto_nav/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/auto_nav build --build-base /home/evanyan13/colcon_ws/build/auto_nav/build install --record /home/evanyan13/colcon_ws/build/auto_nav/install.log --install-scripts $base/lib/auto_nav --single-version-externally-managed
+[2.055s] running egg_info
+[2.055s] writing ../../build/auto_nav/auto_nav.egg-info/PKG-INFO
+[2.056s] writing dependency_links to ../../build/auto_nav/auto_nav.egg-info/dependency_links.txt
+[2.056s] writing entry points to ../../build/auto_nav/auto_nav.egg-info/entry_points.txt
+[2.056s] writing requirements to ../../build/auto_nav/auto_nav.egg-info/requires.txt
+[2.056s] writing top-level names to ../../build/auto_nav/auto_nav.egg-info/top_level.txt
+[2.098s] reading manifest file '../../build/auto_nav/auto_nav.egg-info/SOURCES.txt'
+[2.098s] writing manifest file '../../build/auto_nav/auto_nav.egg-info/SOURCES.txt'
+[2.098s] running build
+[2.099s] running build_py
+[2.099s] copying auto_nav/r2occupancy.py -> /home/evanyan13/colcon_ws/build/auto_nav/build/lib/auto_nav
+[2.099s] running install
+[2.099s] running install_lib
+[2.099s] copying /home/evanyan13/colcon_ws/build/auto_nav/build/lib/auto_nav/r2occupancy.py -> /home/evanyan13/colcon_ws/install/auto_nav/lib/python3.8/site-packages/auto_nav
+[2.100s] byte-compiling /home/evanyan13/colcon_ws/install/auto_nav/lib/python3.8/site-packages/auto_nav/r2occupancy.py to r2occupancy.cpython-38.pyc
+[2.101s] running install_data
+[2.110s] running install_egg_info
+[2.111s] removing '/home/evanyan13/colcon_ws/install/auto_nav/lib/python3.8/site-packages/auto_nav-0.0.0-py3.8.egg-info' (and everything under it)
+[2.111s] Copying ../../build/auto_nav/auto_nav.egg-info to /home/evanyan13/colcon_ws/install/auto_nav/lib/python3.8/site-packages/auto_nav-0.0.0-py3.8.egg-info
+[2.112s] running install_scripts
+[2.127s] Installing r2auto_nav script to /home/evanyan13/colcon_ws/install/auto_nav/lib/auto_nav
+[2.128s] Installing r2mover script to /home/evanyan13/colcon_ws/install/auto_nav/lib/auto_nav
+[2.128s] Installing r2moverotate script to /home/evanyan13/colcon_ws/install/auto_nav/lib/auto_nav
+[2.131s] Installing r2occupancy script to /home/evanyan13/colcon_ws/install/auto_nav/lib/auto_nav
+[2.132s] Installing r2occupancy2 script to /home/evanyan13/colcon_ws/install/auto_nav/lib/auto_nav
+[2.132s] Installing r2scanner script to /home/evanyan13/colcon_ws/install/auto_nav/lib/auto_nav
+[2.134s] writing list of installed files to '/home/evanyan13/colcon_ws/build/auto_nav/install.log'
+[2.432s] Invoked command in '/home/evanyan13/colcon_ws/src/auto_nav' returned '0': PYTHONPATH=/home/evanyan13/colcon_ws/build/auto_nav/prefix_override:/home/evanyan13/colcon_ws/install/auto_nav/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/auto_nav build --build-base /home/evanyan13/colcon_ws/build/auto_nav/build install --record /home/evanyan13/colcon_ws/build/auto_nav/install.log --install-scripts $base/lib/auto_nav --single-version-externally-managed

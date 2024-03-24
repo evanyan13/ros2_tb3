@@ -1,0 +1,21 @@
+[0.543s] Invoking command in '/home/evanyan13/colcon_ws/build/turtlebot3_fake': /usr/bin/cmake /home/evanyan13/colcon_ws/src/turtlebot3_simulations/turtlebot3_fake -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCATKIN_SYMLINK_INSTALL=ON -DCMAKE_INSTALL_PREFIX=/home/evanyan13/colcon_ws/install/turtlebot3_fake
+[1.291s] -- Configuring incomplete, errors occurred!
+[1.291s] See also "/home/evanyan13/colcon_ws/build/turtlebot3_fake/CMakeFiles/CMakeOutput.log".
+[1.292s] CMake Error at CMakeLists.txt:11 (find_package):
+[1.292s]   By not providing "Findcatkin.cmake" in CMAKE_MODULE_PATH this project has
+[1.292s]   asked CMake to find a package configuration file provided by "catkin", but
+[1.293s]   CMake did not find one.
+[1.293s] 
+[1.293s]   Could not find a package configuration file provided by "catkin" with any
+[1.293s]   of the following names:
+[1.293s] 
+[1.294s]     catkinConfig.cmake
+[1.294s]     catkin-config.cmake
+[1.294s] 
+[1.294s]   Add the installation prefix of "catkin" to CMAKE_PREFIX_PATH or set
+[1.294s]   "catkin_DIR" to a directory containing one of the above files.  If "catkin"
+[1.294s]   provides a separate development package or SDK, be sure it has been
+[1.295s]   installed.
+[1.295s] 
+[1.295s] 
+[1.297s] Invoked command in '/home/evanyan13/colcon_ws/build/turtlebot3_fake' returned '1': /usr/bin/cmake /home/evanyan13/colcon_ws/src/turtlebot3_simulations/turtlebot3_fake -DCATKIN_INSTALL_INTO_PREFIX_ROOT=0 -DCATKIN_SYMLINK_INSTALL=ON -DCMAKE_INSTALL_PREFIX=/home/evanyan13/colcon_ws/install/turtlebot3_fake

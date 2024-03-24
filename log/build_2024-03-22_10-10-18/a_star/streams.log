@@ -1,0 +1,16 @@
+[1.587s] Invoking command in '/home/evanyan13/colcon_ws/build/a_star': PYTHONPATH=/home/evanyan13/colcon_ws/build/a_star/prefix_override:/home/evanyan13/colcon_ws/install/a_star/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/a_star/build --no-deps install_data
+[1.726s] running develop
+[1.795s] running egg_info
+[1.796s] writing a_star.egg-info/PKG-INFO
+[1.797s] writing dependency_links to a_star.egg-info/dependency_links.txt
+[1.797s] writing entry points to a_star.egg-info/entry_points.txt
+[1.797s] writing requirements to a_star.egg-info/requires.txt
+[1.797s] writing top-level names to a_star.egg-info/top_level.txt
+[1.813s] reading manifest file 'a_star.egg-info/SOURCES.txt'
+[1.813s] writing manifest file 'a_star.egg-info/SOURCES.txt'
+[1.831s] running build_ext
+[1.832s] Creating /home/evanyan13/colcon_ws/install/a_star/lib/python3.8/site-packages/a-star.egg-link (link to .)
+[1.834s] 
+[1.834s] Installed /home/evanyan13/colcon_ws/build/a_star
+[1.834s] running install_data
+[1.855s] Invoked command in '/home/evanyan13/colcon_ws/build/a_star' returned '0': PYTHONPATH=/home/evanyan13/colcon_ws/build/a_star/prefix_override:/home/evanyan13/colcon_ws/install/a_star/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/a_star/build --no-deps install_data

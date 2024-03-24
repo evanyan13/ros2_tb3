@@ -1,0 +1,52 @@
+[0.613s] Invoking command in '/home/evanyan13/colcon_ws/build/turtlebot3_fake_node': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/evanyan13/colcon_ws/install/py_pubsub:/home/evanyan13/colcon_ws/install/auto_nav:/opt/ros/foxy /usr/bin/cmake /home/evanyan13/colcon_ws/src/turtlebot3_simulations/turtlebot3_fake_node -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/evanyan13/colcon_ws/install/turtlebot3_fake_node
+[1.387s] -- Found ament_cmake: 0.9.12 (/opt/ros/foxy/share/ament_cmake/cmake)
+[1.388s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[1.388s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[1.388s] -- Found geometry_msgs: 2.0.5 (/opt/ros/foxy/share/geometry_msgs/cmake)
+[1.388s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.388s] -- Found rosidl_adapter: 1.3.1 (/opt/ros/foxy/share/rosidl_adapter/cmake)
+[1.396s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.548s] -- Found nav_msgs: 2.0.5 (/opt/ros/foxy/share/nav_msgs/cmake)
+[1.634s] -- Found rclcpp: 2.4.3 (/opt/ros/foxy/share/rclcpp/cmake)
+[1.781s] -- Found rmw_implementation_cmake: 1.0.4 (/opt/ros/foxy/share/rmw_implementation_cmake/cmake)
+[1.784s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[2.009s] -- Found sensor_msgs: 2.0.5 (/opt/ros/foxy/share/sensor_msgs/cmake)
+[2.107s] -- Found tf2: 0.13.14 (/opt/ros/foxy/share/tf2/cmake)
+[2.141s] -- Found tf2_msgs: 0.13.14 (/opt/ros/foxy/share/tf2_msgs/cmake)
+[2.349s] -- Found turtlebot3_msgs: 2.2.1 (/opt/ros/foxy/share/turtlebot3_msgs/cmake)
+[2.512s] -- Configuring done
+[2.571s] -- Generating done
+[2.571s] -- Build files have been written to: /home/evanyan13/colcon_ws/build/turtlebot3_fake_node
+[2.574s] Invoked command in '/home/evanyan13/colcon_ws/build/turtlebot3_fake_node' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/evanyan13/colcon_ws/install/py_pubsub:/home/evanyan13/colcon_ws/install/auto_nav:/opt/ros/foxy /usr/bin/cmake /home/evanyan13/colcon_ws/src/turtlebot3_simulations/turtlebot3_fake_node -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/evanyan13/colcon_ws/install/turtlebot3_fake_node
+[2.576s] Invoking command in '/home/evanyan13/colcon_ws/build/turtlebot3_fake_node': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/evanyan13/colcon_ws/install/py_pubsub:/home/evanyan13/colcon_ws/install/auto_nav:/opt/ros/foxy /usr/bin/cmake --build /home/evanyan13/colcon_ws/build/turtlebot3_fake_node -- -j6 -l6
+[2.785s] [100%] Built target turtlebot3_fake_node
+[2.791s] Invoked command in '/home/evanyan13/colcon_ws/build/turtlebot3_fake_node' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/evanyan13/colcon_ws/install/py_pubsub:/home/evanyan13/colcon_ws/install/auto_nav:/opt/ros/foxy /usr/bin/cmake --build /home/evanyan13/colcon_ws/build/turtlebot3_fake_node -- -j6 -l6
+[2.934s] Invoking command in '/home/evanyan13/colcon_ws/build/turtlebot3_fake_node': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/evanyan13/colcon_ws/install/py_pubsub:/home/evanyan13/colcon_ws/install/auto_nav:/opt/ros/foxy /usr/bin/cmake --install /home/evanyan13/colcon_ws/build/turtlebot3_fake_node
+[2.939s] -- Install configuration: ""
+[2.940s] -- Execute custom install script
+[2.941s] -- Up-to-date symlink: /home/evanyan13/colcon_ws/install/turtlebot3_fake_node/lib/turtlebot3_fake_node/turtlebot3_fake_node
+[2.945s] -- Up-to-date symlink: /home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/launch/rviz2.launch.py
+[2.948s] -- Up-to-date symlink: /home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/launch/turtlebot3_fake_node.launch.py
+[2.951s] -- Up-to-date symlink: /home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/param/burger.yaml
+[2.951s] -- Up-to-date symlink: /home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/param/waffle.yaml
+[2.951s] -- Up-to-date symlink: /home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/param/waffle_pi.yaml
+[2.955s] -- Up-to-date symlink: /home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/rviz/model.rviz
+[2.960s] -- Up-to-date symlink: /home/evanyan13/colcon_ws/install/turtlebot3_fake_node/include//turtlebot3_fake_node/turtlebot3_fake_node.hpp
+[2.960s] -- Up-to-date symlink: /home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/ament_index/resource_index/package_run_dependencies/turtlebot3_fake_node
+[2.964s] -- Up-to-date symlink: /home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/ament_index/resource_index/parent_prefix_path/turtlebot3_fake_node
+[2.965s] -- Up-to-date symlink: /home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/environment/ament_prefix_path.sh
+[2.965s] -- Up-to-date symlink: /home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/environment/ament_prefix_path.dsv
+[2.966s] -- Up-to-date symlink: /home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/environment/path.sh
+[2.966s] -- Up-to-date symlink: /home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/environment/path.dsv
+[2.968s] -- Up-to-date symlink: /home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/local_setup.bash
+[2.968s] -- Up-to-date symlink: /home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/local_setup.sh
+[2.972s] -- Up-to-date symlink: /home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/local_setup.zsh
+[2.972s] -- Up-to-date symlink: /home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/local_setup.dsv
+[2.972s] -- Symlinking: /home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/package.dsv
+[2.984s] -- Up-to-date symlink: /home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/ament_index/resource_index/packages/turtlebot3_fake_node
+[2.990s] -- Up-to-date symlink: /home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/cmake/ament_cmake_export_include_directories-extras.cmake
+[2.992s] -- Up-to-date symlink: /home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/cmake/ament_cmake_export_dependencies-extras.cmake
+[2.992s] -- Up-to-date symlink: /home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/cmake/turtlebot3_fake_nodeConfig.cmake
+[2.996s] -- Up-to-date symlink: /home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/cmake/turtlebot3_fake_nodeConfig-version.cmake
+[2.996s] -- Up-to-date symlink: /home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/package.xml
+[3.003s] Invoked command in '/home/evanyan13/colcon_ws/build/turtlebot3_fake_node' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/evanyan13/colcon_ws/install/py_pubsub:/home/evanyan13/colcon_ws/install/auto_nav:/opt/ros/foxy /usr/bin/cmake --install /home/evanyan13/colcon_ws/build/turtlebot3_fake_node

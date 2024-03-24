@@ -1,0 +1,24 @@
+[1.479s] Invoking command in '/home/evanyan13/colcon_ws/build/a_star': PYTHONPATH=/home/evanyan13/colcon_ws/build/a_star/prefix_override:/home/evanyan13/colcon_ws/install/a_star/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/a_star/build --no-deps install_data
+[1.603s] running develop
+[1.672s] running egg_info
+[1.672s] creating a_star.egg-info
+[1.672s] writing a_star.egg-info/PKG-INFO
+[1.673s] writing dependency_links to a_star.egg-info/dependency_links.txt
+[1.673s] writing entry points to a_star.egg-info/entry_points.txt
+[1.673s] writing requirements to a_star.egg-info/requires.txt
+[1.673s] writing top-level names to a_star.egg-info/top_level.txt
+[1.673s] writing manifest file 'a_star.egg-info/SOURCES.txt'
+[1.688s] reading manifest file 'a_star.egg-info/SOURCES.txt'
+[1.689s] writing manifest file 'a_star.egg-info/SOURCES.txt'
+[1.707s] running build_ext
+[1.707s] Creating /home/evanyan13/colcon_ws/install/a_star/lib/python3.8/site-packages/site.py
+[1.708s] Creating /home/evanyan13/colcon_ws/install/a_star/lib/python3.8/site-packages/a-star.egg-link (link to .)
+[1.708s] 
+[1.708s] Installed /home/evanyan13/colcon_ws/build/a_star
+[1.708s] running install_data
+[1.708s] creating /home/evanyan13/colcon_ws/install/a_star/share/ament_index
+[1.708s] creating /home/evanyan13/colcon_ws/install/a_star/share/ament_index/resource_index
+[1.708s] creating /home/evanyan13/colcon_ws/install/a_star/share/ament_index/resource_index/packages
+[1.708s] copying resource/a_star -> /home/evanyan13/colcon_ws/install/a_star/share/ament_index/resource_index/packages
+[1.708s] copying package.xml -> /home/evanyan13/colcon_ws/install/a_star/share/a_star
+[1.893s] Invoked command in '/home/evanyan13/colcon_ws/build/a_star' returned '0': PYTHONPATH=/home/evanyan13/colcon_ws/build/a_star/prefix_override:/home/evanyan13/colcon_ws/install/a_star/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/a_star/build --no-deps install_data
