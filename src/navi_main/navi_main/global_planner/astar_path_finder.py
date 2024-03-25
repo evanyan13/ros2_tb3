@@ -7,7 +7,7 @@ def find_astar_path(map: global_planner.GlobalMap, start: float, goal: float) ->
     visited_node = []
     init_pos = (0.0, start)
     heapq.heappush(open_node, init_pos)
-    tolerance = (global_planner.pixel_tolerance - 1) * map.resolution
+    tolerance = (global_planner.pixel_tolerance - 1) * map.cresolution
 
     while open_node:
         current_node = heapq.heappop(open_node)[1]
