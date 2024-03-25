@@ -7,4 +7,9 @@ import numpy as np
 class GlobalPlanner(Node):
     def __init(self):
         super.__init__('global_planner_node')
-        
+        self.subscription = self.create_subscription(
+            OccupancyGrid,
+            'map',
+            'self.map_callback',
+            10
+        )
