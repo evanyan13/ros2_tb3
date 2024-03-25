@@ -1,8 +1,8 @@
 import rclpy
-import global_planner_package
 import math
-from tf2_ros import transformations
 from geometry_msgs.msg import Pose, PoseStamped
+
+pixel_tolerance = 5
 
 class GlobalPlannerNode:
     def __init__(
@@ -29,7 +29,7 @@ def calculate_distance(self, end) -> float:
 
 def generate_neighbours(self, map_resolution: float) -> list:
     neighbours = []
-    step = (global_planner_package.pixel_tolerance + 1) * map_resolution
+    step = (pixel_tolerance + 1) * map_resolution
     moves = [(0, step),
              (step, step),
              (step, 0),
