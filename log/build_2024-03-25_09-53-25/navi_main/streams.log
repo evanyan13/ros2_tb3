@@ -1,0 +1,16 @@
+[1.947s] Invoking command in '/home/evanyan13/colcon_ws/build/navi_main': PYTHONPATH=/home/evanyan13/colcon_ws/build/navi_main/prefix_override:/home/evanyan13/colcon_ws/install/navi_main/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/navi_main/build --no-deps install_data
+[2.077s] running develop
+[2.143s] running egg_info
+[2.143s] writing navi_main.egg-info/PKG-INFO
+[2.143s] writing dependency_links to navi_main.egg-info/dependency_links.txt
+[2.143s] writing entry points to navi_main.egg-info/entry_points.txt
+[2.144s] writing requirements to navi_main.egg-info/requires.txt
+[2.144s] writing top-level names to navi_main.egg-info/top_level.txt
+[2.158s] reading manifest file 'navi_main.egg-info/SOURCES.txt'
+[2.160s] writing manifest file 'navi_main.egg-info/SOURCES.txt'
+[2.177s] running build_ext
+[2.178s] Creating /home/evanyan13/colcon_ws/install/navi_main/lib/python3.8/site-packages/navi-main.egg-link (link to .)
+[2.179s] 
+[2.179s] Installed /home/evanyan13/colcon_ws/build/navi_main
+[2.179s] running install_data
+[2.196s] Invoked command in '/home/evanyan13/colcon_ws/build/navi_main' returned '0': PYTHONPATH=/home/evanyan13/colcon_ws/build/navi_main/prefix_override:/home/evanyan13/colcon_ws/install/navi_main/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/navi_main/build --no-deps install_data

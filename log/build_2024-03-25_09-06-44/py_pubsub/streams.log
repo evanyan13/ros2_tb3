@@ -1,0 +1,18 @@
+[1.309s] Invoking command in '/home/evanyan13/colcon_ws/build/py_pubsub': PYTHONPATH=/home/evanyan13/colcon_ws/build/py_pubsub/prefix_override:/home/evanyan13/colcon_ws/install/py_pubsub/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/py_pubsub/build --no-deps install_data
+[1.428s] running develop
+[1.492s] running egg_info
+[1.492s] writing py_pubsub.egg-info/PKG-INFO
+[1.492s] writing dependency_links to py_pubsub.egg-info/dependency_links.txt
+[1.492s] writing entry points to py_pubsub.egg-info/entry_points.txt
+[1.493s] writing requirements to py_pubsub.egg-info/requires.txt
+[1.493s] writing top-level names to py_pubsub.egg-info/top_level.txt
+[1.507s] reading manifest file 'py_pubsub.egg-info/SOURCES.txt'
+[1.508s] writing manifest file 'py_pubsub.egg-info/SOURCES.txt'
+[1.526s] running build_ext
+[1.526s] Creating /home/evanyan13/colcon_ws/install/py_pubsub/lib/python3.8/site-packages/py-pubsub.egg-link (link to .)
+[1.527s] Installing listener script to /home/evanyan13/colcon_ws/install/py_pubsub/lib/py_pubsub
+[1.527s] Installing talker script to /home/evanyan13/colcon_ws/install/py_pubsub/lib/py_pubsub
+[1.527s] 
+[1.527s] Installed /home/evanyan13/colcon_ws/build/py_pubsub
+[1.527s] running install_data
+[1.542s] Invoked command in '/home/evanyan13/colcon_ws/build/py_pubsub' returned '0': PYTHONPATH=/home/evanyan13/colcon_ws/build/py_pubsub/prefix_override:/home/evanyan13/colcon_ws/install/py_pubsub/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/py_pubsub/build --no-deps install_data

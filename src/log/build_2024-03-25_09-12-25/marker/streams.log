@@ -1,0 +1,24 @@
+[1.956s] Invoking command in '/home/evanyan13/colcon_ws/src/build/marker': PYTHONPATH=/home/evanyan13/colcon_ws/src/build/marker/prefix_override:/home/evanyan13/colcon_ws/src/install/marker/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/src/build/marker/build --no-deps install_data
+[2.216s] running develop
+[2.313s] running egg_info
+[2.313s] creating marker.egg-info
+[2.314s] writing marker.egg-info/PKG-INFO
+[2.314s] writing dependency_links to marker.egg-info/dependency_links.txt
+[2.314s] writing entry points to marker.egg-info/entry_points.txt
+[2.314s] writing requirements to marker.egg-info/requires.txt
+[2.314s] writing top-level names to marker.egg-info/top_level.txt
+[2.315s] writing manifest file 'marker.egg-info/SOURCES.txt'
+[2.342s] reading manifest file 'marker.egg-info/SOURCES.txt'
+[2.342s] writing manifest file 'marker.egg-info/SOURCES.txt'
+[2.352s] running build_ext
+[2.352s] Creating /home/evanyan13/colcon_ws/src/install/marker/lib/python3.8/site-packages/site.py
+[2.353s] Creating /home/evanyan13/colcon_ws/src/install/marker/lib/python3.8/site-packages/marker.egg-link (link to .)
+[2.354s] 
+[2.354s] Installed /home/evanyan13/colcon_ws/src/build/marker
+[2.354s] running install_data
+[2.354s] creating /home/evanyan13/colcon_ws/src/install/marker/share/ament_index
+[2.354s] creating /home/evanyan13/colcon_ws/src/install/marker/share/ament_index/resource_index
+[2.354s] creating /home/evanyan13/colcon_ws/src/install/marker/share/ament_index/resource_index/packages
+[2.355s] copying resource/marker -> /home/evanyan13/colcon_ws/src/install/marker/share/ament_index/resource_index/packages
+[2.355s] copying package.xml -> /home/evanyan13/colcon_ws/src/install/marker/share/marker
+[2.736s] Invoked command in '/home/evanyan13/colcon_ws/src/build/marker' returned '0': PYTHONPATH=/home/evanyan13/colcon_ws/src/build/marker/prefix_override:/home/evanyan13/colcon_ws/src/install/marker/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/src/build/marker/build --no-deps install_data
