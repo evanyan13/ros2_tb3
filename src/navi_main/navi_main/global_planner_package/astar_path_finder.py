@@ -1,6 +1,6 @@
 import heapq
 from .global_map import GlobalMap
-from global_planner_package import pixel_tolerance
+from . import pixel_tolerance
 
 def find_astar_path(map: GlobalMap, start: float, goal: float) -> list:
     # To find path from start togoal node using Astar Algorithm

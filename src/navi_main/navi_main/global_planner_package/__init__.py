@@ -1,0 +1,1 @@
+pixel_tolerance = 1

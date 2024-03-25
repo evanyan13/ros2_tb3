@@ -1,8 +1,7 @@
 import numpy as np
 from .global_planner_node import GlobalPlannerNode
 from nav_msgs.msg import OccupancyGrid
-
-pixel_tolerance = 5
+from . import pixel_tolerance
 
 class GlobalMap:
     def __init__(self, grid_map: OccupancyGrid):
@@ -47,8 +46,12 @@ class GlobalMap:
         Checks whether a given node is in a free space on the map
         """
         i, j = self.coordinates_to_indices(node.x, node.y)
-        tolerance = pixel_tolerance
 
+        # Checks if the node is out of bound
+        if not (0 <= i <= self.width and 0 <= j <= self.height):
+            return False
+
+        tolerance = pixel_tolerance
         min_i, max_i = max(i - tolerance, 0), min(i + tolerance, self.height - 1)
         min_j, max_j = max(j - tolerance, 0), min(j + tolerance, self.width - 1)
 
