@@ -64,7 +64,16 @@ class GlobalMap:
         for i in range(self.height):
             row = '|'
             for j in range(self.width):
-                char = 'A' if (i, j) == index else str(self.data[i, j] // 100)
+                curr_index = self.data[i, j]
+                if curr_index == -1: # Unknown
+                    char = '?'
+                elif curr_index == 100: # Obstacle
+                    char = '█'
+                else:
+                    char = ' ' # Free
+                
+                if (i, j) == index:
+                    char = 'A'
                 row += f'{char:>2} |'
             print(row)
             print('+' + '---+' * self.width)
