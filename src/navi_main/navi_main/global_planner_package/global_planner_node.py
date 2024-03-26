@@ -28,9 +28,9 @@ class GlobalPlannerNode:
 
     def generate_neighbours(self, map_resolution: float) -> list:
         neighbours = []
-        step = (pixel_tolerance + 1) * map_resolution
-        moves = [(0, step), (step, 0), (0, -step), (-step, 0),
-                 (step, step), (-step, -step), (step, -step), (-step, step)]
+        step = pixel_tolerance * map_resolution
+        moves = [(0, step), (step, step), (step, 0), (step, -step),
+                 (0, -step), (-step, -step), (-step, 0), (-step, step)]
 
         for move in moves:
             new_x = self.x + move[0]
@@ -57,3 +57,6 @@ class GlobalPlannerNode:
         Less than comparison for priority queue sorting bacsed on f value
         """
         return self.f < other.f
+
+    def equals(self, other):
+        return self.x == other.x and self.y == other.y

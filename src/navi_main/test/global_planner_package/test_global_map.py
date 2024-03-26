@@ -18,8 +18,9 @@ class TestMapPrinting(unittest.TestCase):
         self.map = GlobalMap(self.grid)
 
     def test_print_map(self):
-        starting_index = (2, 2)
-        self.map.print_map(starting_index)
+        start_index = (2, 2)
+        end_index = (4, 4)
+        self.map.print_map(start_index, end_index)
     
     def test_get_occupancy_value_by_indices(self):
         self.assertEqual(self.map.get_occupancy_value_by_indices(0, 2), 50)

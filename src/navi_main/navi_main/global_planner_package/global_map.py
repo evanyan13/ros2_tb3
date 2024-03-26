@@ -59,7 +59,10 @@ class GlobalMap:
         return np.all(self.data[min_i:max_i + 1, min_j:max_j + 1] < 100)
 
 
-    def print_map(self, index):
+    def print_map(self, start, end):
+        if start == end:
+            print("We have reached the goal")
+
         print('+' + '---+' * self.width)
         for i in range(self.height):
             row = '|'
@@ -72,8 +75,10 @@ class GlobalMap:
                 else:
                     char = ' ' # Free
                 
-                if (i, j) == index:
+                if (i, j) == start:
                     char = 'A'
+                if (i, j) == end:
+                    char = 'Z'
                 row += f'{char:>2} |'
             print(row)
             print('+' + '---+' * self.width)
