@@ -2,6 +2,7 @@ import rclpy
 import math
 from geometry_msgs.msg import Pose, PoseStamped
 from . import pixel_tolerance
+from .common import euler_from_quaternion
 
 class GlobalPlannerNode:
     def __init__(
@@ -60,3 +61,15 @@ class GlobalPlannerNode:
 
     def equals(self, other):
         return self.x == other.x and self.y == other.y
+    
+    @staticmethod
+    def from_pose(pose: Pose):
+        new_state = GlobalPlannerNode()
+        new_state.x = pose.position.x
+        new_state.y = pose.position.y
+
+        quaternion = (pose.orientation.x, pose.orientation.y, pose.orientation.z, pose.orientation.w)
+        (roll, pitch, yaw) = euler_from_quaternion(quaternion)
+        new_state.theta = yaw
+
+        return new_state
