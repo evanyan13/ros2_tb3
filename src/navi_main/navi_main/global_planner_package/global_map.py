@@ -19,8 +19,7 @@ class GlobalMap:
         """
         if 0 <= i < self.height and 0 <= j < self.width:
             return self.data[i, j]
-        return -1 # Out of bound value
-
+        return -1 # Unkown value
 
     def get_occupancy_value_by_coordinates(self, x: float, y: float) -> int:
         """
@@ -30,16 +29,37 @@ class GlobalMap:
         value = self.get_occupancy_value_by_indices(i, j)
         return value
 
-
     def coordinates_to_indices(self, x: float, y: float) -> tuple:
         """
         Convert the node's real world coordinates into gride indices on the OccupancyGrid
         """
-        i = int((y - self.origin.y) / self.resolution)
-        j = int((x - self.origin.x) / self.resolution)
+        i = int((x - self.origin.x) / self.resolution)
+        j = int((y - self.origin.y) / self.resolution)
         
         return i, j
+    
+    def is_node_valid(self, node: GlobalPlannerNode) -> bool:
+        """
+        Checks if node is valid/within boundary of the map
+        """
+        i, j = self.coordinates_to_indices(node.x, node.y)
+        return (0 <= i < self.height) and (0 <= j < self.width)
 
+    def is_node_valid_by_indices(self, i: int, j: int) -> bool:
+        """
+        Checks if node is valid/within boundary of the map by indices
+        """
+        return (0 <= i < self.height) and (0 <= j < self.width)
+    
+    def is_node_avail(self, node: GlobalPlannerNode) -> bool:
+        """
+        Checks whether a given node is in a free space on the map
+        """
+        i, j = self.coordinates_to_indices(node.x, node.y)
+
+        # Checks if the node is out of bound
+        if self.is_node_valid_by_indices(i, j):
+            return (self.get_occupancy_value_by_indices(i, j) < 100)
 
     def is_node_free(self, node: GlobalPlannerNode) -> bool:
         """
@@ -48,16 +68,16 @@ class GlobalMap:
         i, j = self.coordinates_to_indices(node.x, node.y)
 
         # Checks if the node is out of bound
-        if not (0 <= i <= self.width and 0 <= j <= self.height):
+        if not self.is_node_valid_by_indices(i, j):
             return False
 
         tolerance = pixel_tolerance
         min_i, max_i = max(i - tolerance, 0), min(i + tolerance, self.height - 1)
         min_j, max_j = max(j - tolerance, 0), min(j + tolerance, self.width - 1)
 
+        print(self.data[min_i:max_i + 1, min_j:max_j + 1])
         # Check if any of the cells in the tolerance area are occupied
         return np.all(self.data[min_i:max_i + 1, min_j:max_j + 1] < 100)
-
 
     def print_map(self, start, end):
         if start == end:

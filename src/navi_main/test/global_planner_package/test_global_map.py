@@ -3,6 +3,11 @@ from nav_msgs.msg import OccupancyGrid
 from navi_main.global_planner_package.global_map import GlobalMap
 from navi_main.global_planner_package.global_planner_node import GlobalPlannerNode
 
+VALID_NODE = GlobalPlannerNode(1, 1)
+INVALID_NODE = GlobalPlannerNode(-1, -1)
+FREE_NODE = GlobalPlannerNode(1, 1)
+OCCUPIED_NODE = GlobalPlannerNode(2, 3)
+
 class TestMapPrinting(unittest.TestCase):
     # Setup an example OccupancyGrid
     def setUp(self):
@@ -27,21 +32,29 @@ class TestMapPrinting(unittest.TestCase):
         self.assertEqual(self.map.get_occupancy_value_by_indices(1, 1), 0)
         self.assertEqual(self.map.get_occupancy_value_by_indices(3, 4), -1)
 
+    # is_node_valid
+    def test_is_node_valid_valid(self):
+        self.assertTrue(self.map.is_node_valid(VALID_NODE), "Node -> Valid, Returned -> False")
+
+    def test_is_node_valid_invalid(self):
+        self.assertFalse(self.map.is_node_valid(INVALID_NODE), "Node -> Invalid, Returned -> True")
+
+    # is_node_avail
+    def test_is_node_avail_avail(self):
+        self.assertTrue(self.map.is_node_valid(FREE_NODE), "Node -> Available, Returned -> Occupied")
+
+    def test_is_node_avail_unavail(self):
+        self.assertFalse(self.map.is_node_avail(OCCUPIED_NODE), "Node -> Occupied, Returned -> Available")
+
+    # is_node_free
     def test_is_node_free_free_space(self):
-        node = GlobalPlannerNode(1, 1)
-        self.assertTrue(self.map.is_node_free(node), "Node -> Free, Returned -> False")
+        self.assertTrue(self.map.is_node_free(FREE_NODE), "Node -> Free, Returned -> False")
 
     def test_is_node_free_occupied_space(self):
-        node = GlobalPlannerNode(0, 3)
-        self.assertFalse(self.map.is_node_free(node), "Node -> Occupied, Returned -> True")
+        self.assertFalse(self.map.is_node_free(OCCUPIED_NODE), "Node -> Occupied, Returned -> True")
 
-    def test_is_node_free_edge_space(self):
-        node = GlobalPlannerNode(3, 0)
-        self.assertFalse(self.map.is_node_free(node), "Node -> Occupied, Returned -> True")
-    
     def test_is_node_free_out_of_bound(self):
-        node = GlobalPlannerNode(-1, -1)
-        self.assertFalse(self.map.is_node_free(node), "Node -> Out of Bound, Returned -> True")
+        self.assertFalse(self.map.is_node_free(INVALID_NODE), "Node -> Out of Bound, Returned -> True")
 
 
 if __name__ == '__main__':
