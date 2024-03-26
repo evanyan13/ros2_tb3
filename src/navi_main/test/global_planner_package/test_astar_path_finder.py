@@ -22,7 +22,7 @@ class TestAstarPathFinder(unittest.TestCase):
 
     def test_path_success(self):
         start = GlobalPlannerNode(0.0, 0.0)
-        goal = GlobalPlannerNode(1.0, 1.0)
+        goal = GlobalPlannerNode(2.0, 2.0)
 
         path = find_astar_path(self.map, start, goal)
         self.map.print_map((start.x, start.y), (goal.x, goal.y))
