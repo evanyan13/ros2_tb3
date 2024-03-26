@@ -1,0 +1,62 @@
+import rclpy
+import math
+from geometry_msgs.msg import Pose, PoseStamped
+from . import pixel_tolerance
+
+class GlobalPlannerNode:
+    def __init__(
+            self,
+            x: float = 0.0,
+            y: float = 0.0,
+            theta: float = 0.0,
+            parent = None
+    ):
+        self.parent = parent
+        self.x = x
+        self.y = y
+        self.theta = theta
+
+        self.g = 0 # Current cost
+        self.h = 0 # Estimated cost to goal node
+        self.f = 0 # Total cost
+
+    def calculate_distance(self, end) -> float:
+        """
+        Returns euclidean distance btw two nodes
+        """
+        return math.sqrt((self.x - end.x) ** 2 + (self.y - end.y) ** 2)
+
+    def generate_neighbours(self, map_resolution: float) -> list:
+        neighbours = []
+        step = pixel_tolerance * map_resolution
+        moves = [(0, step), (step, step), (step, 0), (step, -step),
+                 (0, -step), (-step, -step), (-step, 0), (-step, step)]
+
+        for move in moves:
+            new_x = self.x + move[0]
+            new_y = self.y + move[1]
+            neighbours.append(GlobalPlannerNode(new_x, new_y))
+        
+        return neighbours
+    
+    def backtrack_path(self) -> list:
+        """
+        Backtrack to find path from start to current node
+        """
+        path = []
+        current_node = self
+
+        while current_node.parent:
+            path.append(current_node)
+            current_node = current_node.parent
+        
+        return (path + [current_node])[::-1]
+    
+    def __lt__(self, other):
+        """
+        Less than comparison for priority queue sorting bacsed on f value
+        """
+        return self.f < other.f
+
+    def equals(self, other):
+        return self.x == other.x and self.y == other.y

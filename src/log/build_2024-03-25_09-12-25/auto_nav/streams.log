@@ -1,0 +1,30 @@
+[2.147s] Invoking command in '/home/evanyan13/colcon_ws/src/build/auto_nav': PYTHONPATH=/home/evanyan13/colcon_ws/src/build/auto_nav/prefix_override:/home/evanyan13/colcon_ws/src/install/auto_nav/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/src/build/auto_nav/build --no-deps install_data
+[2.361s] running develop
+[2.548s] running egg_info
+[2.548s] creating auto_nav.egg-info
+[2.548s] writing auto_nav.egg-info/PKG-INFO
+[2.549s] writing dependency_links to auto_nav.egg-info/dependency_links.txt
+[2.549s] writing entry points to auto_nav.egg-info/entry_points.txt
+[2.549s] writing requirements to auto_nav.egg-info/requires.txt
+[2.550s] writing top-level names to auto_nav.egg-info/top_level.txt
+[2.550s] writing manifest file 'auto_nav.egg-info/SOURCES.txt'
+[2.579s] reading manifest file 'auto_nav.egg-info/SOURCES.txt'
+[2.579s] writing manifest file 'auto_nav.egg-info/SOURCES.txt'
+[2.609s] running build_ext
+[2.610s] Creating /home/evanyan13/colcon_ws/src/install/auto_nav/lib/python3.8/site-packages/site.py
+[2.612s] Creating /home/evanyan13/colcon_ws/src/install/auto_nav/lib/python3.8/site-packages/auto-nav.egg-link (link to .)
+[2.613s] Installing r2auto_nav script to /home/evanyan13/colcon_ws/src/install/auto_nav/lib/auto_nav
+[2.613s] Installing r2mover script to /home/evanyan13/colcon_ws/src/install/auto_nav/lib/auto_nav
+[2.614s] Installing r2moverotate script to /home/evanyan13/colcon_ws/src/install/auto_nav/lib/auto_nav
+[2.614s] Installing r2occupancy script to /home/evanyan13/colcon_ws/src/install/auto_nav/lib/auto_nav
+[2.614s] Installing r2occupancy2 script to /home/evanyan13/colcon_ws/src/install/auto_nav/lib/auto_nav
+[2.615s] Installing r2scanner script to /home/evanyan13/colcon_ws/src/install/auto_nav/lib/auto_nav
+[2.615s] 
+[2.615s] Installed /home/evanyan13/colcon_ws/src/build/auto_nav
+[2.615s] running install_data
+[2.615s] creating /home/evanyan13/colcon_ws/src/install/auto_nav/share/ament_index
+[2.616s] creating /home/evanyan13/colcon_ws/src/install/auto_nav/share/ament_index/resource_index
+[2.616s] creating /home/evanyan13/colcon_ws/src/install/auto_nav/share/ament_index/resource_index/packages
+[2.622s] copying resource/auto_nav -> /home/evanyan13/colcon_ws/src/install/auto_nav/share/ament_index/resource_index/packages
+[2.622s] copying package.xml -> /home/evanyan13/colcon_ws/src/install/auto_nav/share/auto_nav
+[2.920s] Invoked command in '/home/evanyan13/colcon_ws/src/build/auto_nav' returned '0': PYTHONPATH=/home/evanyan13/colcon_ws/src/build/auto_nav/prefix_override:/home/evanyan13/colcon_ws/src/install/auto_nav/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/src/build/auto_nav/build --no-deps install_data

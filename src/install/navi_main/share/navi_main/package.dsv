@@ -1,0 +1,9 @@
+source;share/navi_main/hook/pythonpath.ps1
+source;share/navi_main/hook/pythonpath.dsv
+source;share/navi_main/hook/pythonpath.sh
+source;share/navi_main/hook/ament_prefix_path.ps1
+source;share/navi_main/hook/ament_prefix_path.dsv
+source;share/navi_main/hook/ament_prefix_path.sh
+source;../../build/navi_main/share/navi_main/hook/pythonpath_develop.ps1
+source;../../build/navi_main/share/navi_main/hook/pythonpath_develop.dsv
+source;../../build/navi_main/share/navi_main/hook/pythonpath_develop.sh

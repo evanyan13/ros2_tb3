@@ -1,0 +1,26 @@
+[2.079s] Invoking command in '/home/evanyan13/colcon_ws/src/build/lidar_pubsub': PYTHONPATH=/home/evanyan13/colcon_ws/src/build/lidar_pubsub/prefix_override:/home/evanyan13/colcon_ws/src/install/lidar_pubsub/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/src/build/lidar_pubsub/build --no-deps install_data
+[2.383s] running develop
+[2.429s] running egg_info
+[2.429s] creating lidar_pubsub.egg-info
+[2.429s] writing lidar_pubsub.egg-info/PKG-INFO
+[2.429s] writing dependency_links to lidar_pubsub.egg-info/dependency_links.txt
+[2.429s] writing entry points to lidar_pubsub.egg-info/entry_points.txt
+[2.429s] writing requirements to lidar_pubsub.egg-info/requires.txt
+[2.429s] writing top-level names to lidar_pubsub.egg-info/top_level.txt
+[2.431s] writing manifest file 'lidar_pubsub.egg-info/SOURCES.txt'
+[2.447s] reading manifest file 'lidar_pubsub.egg-info/SOURCES.txt'
+[2.448s] writing manifest file 'lidar_pubsub.egg-info/SOURCES.txt'
+[2.485s] running build_ext
+[2.486s] Creating /home/evanyan13/colcon_ws/src/install/lidar_pubsub/lib/python3.8/site-packages/site.py
+[2.487s] Creating /home/evanyan13/colcon_ws/src/install/lidar_pubsub/lib/python3.8/site-packages/lidar-pubsub.egg-link (link to .)
+[2.488s] Installing listener script to /home/evanyan13/colcon_ws/src/install/lidar_pubsub/lib/py_pubsub
+[2.489s] Installing talker script to /home/evanyan13/colcon_ws/src/install/lidar_pubsub/lib/py_pubsub
+[2.489s] 
+[2.489s] Installed /home/evanyan13/colcon_ws/src/build/lidar_pubsub
+[2.489s] running install_data
+[2.490s] creating /home/evanyan13/colcon_ws/src/install/lidar_pubsub/share/ament_index
+[2.490s] creating /home/evanyan13/colcon_ws/src/install/lidar_pubsub/share/ament_index/resource_index
+[2.490s] creating /home/evanyan13/colcon_ws/src/install/lidar_pubsub/share/ament_index/resource_index/packages
+[2.491s] copying resource/lidar_pubsub -> /home/evanyan13/colcon_ws/src/install/lidar_pubsub/share/ament_index/resource_index/packages
+[2.491s] copying package.xml -> /home/evanyan13/colcon_ws/src/install/lidar_pubsub/share/lidar_pubsub
+[2.936s] Invoked command in '/home/evanyan13/colcon_ws/src/build/lidar_pubsub' returned '0': PYTHONPATH=/home/evanyan13/colcon_ws/src/build/lidar_pubsub/prefix_override:/home/evanyan13/colcon_ws/src/install/lidar_pubsub/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/src/build/lidar_pubsub/build --no-deps install_data
