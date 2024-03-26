@@ -40,8 +40,7 @@ class TestAstarPathFinder(unittest.TestCase):
         path = find_astar_path(self.map_close, START, END)
         self.map_close.print_map((START.x, START.y), (END.x, END.y))
         print_path(path)
-
-        self.assertFalse(len(path) == 0, "A path does not exist")
+        self.assertFalse(len(path) > 0, "A path does not exist")
 
 if __name__ == '__main__':
     unittest.main()

@@ -75,7 +75,6 @@ class GlobalMap:
         min_i, max_i = max(i - tolerance, 0), min(i + tolerance, self.height - 1)
         min_j, max_j = max(j - tolerance, 0), min(j + tolerance, self.width - 1)
 
-        print(self.data[min_i:max_i + 1, min_j:max_j + 1])
         # Check if any of the cells in the tolerance area are occupied
         return np.all(self.data[min_i:max_i + 1, min_j:max_j + 1] < 100)
 

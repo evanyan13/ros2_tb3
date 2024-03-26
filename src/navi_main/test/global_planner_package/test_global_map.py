@@ -15,7 +15,7 @@ class TestMapPrinting(unittest.TestCase):
         self.grid.info.width = 5
         self.grid.info.height = 5
         self.grid.info.resolution = 1.0  # 1 meter per cell
-        self.grid.data = [-1, 0, 50, 100, -1,
+        self.grid.data = [-1, 0, 25, 100, -1,
                             0, 0, 50, 100, -1,
                             50, 50, 50, 100, -1,
                             100, 100, 100, 100, -1,
@@ -27,8 +27,13 @@ class TestMapPrinting(unittest.TestCase):
         end_index = (4, 4)
         self.map.print_map(start_index, end_index)
     
+    def test_get_occupancy_value_by_coordinate(self):
+        self.assertEqual(self.map.get_occupancy_value_by_coordinates(0, 2), 25)
+        self.assertEqual(self.map.get_occupancy_value_by_coordinates(2, 0), 50)
+
     def test_get_occupancy_value_by_indices(self):
-        self.assertEqual(self.map.get_occupancy_value_by_indices(0, 2), 50)
+        self.assertEqual(self.map.get_occupancy_value_by_indices(0, 2), 25)
+        self.assertEqual(self.map.get_occupancy_value_by_indices(2, 0), 50)
         self.assertEqual(self.map.get_occupancy_value_by_indices(1, 1), 0)
         self.assertEqual(self.map.get_occupancy_value_by_indices(3, 4), -1)
 
