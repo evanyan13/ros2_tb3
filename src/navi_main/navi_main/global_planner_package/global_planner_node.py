@@ -69,7 +69,7 @@ class GlobalPlannerNode:
         new_state.y = pose.position.y
 
         quaternion = (pose.orientation.x, pose.orientation.y, pose.orientation.z, pose.orientation.w)
-        (roll, pitch, yaw) = euler_from_quaternion(quaternion)
+        (roll, pitch, yaw) = euler_from_quaternion(*quaternion) # Unpack tuples into separate arguments
         new_state.theta = yaw
 
         return new_state

@@ -1,4 +1,6 @@
+import math
 import unittest
+from geometry_msgs.msg import Pose, Quaternion
 from navi_main.global_planner_package.global_planner_node import GlobalPlannerNode
 
 class TestGlobalPlannerNode(unittest.TestCase):
@@ -38,6 +40,18 @@ class TestGlobalPlannerNode(unittest.TestCase):
         self.assertFalse(node_a.equals(node_b))
         self.assertTrue(node_c.equals(node_a))
         self.assertTrue(node_a.equals(node_c))
+
+    def test_from_pose(self):
+        pose = Pose()
+        pose.position.x, pose.position.y = 1.0, 2.0
+        pose.orientation = Quaternion(x=0.0, y=0.0, z=1.0, w=0.0)
+
+        node = GlobalPlannerNode.from_pose(pose)
+
+        self.assertEqual(node.x, 1.0)
+        self.assertEqual(node.y, 2.0)
+        self.assertAlmostEqual(node.theta, math.pi, places=5)
+
 
 if __name__ == "__main__":
     unittest.main()
