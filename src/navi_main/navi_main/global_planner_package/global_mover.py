@@ -1,8 +1,6 @@
 import rclpy
 import numpy as np
 from rclpy.node import Node
-from rclpy.duration import Duration
-from rclpy.clock import Clock
 from geometry_msgs.msg import Twist
 from nav_msgs.msg import Path
 from sensor_msgs.msg import LaserScan
@@ -54,7 +52,7 @@ class GlobalMover(Node):
     
     def stop_moving(self):
         self.is_moving = False
-        self.velocity_publisher.publish(Twist())
+        self.velocity_publisher.publish(Twist()) # A zero twist to stop the bot
 
     def follow_path(self, path: list):
         self.is_moving = True
@@ -81,8 +79,8 @@ class GlobalMover(Node):
 
     def move_back(self):
         distance_moved = 0.0
-        vel_msg = Twist()
-        vel_msg.linear.x = -linear_velocity
+        twist_msg = Twist()
+        twist_msg.linear.x = -linear_velocity
         t0 = self.get_clock().now()
 
         while distance_moved < 0.4:
@@ -90,7 +88,7 @@ class GlobalMover(Node):
                 self.is_obstacle_ahead = False
                 return
             
-            self.velocity_publisher.publish(vel_msg)
+            self.velocity_publisher.publish(twist_msg)
             t1 = self.get_clock().now()
             distance_moved = linear_velocity * (t1 - t0)
             rclpy.spin_once(self, timeout_sec=0.01)
@@ -98,43 +96,52 @@ class GlobalMover(Node):
         self.is_obstacle_ahead = False
 
     def move_to_point(self, point: GlobalPlannerNode):
-        vel_msg = Twist()
-        vel_msg.linear.x = linear_velocity
+        twist_msg = Twist()
+        twist_msg.linear.x = linear_velocity # Moves the bot forward
         loop_rate = self.create_rate(1000) # Create a rate to sleep at 1000 Hz
 
+        print("START MOVING")
         while self.robot_pos.calculate_distance(point) > move_tolerance:
             if self.is_shutdown_initiated or self.is_obstacle_ahead:
+                print("MOVE STOPPED - Shutdown Initiated / Obstacle")
                 return
             
             speed = angular_velocity * self.angular_difference(point)
-            vel_msg.angular.z = min(angular_velocity, speed) + self.path_deviation
-
-            self.velocity_publisher.publish(vel_msg)
+            twist_msg.angular.z = min(angular_velocity, speed) + self.path_deviation
+            self.velocity_publisher.publish(twist_msg)
+            print(f"Published twist_msg: {twist_msg}")
             loop_rate.sleep()
-        
+        print("POINT REACHED")
+
     def rotate_to_goal(self, goal: GlobalPlannerNode):
-        vel_msg = Twist()
+        twist_msg = Twist()
         loop_rate = self.create_rate(1000)
 
+        print("START ROTATING")
         while abs(self.angular_difference(goal)) > rotate_tolerance:
             if self.is_shutdown_initiated:
                 self.stop_moving()
+                print("ROTATE STOPPED - Shutdown Initiated")
                 return
             
             speed = angular_velocity * self.angular_difference(goal)
-            vel_msg.angular.z = min(angular_velocity, max(-angular_velocity, speed))
-            self.velocity_publisher.publish(vel_msg)
+            twist_msg.angular.z = min(angular_velocity, max(-angular_velocity, speed))
+            self.velocity_publisher.publish(twist_msg)
+            print(f"Published twist_msg: {twist_msg}")
             loop_rate.sleep()
 
         self.velocity_publisher.publish(Twist())  # Stop the robot
-
+        print("ROTATE COMPLETE")
 
     def angular_difference(self, point: GlobalPlannerNode) -> float:
+        """
+        Calcualtes the angle btw the current orientation of the bot and the direction to the target point
+        """
         angle = atan2(point.y - self.robot_pos.y, point.x - self.robot_pos.x)\
                     - self.robot_pos.theta
         
         # Normalising the angle to be within [-pi, pi]
-        if angle <= pi:
+        if angle <= -pi:
             angle += 2 * pi
         elif angle > pi:
             angle -= 2 * pi
