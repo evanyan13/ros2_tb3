@@ -1,0 +1,776 @@
+[1.056s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build', '--symlink-install']
+[1.056s] DEBUG:colcon:Parsed command line arguments: Namespace(allow_overriding=[], ament_cmake_args=None, base_paths=['.'], build_base='build', catkin_cmake_args=None, catkin_skip_building_tests=False, cmake_args=None, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, cmake_target=None, cmake_target_skip_unavailable=False, continue_on_error=False, event_handlers=None, executor='parallel', ignore_user_meta=False, install_base='install', log_base=None, log_level=None, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0xffff998c2bb0>>, merge_install=False, metas=['./colcon.meta'], packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_end=None, packages_ignore=None, packages_ignore_regex=None, packages_select=None, packages_select_build_failed=False, packages_select_by_dep=None, packages_select_regex=None, packages_select_test_failures=False, packages_skip=None, packages_skip_build_finished=False, packages_skip_by_dep=None, packages_skip_regex=None, packages_skip_test_passed=False, packages_skip_up_to=None, packages_start=None, packages_up_to=None, packages_up_to_regex=None, parallel_workers=6, paths=None, symlink_install=True, test_result_base=None, verb_extension=<colcon_core.verb.build.BuildVerb object at 0xffff998c2bb0>, verb_name='build', verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0xffff99562190>)
+[1.104s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[1.104s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[1.104s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[1.104s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[1.104s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[1.104s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[1.104s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/evanyan13/colcon_ws'
+[1.104s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[1.104s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[1.104s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[1.104s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[1.104s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[1.104s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[1.104s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[1.104s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[1.104s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(src/auto_nav) by extensions ['ignore', 'ignore_ament_install']
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(src/auto_nav) by extension 'ignore'
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(src/auto_nav) by extension 'ignore_ament_install'
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(src/auto_nav) by extensions ['colcon_pkg']
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(src/auto_nav) by extension 'colcon_pkg'
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(src/auto_nav) by extensions ['colcon_meta']
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(src/auto_nav) by extension 'colcon_meta'
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(src/auto_nav) by extensions ['ros']
+[1.110s] Level 1:colcon.colcon_core.package_identification:_identify(src/auto_nav) by extension 'ros'
+[1.111s] DEBUG:colcon.colcon_core.package_identification:Package 'src/auto_nav' with type 'ros.ament_python' and name 'auto_nav'
+[1.112s] Level 1:colcon.colcon_core.package_identification:_identify(src/autonomous_exploration) by extensions ['ignore', 'ignore_ament_install']
+[1.112s] Level 1:colcon.colcon_core.package_identification:_identify(src/autonomous_exploration) by extension 'ignore'
+[1.112s] Level 1:colcon.colcon_core.package_identification:_identify(src/autonomous_exploration) by extension 'ignore_ament_install'
+[1.112s] Level 1:colcon.colcon_core.package_identification:_identify(src/autonomous_exploration) by extensions ['colcon_pkg']
+[1.112s] Level 1:colcon.colcon_core.package_identification:_identify(src/autonomous_exploration) by extension 'colcon_pkg'
+[1.112s] Level 1:colcon.colcon_core.package_identification:_identify(src/autonomous_exploration) by extensions ['colcon_meta']
+[1.112s] Level 1:colcon.colcon_core.package_identification:_identify(src/autonomous_exploration) by extension 'colcon_meta'
+[1.112s] Level 1:colcon.colcon_core.package_identification:_identify(src/autonomous_exploration) by extensions ['ros']
+[1.112s] Level 1:colcon.colcon_core.package_identification:_identify(src/autonomous_exploration) by extension 'ros'
+[1.112s] DEBUG:colcon.colcon_core.package_identification:Package 'src/autonomous_exploration' with type 'ros.ament_python' and name 'autonomous_exploration'
+[1.112s] Level 1:colcon.colcon_core.package_identification:_identify(src/build) by extensions ['ignore', 'ignore_ament_install']
+[1.112s] Level 1:colcon.colcon_core.package_identification:_identify(src/build) by extension 'ignore'
+[1.112s] Level 1:colcon.colcon_core.package_identification:_identify(src/build) ignored
+[1.112s] Level 1:colcon.colcon_core.package_identification:_identify(src/install) by extensions ['ignore', 'ignore_ament_install']
+[1.112s] Level 1:colcon.colcon_core.package_identification:_identify(src/install) by extension 'ignore'
+[1.112s] Level 1:colcon.colcon_core.package_identification:_identify(src/install) ignored
+[1.112s] Level 1:colcon.colcon_core.package_identification:_identify(src/launcher) by extensions ['ignore', 'ignore_ament_install']
+[1.112s] Level 1:colcon.colcon_core.package_identification:_identify(src/launcher) by extension 'ignore'
+[1.112s] Level 1:colcon.colcon_core.package_identification:_identify(src/launcher) by extension 'ignore_ament_install'
+[1.112s] Level 1:colcon.colcon_core.package_identification:_identify(src/launcher) by extensions ['colcon_pkg']
+[1.112s] Level 1:colcon.colcon_core.package_identification:_identify(src/launcher) by extension 'colcon_pkg'
+[1.112s] Level 1:colcon.colcon_core.package_identification:_identify(src/launcher) by extensions ['colcon_meta']
+[1.112s] Level 1:colcon.colcon_core.package_identification:_identify(src/launcher) by extension 'colcon_meta'
+[1.112s] Level 1:colcon.colcon_core.package_identification:_identify(src/launcher) by extensions ['ros']
+[1.112s] Level 1:colcon.colcon_core.package_identification:_identify(src/launcher) by extension 'ros'
+[1.112s] DEBUG:colcon.colcon_core.package_identification:Package 'src/launcher' with type 'ros.ament_python' and name 'launcher'
+[1.112s] Level 1:colcon.colcon_core.package_identification:_identify(src/lidar_pubsub) by extensions ['ignore', 'ignore_ament_install']
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/lidar_pubsub) by extension 'ignore'
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/lidar_pubsub) by extension 'ignore_ament_install'
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/lidar_pubsub) by extensions ['colcon_pkg']
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/lidar_pubsub) by extension 'colcon_pkg'
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/lidar_pubsub) by extensions ['colcon_meta']
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/lidar_pubsub) by extension 'colcon_meta'
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/lidar_pubsub) by extensions ['ros']
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/lidar_pubsub) by extension 'ros'
+[1.113s] DEBUG:colcon.colcon_core.package_identification:Package 'src/lidar_pubsub' with type 'ros.ament_python' and name 'lidar_pubsub'
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/line_follower) by extensions ['ignore', 'ignore_ament_install']
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/line_follower) by extension 'ignore'
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/line_follower) by extension 'ignore_ament_install'
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/line_follower) by extensions ['colcon_pkg']
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/line_follower) by extension 'colcon_pkg'
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/line_follower) by extensions ['colcon_meta']
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/line_follower) by extension 'colcon_meta'
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/line_follower) by extensions ['ros']
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/line_follower) by extension 'ros'
+[1.113s] DEBUG:colcon.colcon_core.package_identification:Package 'src/line_follower' with type 'ros.ament_python' and name 'line_follower'
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/log) by extensions ['ignore', 'ignore_ament_install']
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/log) by extension 'ignore'
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/log) ignored
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/marker) by extensions ['ignore', 'ignore_ament_install']
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/marker) by extension 'ignore'
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/marker) by extension 'ignore_ament_install'
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/marker) by extensions ['colcon_pkg']
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/marker) by extension 'colcon_pkg'
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/marker) by extensions ['colcon_meta']
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/marker) by extension 'colcon_meta'
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/marker) by extensions ['ros']
+[1.113s] Level 1:colcon.colcon_core.package_identification:_identify(src/marker) by extension 'ros'
+[1.114s] DEBUG:colcon.colcon_core.package_identification:Package 'src/marker' with type 'ros.ament_python' and name 'marker'
+[1.114s] Level 1:colcon.colcon_core.package_identification:_identify(src/navi_main) by extensions ['ignore', 'ignore_ament_install']
+[1.114s] Level 1:colcon.colcon_core.package_identification:_identify(src/navi_main) by extension 'ignore'
+[1.114s] Level 1:colcon.colcon_core.package_identification:_identify(src/navi_main) by extension 'ignore_ament_install'
+[1.114s] Level 1:colcon.colcon_core.package_identification:_identify(src/navi_main) by extensions ['colcon_pkg']
+[1.114s] Level 1:colcon.colcon_core.package_identification:_identify(src/navi_main) by extension 'colcon_pkg'
+[1.114s] Level 1:colcon.colcon_core.package_identification:_identify(src/navi_main) by extensions ['colcon_meta']
+[1.114s] Level 1:colcon.colcon_core.package_identification:_identify(src/navi_main) by extension 'colcon_meta'
+[1.114s] Level 1:colcon.colcon_core.package_identification:_identify(src/navi_main) by extensions ['ros']
+[1.114s] Level 1:colcon.colcon_core.package_identification:_identify(src/navi_main) by extension 'ros'
+[1.114s] DEBUG:colcon.colcon_core.package_identification:Package 'src/navi_main' with type 'ros.ament_python' and name 'navi_main'
+[1.114s] Level 1:colcon.colcon_core.package_identification:_identify(src/py_pubsub) by extensions ['ignore', 'ignore_ament_install']
+[1.114s] Level 1:colcon.colcon_core.package_identification:_identify(src/py_pubsub) by extension 'ignore'
+[1.114s] Level 1:colcon.colcon_core.package_identification:_identify(src/py_pubsub) by extension 'ignore_ament_install'
+[1.114s] Level 1:colcon.colcon_core.package_identification:_identify(src/py_pubsub) by extensions ['colcon_pkg']
+[1.114s] Level 1:colcon.colcon_core.package_identification:_identify(src/py_pubsub) by extension 'colcon_pkg'
+[1.114s] Level 1:colcon.colcon_core.package_identification:_identify(src/py_pubsub) by extensions ['colcon_meta']
+[1.114s] Level 1:colcon.colcon_core.package_identification:_identify(src/py_pubsub) by extension 'colcon_meta'
+[1.114s] Level 1:colcon.colcon_core.package_identification:_identify(src/py_pubsub) by extensions ['ros']
+[1.114s] Level 1:colcon.colcon_core.package_identification:_identify(src/py_pubsub) by extension 'ros'
+[1.115s] DEBUG:colcon.colcon_core.package_identification:Package 'src/py_pubsub' with type 'ros.ament_python' and name 'py_pubsub'
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(src/state_machine) by extensions ['ignore', 'ignore_ament_install']
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(src/state_machine) by extension 'ignore'
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(src/state_machine) by extension 'ignore_ament_install'
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(src/state_machine) by extensions ['colcon_pkg']
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(src/state_machine) by extension 'colcon_pkg'
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(src/state_machine) by extensions ['colcon_meta']
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(src/state_machine) by extension 'colcon_meta'
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(src/state_machine) by extensions ['ros']
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(src/state_machine) by extension 'ros'
+[1.115s] DEBUG:colcon.colcon_core.package_identification:Package 'src/state_machine' with type 'ros.ament_python' and name 'state_machine'
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations) by extensions ['ignore', 'ignore_ament_install']
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations) by extension 'ignore'
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations) by extension 'ignore_ament_install'
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations) by extensions ['colcon_pkg']
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations) by extension 'colcon_pkg'
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations) by extensions ['colcon_meta']
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations) by extension 'colcon_meta'
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations) by extensions ['ros']
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations) by extension 'ros'
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations) by extensions ['cmake', 'python']
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations) by extension 'cmake'
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations) by extension 'python'
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations) by extensions ['python_setup_py']
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations) by extension 'python_setup_py'
+[1.115s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations/turtlebot3_fake_node) by extensions ['ignore', 'ignore_ament_install']
+[1.116s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations/turtlebot3_fake_node) by extension 'ignore'
+[1.116s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations/turtlebot3_fake_node) by extension 'ignore_ament_install'
+[1.116s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations/turtlebot3_fake_node) by extensions ['colcon_pkg']
+[1.116s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations/turtlebot3_fake_node) by extension 'colcon_pkg'
+[1.116s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations/turtlebot3_fake_node) by extensions ['colcon_meta']
+[1.116s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations/turtlebot3_fake_node) by extension 'colcon_meta'
+[1.116s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations/turtlebot3_fake_node) by extensions ['ros']
+[1.116s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations/turtlebot3_fake_node) by extension 'ros'
+[1.116s] DEBUG:colcon.colcon_core.package_identification:Package 'src/turtlebot3_simulations/turtlebot3_fake_node' with type 'ros.ament_cmake' and name 'turtlebot3_fake_node'
+[1.116s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations/turtlebot3_gazebo) by extensions ['ignore', 'ignore_ament_install']
+[1.116s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations/turtlebot3_gazebo) by extension 'ignore'
+[1.116s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations/turtlebot3_gazebo) by extension 'ignore_ament_install'
+[1.116s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations/turtlebot3_gazebo) by extensions ['colcon_pkg']
+[1.116s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations/turtlebot3_gazebo) by extension 'colcon_pkg'
+[1.116s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations/turtlebot3_gazebo) by extensions ['colcon_meta']
+[1.116s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations/turtlebot3_gazebo) by extension 'colcon_meta'
+[1.116s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations/turtlebot3_gazebo) by extensions ['ros']
+[1.116s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations/turtlebot3_gazebo) by extension 'ros'
+[1.117s] DEBUG:colcon.colcon_core.package_identification:Package 'src/turtlebot3_simulations/turtlebot3_gazebo' with type 'ros.ament_cmake' and name 'turtlebot3_gazebo'
+[1.117s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations/turtlebot3_simulations) by extensions ['ignore', 'ignore_ament_install']
+[1.117s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations/turtlebot3_simulations) by extension 'ignore'
+[1.117s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations/turtlebot3_simulations) by extension 'ignore_ament_install'
+[1.117s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations/turtlebot3_simulations) by extensions ['colcon_pkg']
+[1.117s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations/turtlebot3_simulations) by extension 'colcon_pkg'
+[1.117s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations/turtlebot3_simulations) by extensions ['colcon_meta']
+[1.117s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations/turtlebot3_simulations) by extension 'colcon_meta'
+[1.117s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations/turtlebot3_simulations) by extensions ['ros']
+[1.117s] Level 1:colcon.colcon_core.package_identification:_identify(src/turtlebot3_simulations/turtlebot3_simulations) by extension 'ros'
+[1.117s] DEBUG:colcon.colcon_core.package_identification:Package 'src/turtlebot3_simulations/turtlebot3_simulations' with type 'ros.ament_cmake' and name 'turtlebot3_simulations'
+[1.117s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[1.117s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[1.117s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[1.117s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[1.117s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[1.218s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[1.218s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[1.254s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 14 installed packages in /home/evanyan13/colcon_ws/install
+[1.277s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 334 installed packages in /opt/ros/foxy
+[1.278s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[1.343s] Level 5:colcon.colcon_core.verb:set package 'auto_nav' build argument 'cmake_args' from command line to 'None'
+[1.343s] Level 5:colcon.colcon_core.verb:set package 'auto_nav' build argument 'cmake_target' from command line to 'None'
+[1.343s] Level 5:colcon.colcon_core.verb:set package 'auto_nav' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.343s] Level 5:colcon.colcon_core.verb:set package 'auto_nav' build argument 'cmake_clean_cache' from command line to 'False'
+[1.343s] Level 5:colcon.colcon_core.verb:set package 'auto_nav' build argument 'cmake_clean_first' from command line to 'False'
+[1.343s] Level 5:colcon.colcon_core.verb:set package 'auto_nav' build argument 'cmake_force_configure' from command line to 'False'
+[1.343s] Level 5:colcon.colcon_core.verb:set package 'auto_nav' build argument 'ament_cmake_args' from command line to 'None'
+[1.343s] Level 5:colcon.colcon_core.verb:set package 'auto_nav' build argument 'catkin_cmake_args' from command line to 'None'
+[1.343s] Level 5:colcon.colcon_core.verb:set package 'auto_nav' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.343s] DEBUG:colcon.colcon_core.verb:Building package 'auto_nav' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/evanyan13/colcon_ws/build/auto_nav', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/evanyan13/colcon_ws/install/auto_nav', 'merge_install': False, 'path': '/home/evanyan13/colcon_ws/src/auto_nav', 'symlink_install': True, 'test_result_base': None}
+[1.360s] Level 5:colcon.colcon_core.verb:set package 'autonomous_exploration' build argument 'cmake_args' from command line to 'None'
+[1.360s] Level 5:colcon.colcon_core.verb:set package 'autonomous_exploration' build argument 'cmake_target' from command line to 'None'
+[1.360s] Level 5:colcon.colcon_core.verb:set package 'autonomous_exploration' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.360s] Level 5:colcon.colcon_core.verb:set package 'autonomous_exploration' build argument 'cmake_clean_cache' from command line to 'False'
+[1.360s] Level 5:colcon.colcon_core.verb:set package 'autonomous_exploration' build argument 'cmake_clean_first' from command line to 'False'
+[1.360s] Level 5:colcon.colcon_core.verb:set package 'autonomous_exploration' build argument 'cmake_force_configure' from command line to 'False'
+[1.360s] Level 5:colcon.colcon_core.verb:set package 'autonomous_exploration' build argument 'ament_cmake_args' from command line to 'None'
+[1.360s] Level 5:colcon.colcon_core.verb:set package 'autonomous_exploration' build argument 'catkin_cmake_args' from command line to 'None'
+[1.360s] Level 5:colcon.colcon_core.verb:set package 'autonomous_exploration' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.361s] DEBUG:colcon.colcon_core.verb:Building package 'autonomous_exploration' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/evanyan13/colcon_ws/build/autonomous_exploration', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/evanyan13/colcon_ws/install/autonomous_exploration', 'merge_install': False, 'path': '/home/evanyan13/colcon_ws/src/autonomous_exploration', 'symlink_install': True, 'test_result_base': None}
+[1.378s] Level 5:colcon.colcon_core.verb:set package 'launcher' build argument 'cmake_args' from command line to 'None'
+[1.378s] Level 5:colcon.colcon_core.verb:set package 'launcher' build argument 'cmake_target' from command line to 'None'
+[1.378s] Level 5:colcon.colcon_core.verb:set package 'launcher' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.378s] Level 5:colcon.colcon_core.verb:set package 'launcher' build argument 'cmake_clean_cache' from command line to 'False'
+[1.378s] Level 5:colcon.colcon_core.verb:set package 'launcher' build argument 'cmake_clean_first' from command line to 'False'
+[1.378s] Level 5:colcon.colcon_core.verb:set package 'launcher' build argument 'cmake_force_configure' from command line to 'False'
+[1.378s] Level 5:colcon.colcon_core.verb:set package 'launcher' build argument 'ament_cmake_args' from command line to 'None'
+[1.378s] Level 5:colcon.colcon_core.verb:set package 'launcher' build argument 'catkin_cmake_args' from command line to 'None'
+[1.378s] Level 5:colcon.colcon_core.verb:set package 'launcher' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.378s] DEBUG:colcon.colcon_core.verb:Building package 'launcher' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/evanyan13/colcon_ws/build/launcher', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/evanyan13/colcon_ws/install/launcher', 'merge_install': False, 'path': '/home/evanyan13/colcon_ws/src/launcher', 'symlink_install': True, 'test_result_base': None}
+[1.395s] Level 5:colcon.colcon_core.verb:set package 'lidar_pubsub' build argument 'cmake_args' from command line to 'None'
+[1.395s] Level 5:colcon.colcon_core.verb:set package 'lidar_pubsub' build argument 'cmake_target' from command line to 'None'
+[1.395s] Level 5:colcon.colcon_core.verb:set package 'lidar_pubsub' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.395s] Level 5:colcon.colcon_core.verb:set package 'lidar_pubsub' build argument 'cmake_clean_cache' from command line to 'False'
+[1.395s] Level 5:colcon.colcon_core.verb:set package 'lidar_pubsub' build argument 'cmake_clean_first' from command line to 'False'
+[1.395s] Level 5:colcon.colcon_core.verb:set package 'lidar_pubsub' build argument 'cmake_force_configure' from command line to 'False'
+[1.395s] Level 5:colcon.colcon_core.verb:set package 'lidar_pubsub' build argument 'ament_cmake_args' from command line to 'None'
+[1.395s] Level 5:colcon.colcon_core.verb:set package 'lidar_pubsub' build argument 'catkin_cmake_args' from command line to 'None'
+[1.395s] Level 5:colcon.colcon_core.verb:set package 'lidar_pubsub' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.395s] DEBUG:colcon.colcon_core.verb:Building package 'lidar_pubsub' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/evanyan13/colcon_ws/build/lidar_pubsub', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/evanyan13/colcon_ws/install/lidar_pubsub', 'merge_install': False, 'path': '/home/evanyan13/colcon_ws/src/lidar_pubsub', 'symlink_install': True, 'test_result_base': None}
+[1.413s] Level 5:colcon.colcon_core.verb:set package 'line_follower' build argument 'cmake_args' from command line to 'None'
+[1.413s] Level 5:colcon.colcon_core.verb:set package 'line_follower' build argument 'cmake_target' from command line to 'None'
+[1.413s] Level 5:colcon.colcon_core.verb:set package 'line_follower' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.413s] Level 5:colcon.colcon_core.verb:set package 'line_follower' build argument 'cmake_clean_cache' from command line to 'False'
+[1.413s] Level 5:colcon.colcon_core.verb:set package 'line_follower' build argument 'cmake_clean_first' from command line to 'False'
+[1.413s] Level 5:colcon.colcon_core.verb:set package 'line_follower' build argument 'cmake_force_configure' from command line to 'False'
+[1.413s] Level 5:colcon.colcon_core.verb:set package 'line_follower' build argument 'ament_cmake_args' from command line to 'None'
+[1.413s] Level 5:colcon.colcon_core.verb:set package 'line_follower' build argument 'catkin_cmake_args' from command line to 'None'
+[1.413s] Level 5:colcon.colcon_core.verb:set package 'line_follower' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.413s] DEBUG:colcon.colcon_core.verb:Building package 'line_follower' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/evanyan13/colcon_ws/build/line_follower', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/evanyan13/colcon_ws/install/line_follower', 'merge_install': False, 'path': '/home/evanyan13/colcon_ws/src/line_follower', 'symlink_install': True, 'test_result_base': None}
+[1.430s] Level 5:colcon.colcon_core.verb:set package 'marker' build argument 'cmake_args' from command line to 'None'
+[1.430s] Level 5:colcon.colcon_core.verb:set package 'marker' build argument 'cmake_target' from command line to 'None'
+[1.430s] Level 5:colcon.colcon_core.verb:set package 'marker' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.430s] Level 5:colcon.colcon_core.verb:set package 'marker' build argument 'cmake_clean_cache' from command line to 'False'
+[1.430s] Level 5:colcon.colcon_core.verb:set package 'marker' build argument 'cmake_clean_first' from command line to 'False'
+[1.430s] Level 5:colcon.colcon_core.verb:set package 'marker' build argument 'cmake_force_configure' from command line to 'False'
+[1.430s] Level 5:colcon.colcon_core.verb:set package 'marker' build argument 'ament_cmake_args' from command line to 'None'
+[1.430s] Level 5:colcon.colcon_core.verb:set package 'marker' build argument 'catkin_cmake_args' from command line to 'None'
+[1.430s] Level 5:colcon.colcon_core.verb:set package 'marker' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.430s] DEBUG:colcon.colcon_core.verb:Building package 'marker' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/evanyan13/colcon_ws/build/marker', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/evanyan13/colcon_ws/install/marker', 'merge_install': False, 'path': '/home/evanyan13/colcon_ws/src/marker', 'symlink_install': True, 'test_result_base': None}
+[1.452s] Level 5:colcon.colcon_core.verb:set package 'navi_main' build argument 'cmake_args' from command line to 'None'
+[1.452s] Level 5:colcon.colcon_core.verb:set package 'navi_main' build argument 'cmake_target' from command line to 'None'
+[1.453s] Level 5:colcon.colcon_core.verb:set package 'navi_main' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.453s] Level 5:colcon.colcon_core.verb:set package 'navi_main' build argument 'cmake_clean_cache' from command line to 'False'
+[1.453s] Level 5:colcon.colcon_core.verb:set package 'navi_main' build argument 'cmake_clean_first' from command line to 'False'
+[1.453s] Level 5:colcon.colcon_core.verb:set package 'navi_main' build argument 'cmake_force_configure' from command line to 'False'
+[1.453s] Level 5:colcon.colcon_core.verb:set package 'navi_main' build argument 'ament_cmake_args' from command line to 'None'
+[1.453s] Level 5:colcon.colcon_core.verb:set package 'navi_main' build argument 'catkin_cmake_args' from command line to 'None'
+[1.453s] Level 5:colcon.colcon_core.verb:set package 'navi_main' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.453s] DEBUG:colcon.colcon_core.verb:Building package 'navi_main' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/evanyan13/colcon_ws/build/navi_main', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/evanyan13/colcon_ws/install/navi_main', 'merge_install': False, 'path': '/home/evanyan13/colcon_ws/src/navi_main', 'symlink_install': True, 'test_result_base': None}
+[1.470s] Level 5:colcon.colcon_core.verb:set package 'py_pubsub' build argument 'cmake_args' from command line to 'None'
+[1.470s] Level 5:colcon.colcon_core.verb:set package 'py_pubsub' build argument 'cmake_target' from command line to 'None'
+[1.470s] Level 5:colcon.colcon_core.verb:set package 'py_pubsub' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.470s] Level 5:colcon.colcon_core.verb:set package 'py_pubsub' build argument 'cmake_clean_cache' from command line to 'False'
+[1.470s] Level 5:colcon.colcon_core.verb:set package 'py_pubsub' build argument 'cmake_clean_first' from command line to 'False'
+[1.470s] Level 5:colcon.colcon_core.verb:set package 'py_pubsub' build argument 'cmake_force_configure' from command line to 'False'
+[1.470s] Level 5:colcon.colcon_core.verb:set package 'py_pubsub' build argument 'ament_cmake_args' from command line to 'None'
+[1.470s] Level 5:colcon.colcon_core.verb:set package 'py_pubsub' build argument 'catkin_cmake_args' from command line to 'None'
+[1.470s] Level 5:colcon.colcon_core.verb:set package 'py_pubsub' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.470s] DEBUG:colcon.colcon_core.verb:Building package 'py_pubsub' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/evanyan13/colcon_ws/build/py_pubsub', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/evanyan13/colcon_ws/install/py_pubsub', 'merge_install': False, 'path': '/home/evanyan13/colcon_ws/src/py_pubsub', 'symlink_install': True, 'test_result_base': None}
+[1.487s] Level 5:colcon.colcon_core.verb:set package 'state_machine' build argument 'cmake_args' from command line to 'None'
+[1.487s] Level 5:colcon.colcon_core.verb:set package 'state_machine' build argument 'cmake_target' from command line to 'None'
+[1.487s] Level 5:colcon.colcon_core.verb:set package 'state_machine' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.487s] Level 5:colcon.colcon_core.verb:set package 'state_machine' build argument 'cmake_clean_cache' from command line to 'False'
+[1.487s] Level 5:colcon.colcon_core.verb:set package 'state_machine' build argument 'cmake_clean_first' from command line to 'False'
+[1.487s] Level 5:colcon.colcon_core.verb:set package 'state_machine' build argument 'cmake_force_configure' from command line to 'False'
+[1.487s] Level 5:colcon.colcon_core.verb:set package 'state_machine' build argument 'ament_cmake_args' from command line to 'None'
+[1.487s] Level 5:colcon.colcon_core.verb:set package 'state_machine' build argument 'catkin_cmake_args' from command line to 'None'
+[1.487s] Level 5:colcon.colcon_core.verb:set package 'state_machine' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.487s] DEBUG:colcon.colcon_core.verb:Building package 'state_machine' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/evanyan13/colcon_ws/build/state_machine', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/evanyan13/colcon_ws/install/state_machine', 'merge_install': False, 'path': '/home/evanyan13/colcon_ws/src/state_machine', 'symlink_install': True, 'test_result_base': None}
+[1.505s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_fake_node' build argument 'cmake_args' from command line to 'None'
+[1.505s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_fake_node' build argument 'cmake_target' from command line to 'None'
+[1.505s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_fake_node' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.505s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_fake_node' build argument 'cmake_clean_cache' from command line to 'False'
+[1.505s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_fake_node' build argument 'cmake_clean_first' from command line to 'False'
+[1.505s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_fake_node' build argument 'cmake_force_configure' from command line to 'False'
+[1.505s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_fake_node' build argument 'ament_cmake_args' from command line to 'None'
+[1.505s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_fake_node' build argument 'catkin_cmake_args' from command line to 'None'
+[1.505s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_fake_node' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.505s] DEBUG:colcon.colcon_core.verb:Building package 'turtlebot3_fake_node' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/evanyan13/colcon_ws/build/turtlebot3_fake_node', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node', 'merge_install': False, 'path': '/home/evanyan13/colcon_ws/src/turtlebot3_simulations/turtlebot3_fake_node', 'symlink_install': True, 'test_result_base': None}
+[1.522s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_gazebo' build argument 'cmake_args' from command line to 'None'
+[1.522s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_gazebo' build argument 'cmake_target' from command line to 'None'
+[1.522s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_gazebo' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.522s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_gazebo' build argument 'cmake_clean_cache' from command line to 'False'
+[1.522s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_gazebo' build argument 'cmake_clean_first' from command line to 'False'
+[1.522s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_gazebo' build argument 'cmake_force_configure' from command line to 'False'
+[1.522s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_gazebo' build argument 'ament_cmake_args' from command line to 'None'
+[1.522s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_gazebo' build argument 'catkin_cmake_args' from command line to 'None'
+[1.522s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_gazebo' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.522s] DEBUG:colcon.colcon_core.verb:Building package 'turtlebot3_gazebo' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/evanyan13/colcon_ws/build/turtlebot3_gazebo', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo', 'merge_install': False, 'path': '/home/evanyan13/colcon_ws/src/turtlebot3_simulations/turtlebot3_gazebo', 'symlink_install': True, 'test_result_base': None}
+[1.540s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_simulations' build argument 'cmake_args' from command line to 'None'
+[1.540s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_simulations' build argument 'cmake_target' from command line to 'None'
+[1.540s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_simulations' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[1.540s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_simulations' build argument 'cmake_clean_cache' from command line to 'False'
+[1.540s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_simulations' build argument 'cmake_clean_first' from command line to 'False'
+[1.540s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_simulations' build argument 'cmake_force_configure' from command line to 'False'
+[1.540s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_simulations' build argument 'ament_cmake_args' from command line to 'None'
+[1.540s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_simulations' build argument 'catkin_cmake_args' from command line to 'None'
+[1.540s] Level 5:colcon.colcon_core.verb:set package 'turtlebot3_simulations' build argument 'catkin_skip_building_tests' from command line to 'False'
+[1.540s] DEBUG:colcon.colcon_core.verb:Building package 'turtlebot3_simulations' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/evanyan13/colcon_ws/build/turtlebot3_simulations', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/evanyan13/colcon_ws/install/turtlebot3_simulations', 'merge_install': False, 'path': '/home/evanyan13/colcon_ws/src/turtlebot3_simulations/turtlebot3_simulations', 'symlink_install': True, 'test_result_base': None}
+[1.559s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[1.578s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[1.579s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/evanyan13/colcon_ws/src/turtlebot3_simulations/turtlebot3_fake_node' with build type 'ament_cmake'
+[1.579s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/evanyan13/colcon_ws/src/turtlebot3_simulations/turtlebot3_fake_node'
+[1.600s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[1.600s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.600s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.661s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/evanyan13/colcon_ws/src/turtlebot3_simulations/turtlebot3_gazebo' with build type 'ament_cmake'
+[1.662s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/evanyan13/colcon_ws/src/turtlebot3_simulations/turtlebot3_gazebo'
+[1.684s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.684s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.754s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/evanyan13/colcon_ws/src/auto_nav' with build type 'ament_python'
+[1.754s] Level 1:colcon.colcon_core.shell:create_environment_hook('auto_nav', 'ament_prefix_path')
+[1.775s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/auto_nav/share/auto_nav/hook/ament_prefix_path.ps1'
+[1.775s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/install/auto_nav/share/auto_nav/hook/ament_prefix_path.dsv'
+[1.775s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/auto_nav/share/auto_nav/hook/ament_prefix_path.sh'
+[1.796s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.796s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.856s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/evanyan13/colcon_ws/src/autonomous_exploration' with build type 'ament_python'
+[1.856s] Level 1:colcon.colcon_core.shell:create_environment_hook('autonomous_exploration', 'ament_prefix_path')
+[1.876s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/autonomous_exploration/share/autonomous_exploration/hook/ament_prefix_path.ps1'
+[1.876s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/install/autonomous_exploration/share/autonomous_exploration/hook/ament_prefix_path.dsv'
+[1.877s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/autonomous_exploration/share/autonomous_exploration/hook/ament_prefix_path.sh'
+[1.897s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.897s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.956s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/evanyan13/colcon_ws/src/launcher' with build type 'ament_python'
+[1.957s] Level 1:colcon.colcon_core.shell:create_environment_hook('launcher', 'ament_prefix_path')
+[1.977s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/launcher/share/launcher/hook/ament_prefix_path.ps1'
+[1.978s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/install/launcher/share/launcher/hook/ament_prefix_path.dsv'
+[1.978s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/launcher/share/launcher/hook/ament_prefix_path.sh'
+[1.998s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.998s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.059s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/evanyan13/colcon_ws/src/lidar_pubsub' with build type 'ament_python'
+[2.059s] Level 1:colcon.colcon_core.shell:create_environment_hook('lidar_pubsub', 'ament_prefix_path')
+[2.079s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/lidar_pubsub/share/lidar_pubsub/hook/ament_prefix_path.ps1'
+[2.079s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/install/lidar_pubsub/share/lidar_pubsub/hook/ament_prefix_path.dsv'
+[2.079s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/lidar_pubsub/share/lidar_pubsub/hook/ament_prefix_path.sh'
+[2.100s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.100s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.166s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/evanyan13/colcon_ws/build/turtlebot3_fake_node': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/evanyan13/colcon_ws/install/state_machine:/home/evanyan13/colcon_ws/install/py_pubsub:/home/evanyan13/colcon_ws/install/navi_main:/home/evanyan13/colcon_ws/install/marker:/home/evanyan13/colcon_ws/install/line_follower:/home/evanyan13/colcon_ws/install/lidar_pubsub:/home/evanyan13/colcon_ws/install/launcher:/home/evanyan13/colcon_ws/install/autonomous_exploration:/home/evanyan13/colcon_ws/install/auto_nav:/home/evanyan13/colcon_ws/install/a_star:/opt/ros/foxy /usr/bin/cmake --build /home/evanyan13/colcon_ws/build/turtlebot3_fake_node -- -j6 -l6
+[2.169s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/evanyan13/colcon_ws/build/turtlebot3_gazebo': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/evanyan13/colcon_ws/install/state_machine:/home/evanyan13/colcon_ws/install/py_pubsub:/home/evanyan13/colcon_ws/install/navi_main:/home/evanyan13/colcon_ws/install/marker:/home/evanyan13/colcon_ws/install/line_follower:/home/evanyan13/colcon_ws/install/lidar_pubsub:/home/evanyan13/colcon_ws/install/launcher:/home/evanyan13/colcon_ws/install/autonomous_exploration:/home/evanyan13/colcon_ws/install/auto_nav:/home/evanyan13/colcon_ws/install/a_star:/opt/ros/foxy /usr/bin/cmake --build /home/evanyan13/colcon_ws/build/turtlebot3_gazebo -- -j6 -l6
+[2.295s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/evanyan13/colcon_ws/src/auto_nav'
+[2.321s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.321s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.496s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/evanyan13/colcon_ws/src/autonomous_exploration'
+[2.516s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.516s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.690s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/evanyan13/colcon_ws/src/launcher'
+[2.711s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.711s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.886s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/evanyan13/colcon_ws/src/lidar_pubsub'
+[2.906s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[2.906s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[2.968s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/evanyan13/colcon_ws/build/turtlebot3_fake_node' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/evanyan13/colcon_ws/install/state_machine:/home/evanyan13/colcon_ws/install/py_pubsub:/home/evanyan13/colcon_ws/install/navi_main:/home/evanyan13/colcon_ws/install/marker:/home/evanyan13/colcon_ws/install/line_follower:/home/evanyan13/colcon_ws/install/lidar_pubsub:/home/evanyan13/colcon_ws/install/launcher:/home/evanyan13/colcon_ws/install/autonomous_exploration:/home/evanyan13/colcon_ws/install/auto_nav:/home/evanyan13/colcon_ws/install/a_star:/opt/ros/foxy /usr/bin/cmake --build /home/evanyan13/colcon_ws/build/turtlebot3_fake_node -- -j6 -l6
+[2.970s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/evanyan13/colcon_ws/build/turtlebot3_gazebo' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/evanyan13/colcon_ws/install/state_machine:/home/evanyan13/colcon_ws/install/py_pubsub:/home/evanyan13/colcon_ws/install/navi_main:/home/evanyan13/colcon_ws/install/marker:/home/evanyan13/colcon_ws/install/line_follower:/home/evanyan13/colcon_ws/install/lidar_pubsub:/home/evanyan13/colcon_ws/install/launcher:/home/evanyan13/colcon_ws/install/autonomous_exploration:/home/evanyan13/colcon_ws/install/auto_nav:/home/evanyan13/colcon_ws/install/a_star:/opt/ros/foxy /usr/bin/cmake --build /home/evanyan13/colcon_ws/build/turtlebot3_gazebo -- -j6 -l6
+[3.033s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/evanyan13/colcon_ws/build/turtlebot3_fake_node': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/evanyan13/colcon_ws/install/state_machine:/home/evanyan13/colcon_ws/install/py_pubsub:/home/evanyan13/colcon_ws/install/navi_main:/home/evanyan13/colcon_ws/install/marker:/home/evanyan13/colcon_ws/install/line_follower:/home/evanyan13/colcon_ws/install/lidar_pubsub:/home/evanyan13/colcon_ws/install/launcher:/home/evanyan13/colcon_ws/install/autonomous_exploration:/home/evanyan13/colcon_ws/install/auto_nav:/home/evanyan13/colcon_ws/install/a_star:/opt/ros/foxy /usr/bin/cmake --install /home/evanyan13/colcon_ws/build/turtlebot3_fake_node
+[3.054s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(turtlebot3_fake_node)
+[3.054s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/evanyan13/colcon_ws/build/turtlebot3_fake_node' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/evanyan13/colcon_ws/install/state_machine:/home/evanyan13/colcon_ws/install/py_pubsub:/home/evanyan13/colcon_ws/install/navi_main:/home/evanyan13/colcon_ws/install/marker:/home/evanyan13/colcon_ws/install/line_follower:/home/evanyan13/colcon_ws/install/lidar_pubsub:/home/evanyan13/colcon_ws/install/launcher:/home/evanyan13/colcon_ws/install/autonomous_exploration:/home/evanyan13/colcon_ws/install/auto_nav:/home/evanyan13/colcon_ws/install/a_star:/opt/ros/foxy /usr/bin/cmake --install /home/evanyan13/colcon_ws/build/turtlebot3_fake_node
+[3.076s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node' for CMake module files
+[3.077s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node' for CMake config files
+[3.077s] Level 1:colcon.colcon_core.shell:create_environment_hook('turtlebot3_fake_node', 'cmake_prefix_path')
+[3.098s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/hook/cmake_prefix_path.ps1'
+[3.098s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/hook/cmake_prefix_path.dsv'
+[3.098s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/hook/cmake_prefix_path.sh'
+[3.098s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/lib'
+[3.099s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/bin'
+[3.099s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/lib/pkgconfig/turtlebot3_fake_node.pc'
+[3.099s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/lib/python3.8/site-packages'
+[3.099s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/bin'
+[3.120s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/package.ps1'
+[3.121s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/package.dsv'
+[3.121s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/package.sh'
+[3.121s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/package.bash'
+[3.121s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/package.zsh'
+[3.122s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/colcon-core/packages/turtlebot3_fake_node)
+[3.137s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/evanyan13/colcon_ws/build/turtlebot3_gazebo': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/evanyan13/colcon_ws/install/state_machine:/home/evanyan13/colcon_ws/install/py_pubsub:/home/evanyan13/colcon_ws/install/navi_main:/home/evanyan13/colcon_ws/install/marker:/home/evanyan13/colcon_ws/install/line_follower:/home/evanyan13/colcon_ws/install/lidar_pubsub:/home/evanyan13/colcon_ws/install/launcher:/home/evanyan13/colcon_ws/install/autonomous_exploration:/home/evanyan13/colcon_ws/install/auto_nav:/home/evanyan13/colcon_ws/install/a_star:/opt/ros/foxy /usr/bin/cmake --install /home/evanyan13/colcon_ws/build/turtlebot3_gazebo
+[3.176s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(turtlebot3_gazebo)
+[3.177s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/evanyan13/colcon_ws/build/turtlebot3_gazebo' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/evanyan13/colcon_ws/install/state_machine:/home/evanyan13/colcon_ws/install/py_pubsub:/home/evanyan13/colcon_ws/install/navi_main:/home/evanyan13/colcon_ws/install/marker:/home/evanyan13/colcon_ws/install/line_follower:/home/evanyan13/colcon_ws/install/lidar_pubsub:/home/evanyan13/colcon_ws/install/launcher:/home/evanyan13/colcon_ws/install/autonomous_exploration:/home/evanyan13/colcon_ws/install/auto_nav:/home/evanyan13/colcon_ws/install/a_star:/opt/ros/foxy /usr/bin/cmake --install /home/evanyan13/colcon_ws/build/turtlebot3_gazebo
+[3.203s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo' for CMake module files
+[3.203s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo' for CMake config files
+[3.204s] Level 1:colcon.colcon_core.shell:create_environment_hook('turtlebot3_gazebo', 'cmake_prefix_path')
+[3.228s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/hook/cmake_prefix_path.ps1'
+[3.228s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/hook/cmake_prefix_path.dsv'
+[3.228s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/hook/cmake_prefix_path.sh'
+[3.229s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/lib'
+[3.229s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/bin'
+[3.229s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/lib/pkgconfig/turtlebot3_gazebo.pc'
+[3.229s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/lib/python3.8/site-packages'
+[3.229s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/bin'
+[3.251s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/package.ps1'
+[3.252s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/package.dsv'
+[3.252s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/package.sh'
+[3.252s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/package.bash'
+[3.253s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/package.zsh'
+[3.253s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/colcon-core/packages/turtlebot3_gazebo)
+[3.283s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(turtlebot3_fake_node)
+[3.303s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node' for CMake module files
+[3.303s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node' for CMake config files
+[3.303s] Level 1:colcon.colcon_core.shell:create_environment_hook('turtlebot3_fake_node', 'cmake_prefix_path')
+[3.322s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/hook/cmake_prefix_path.ps1'
+[3.322s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/hook/cmake_prefix_path.dsv'
+[3.323s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/hook/cmake_prefix_path.sh'
+[3.323s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/lib'
+[3.323s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/bin'
+[3.323s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/lib/pkgconfig/turtlebot3_fake_node.pc'
+[3.323s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/lib/python3.8/site-packages'
+[3.323s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/bin'
+[3.342s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/package.ps1'
+[3.342s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/package.dsv'
+[3.342s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/package.sh'
+[3.343s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/package.bash'
+[3.343s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/turtlebot3_fake_node/package.zsh'
+[3.343s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/evanyan13/colcon_ws/install/turtlebot3_fake_node/share/colcon-core/packages/turtlebot3_fake_node)
+[3.345s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/evanyan13/colcon_ws/build/auto_nav': PYTHONPATH=/home/evanyan13/colcon_ws/build/auto_nav/prefix_override:/home/evanyan13/colcon_ws/install/auto_nav/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/auto_nav/build --no-deps install_data
+[3.347s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/evanyan13/colcon_ws/build/lidar_pubsub': PYTHONPATH=/home/evanyan13/colcon_ws/build/lidar_pubsub/prefix_override:/home/evanyan13/colcon_ws/install/lidar_pubsub/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/lidar_pubsub/build --no-deps install_data
+[3.350s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/evanyan13/colcon_ws/build/autonomous_exploration': PYTHONPATH=/home/evanyan13/colcon_ws/build/autonomous_exploration/prefix_override:/home/evanyan13/colcon_ws/install/autonomous_exploration/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/autonomous_exploration/build --no-deps install_data
+[3.352s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/evanyan13/colcon_ws/build/launcher': PYTHONPATH=/home/evanyan13/colcon_ws/build/launcher/prefix_override:/home/evanyan13/colcon_ws/install/launcher/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/launcher/build --no-deps install_data
+[3.356s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/evanyan13/colcon_ws/src/line_follower' with build type 'ament_python'
+[3.357s] Level 1:colcon.colcon_core.shell:create_environment_hook('line_follower', 'ament_prefix_path')
+[3.379s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/line_follower/share/line_follower/hook/ament_prefix_path.ps1'
+[3.380s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/install/line_follower/share/line_follower/hook/ament_prefix_path.dsv'
+[3.380s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/line_follower/share/line_follower/hook/ament_prefix_path.sh'
+[3.404s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[3.404s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[3.501s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(turtlebot3_gazebo)
+[3.521s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo' for CMake module files
+[3.521s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo' for CMake config files
+[3.522s] Level 1:colcon.colcon_core.shell:create_environment_hook('turtlebot3_gazebo', 'cmake_prefix_path')
+[3.543s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/hook/cmake_prefix_path.ps1'
+[3.543s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/hook/cmake_prefix_path.dsv'
+[3.543s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/hook/cmake_prefix_path.sh'
+[3.544s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/lib'
+[3.544s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/bin'
+[3.544s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/lib/pkgconfig/turtlebot3_gazebo.pc'
+[3.544s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/lib/python3.8/site-packages'
+[3.544s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/bin'
+[3.569s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/package.ps1'
+[3.569s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/package.dsv'
+[3.569s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/package.sh'
+[3.569s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/package.bash'
+[3.570s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/turtlebot3_gazebo/package.zsh'
+[3.570s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/evanyan13/colcon_ws/install/turtlebot3_gazebo/share/colcon-core/packages/turtlebot3_gazebo)
+[3.571s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/evanyan13/colcon_ws/src/marker' with build type 'ament_python'
+[3.571s] Level 1:colcon.colcon_core.shell:create_environment_hook('marker', 'ament_prefix_path')
+[3.597s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/marker/share/marker/hook/ament_prefix_path.ps1'
+[3.597s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/install/marker/share/marker/hook/ament_prefix_path.dsv'
+[3.598s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/marker/share/marker/hook/ament_prefix_path.sh'
+[3.620s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[3.621s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[3.801s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/evanyan13/colcon_ws/src/line_follower'
+[3.823s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[3.823s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[3.893s] Level 1:colcon.colcon_core.shell:create_environment_hook('auto_nav', 'pythonpath_develop')
+[3.893s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/evanyan13/colcon_ws/build/auto_nav' returned '0': PYTHONPATH=/home/evanyan13/colcon_ws/build/auto_nav/prefix_override:/home/evanyan13/colcon_ws/install/auto_nav/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/auto_nav/build --no-deps install_data
+[3.912s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/build/auto_nav/share/auto_nav/hook/pythonpath_develop.ps1'
+[3.912s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/build/auto_nav/share/auto_nav/hook/pythonpath_develop.dsv'
+[3.912s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/build/auto_nav/share/auto_nav/hook/pythonpath_develop.sh'
+[3.932s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/auto_nav' for CMake module files
+[3.932s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/auto_nav' for CMake config files
+[3.932s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/auto_nav/lib'
+[3.932s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/auto_nav/bin'
+[3.932s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/auto_nav/lib/pkgconfig/auto_nav.pc'
+[3.932s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/auto_nav/lib/python3.8/site-packages'
+[3.932s] Level 1:colcon.colcon_core.shell:create_environment_hook('auto_nav', 'pythonpath')
+[3.951s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/auto_nav/share/auto_nav/hook/pythonpath.ps1'
+[3.951s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/install/auto_nav/share/auto_nav/hook/pythonpath.dsv'
+[3.951s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/auto_nav/share/auto_nav/hook/pythonpath.sh'
+[3.952s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/auto_nav/bin'
+[3.952s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(auto_nav)
+[3.970s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/auto_nav/share/auto_nav/package.ps1'
+[3.971s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/evanyan13/colcon_ws/install/auto_nav/share/auto_nav/package.dsv'
+[3.971s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/auto_nav/share/auto_nav/package.sh'
+[3.971s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/auto_nav/share/auto_nav/package.bash'
+[3.971s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/auto_nav/share/auto_nav/package.zsh'
+[3.971s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/evanyan13/colcon_ws/install/auto_nav/share/colcon-core/packages/auto_nav)
+[3.972s] Level 1:colcon.colcon_core.shell:create_environment_hook('autonomous_exploration', 'pythonpath_develop')
+[3.972s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/evanyan13/colcon_ws/build/autonomous_exploration' returned '0': PYTHONPATH=/home/evanyan13/colcon_ws/build/autonomous_exploration/prefix_override:/home/evanyan13/colcon_ws/install/autonomous_exploration/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/autonomous_exploration/build --no-deps install_data
+[3.991s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/build/autonomous_exploration/share/autonomous_exploration/hook/pythonpath_develop.ps1'
+[3.992s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/build/autonomous_exploration/share/autonomous_exploration/hook/pythonpath_develop.dsv'
+[3.992s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/build/autonomous_exploration/share/autonomous_exploration/hook/pythonpath_develop.sh'
+[4.011s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/autonomous_exploration' for CMake module files
+[4.011s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/autonomous_exploration' for CMake config files
+[4.012s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/autonomous_exploration/lib'
+[4.012s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/autonomous_exploration/bin'
+[4.012s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/autonomous_exploration/lib/pkgconfig/autonomous_exploration.pc'
+[4.012s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/autonomous_exploration/lib/python3.8/site-packages'
+[4.012s] Level 1:colcon.colcon_core.shell:create_environment_hook('autonomous_exploration', 'pythonpath')
+[4.033s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/autonomous_exploration/share/autonomous_exploration/hook/pythonpath.ps1'
+[4.033s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/install/autonomous_exploration/share/autonomous_exploration/hook/pythonpath.dsv'
+[4.033s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/autonomous_exploration/share/autonomous_exploration/hook/pythonpath.sh'
+[4.034s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/autonomous_exploration/bin'
+[4.034s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(autonomous_exploration)
+[4.053s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/autonomous_exploration/share/autonomous_exploration/package.ps1'
+[4.053s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/evanyan13/colcon_ws/install/autonomous_exploration/share/autonomous_exploration/package.dsv'
+[4.054s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/autonomous_exploration/share/autonomous_exploration/package.sh'
+[4.054s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/autonomous_exploration/share/autonomous_exploration/package.bash'
+[4.054s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/autonomous_exploration/share/autonomous_exploration/package.zsh'
+[4.055s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/evanyan13/colcon_ws/install/autonomous_exploration/share/colcon-core/packages/autonomous_exploration)
+[4.056s] Level 1:colcon.colcon_core.shell:create_environment_hook('lidar_pubsub', 'pythonpath_develop')
+[4.056s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/evanyan13/colcon_ws/build/lidar_pubsub' returned '0': PYTHONPATH=/home/evanyan13/colcon_ws/build/lidar_pubsub/prefix_override:/home/evanyan13/colcon_ws/install/lidar_pubsub/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/lidar_pubsub/build --no-deps install_data
+[4.076s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/build/lidar_pubsub/share/lidar_pubsub/hook/pythonpath_develop.ps1'
+[4.077s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/build/lidar_pubsub/share/lidar_pubsub/hook/pythonpath_develop.dsv'
+[4.077s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/build/lidar_pubsub/share/lidar_pubsub/hook/pythonpath_develop.sh'
+[4.096s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/lidar_pubsub' for CMake module files
+[4.097s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/lidar_pubsub' for CMake config files
+[4.097s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/lidar_pubsub/lib'
+[4.097s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/lidar_pubsub/bin'
+[4.097s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/lidar_pubsub/lib/pkgconfig/lidar_pubsub.pc'
+[4.097s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/lidar_pubsub/lib/python3.8/site-packages'
+[4.097s] Level 1:colcon.colcon_core.shell:create_environment_hook('lidar_pubsub', 'pythonpath')
+[4.116s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/lidar_pubsub/share/lidar_pubsub/hook/pythonpath.ps1'
+[4.116s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/install/lidar_pubsub/share/lidar_pubsub/hook/pythonpath.dsv'
+[4.117s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/lidar_pubsub/share/lidar_pubsub/hook/pythonpath.sh'
+[4.117s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/lidar_pubsub/bin'
+[4.117s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(lidar_pubsub)
+[4.136s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/lidar_pubsub/share/lidar_pubsub/package.ps1'
+[4.137s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/evanyan13/colcon_ws/install/lidar_pubsub/share/lidar_pubsub/package.dsv'
+[4.137s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/lidar_pubsub/share/lidar_pubsub/package.sh'
+[4.137s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/lidar_pubsub/share/lidar_pubsub/package.bash'
+[4.138s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/lidar_pubsub/share/lidar_pubsub/package.zsh'
+[4.138s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/evanyan13/colcon_ws/install/lidar_pubsub/share/colcon-core/packages/lidar_pubsub)
+[4.138s] Level 1:colcon.colcon_core.shell:create_environment_hook('launcher', 'pythonpath_develop')
+[4.138s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/evanyan13/colcon_ws/build/launcher' returned '0': PYTHONPATH=/home/evanyan13/colcon_ws/build/launcher/prefix_override:/home/evanyan13/colcon_ws/install/launcher/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/launcher/build --no-deps install_data
+[4.157s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/build/launcher/share/launcher/hook/pythonpath_develop.ps1'
+[4.157s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/build/launcher/share/launcher/hook/pythonpath_develop.dsv'
+[4.158s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/build/launcher/share/launcher/hook/pythonpath_develop.sh'
+[4.178s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/launcher' for CMake module files
+[4.178s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/launcher' for CMake config files
+[4.178s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/launcher/lib'
+[4.179s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/launcher/bin'
+[4.179s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/launcher/lib/pkgconfig/launcher.pc'
+[4.179s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/launcher/lib/python3.8/site-packages'
+[4.179s] Level 1:colcon.colcon_core.shell:create_environment_hook('launcher', 'pythonpath')
+[4.197s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/launcher/share/launcher/hook/pythonpath.ps1'
+[4.197s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/install/launcher/share/launcher/hook/pythonpath.dsv'
+[4.198s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/launcher/share/launcher/hook/pythonpath.sh'
+[4.198s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/launcher/bin'
+[4.198s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(launcher)
+[4.218s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/launcher/share/launcher/package.ps1'
+[4.218s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/evanyan13/colcon_ws/install/launcher/share/launcher/package.dsv'
+[4.219s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/launcher/share/launcher/package.sh'
+[4.219s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/launcher/share/launcher/package.bash'
+[4.219s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/launcher/share/launcher/package.zsh'
+[4.219s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/evanyan13/colcon_ws/install/launcher/share/colcon-core/packages/launcher)
+[4.220s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/evanyan13/colcon_ws/src/navi_main' with build type 'ament_python'
+[4.220s] Level 1:colcon.colcon_core.shell:create_environment_hook('navi_main', 'ament_prefix_path')
+[4.240s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/navi_main/share/navi_main/hook/ament_prefix_path.ps1'
+[4.240s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/install/navi_main/share/navi_main/hook/ament_prefix_path.dsv'
+[4.240s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/navi_main/share/navi_main/hook/ament_prefix_path.sh'
+[4.261s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[4.261s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[4.319s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/evanyan13/colcon_ws/src/py_pubsub' with build type 'ament_python'
+[4.320s] Level 1:colcon.colcon_core.shell:create_environment_hook('py_pubsub', 'ament_prefix_path')
+[4.340s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/py_pubsub/share/py_pubsub/hook/ament_prefix_path.ps1'
+[4.340s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/install/py_pubsub/share/py_pubsub/hook/ament_prefix_path.dsv'
+[4.340s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/py_pubsub/share/py_pubsub/hook/ament_prefix_path.sh'
+[4.360s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[4.360s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[4.426s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/evanyan13/colcon_ws/src/state_machine' with build type 'ament_python'
+[4.426s] Level 1:colcon.colcon_core.shell:create_environment_hook('state_machine', 'ament_prefix_path')
+[4.447s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/state_machine/share/state_machine/hook/ament_prefix_path.ps1'
+[4.447s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/install/state_machine/share/state_machine/hook/ament_prefix_path.dsv'
+[4.447s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/state_machine/share/state_machine/hook/ament_prefix_path.sh'
+[4.467s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[4.467s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[4.527s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/evanyan13/colcon_ws/src/turtlebot3_simulations/turtlebot3_simulations' with build type 'ament_cmake'
+[4.527s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/evanyan13/colcon_ws/src/turtlebot3_simulations/turtlebot3_simulations'
+[4.547s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[4.547s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[4.725s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/evanyan13/colcon_ws/src/marker'
+[4.745s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[4.746s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[4.928s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/evanyan13/colcon_ws/src/navi_main'
+[4.949s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[4.949s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[5.138s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/evanyan13/colcon_ws/src/py_pubsub'
+[5.157s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[5.158s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[5.337s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/evanyan13/colcon_ws/src/state_machine'
+[5.358s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[5.358s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[5.421s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/evanyan13/colcon_ws/build/turtlebot3_simulations': CMAKE_PREFIX_PATH=/home/evanyan13/colcon_ws/install/turtlebot3_gazebo:/home/evanyan13/colcon_ws/install/turtlebot3_fake_node:/home/evanyan13/colcon_ws/install/turtlebot3_simulations:/home/evanyan13/colcon_ws/install/state_machine:/home/evanyan13/colcon_ws/install/py_pubsub:/home/evanyan13/colcon_ws/install/navi_main:/home/evanyan13/colcon_ws/install/marker:/home/evanyan13/colcon_ws/install/line_follower:/home/evanyan13/colcon_ws/install/lidar_pubsub:/home/evanyan13/colcon_ws/install/launcher:/home/evanyan13/colcon_ws/install/autonomous_exploration:/home/evanyan13/colcon_ws/install/auto_nav:/home/evanyan13/colcon_ws/install/a_star:/opt/ros/foxy /usr/bin/cmake --build /home/evanyan13/colcon_ws/build/turtlebot3_simulations -- -j6 -l6
+[5.426s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/evanyan13/colcon_ws/build/line_follower': PYTHONPATH=/home/evanyan13/colcon_ws/build/line_follower/prefix_override:/home/evanyan13/colcon_ws/install/line_follower/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/line_follower/build --no-deps install_data
+[5.457s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/evanyan13/colcon_ws/build/turtlebot3_simulations' returned '0': CMAKE_PREFIX_PATH=/home/evanyan13/colcon_ws/install/turtlebot3_gazebo:/home/evanyan13/colcon_ws/install/turtlebot3_fake_node:/home/evanyan13/colcon_ws/install/turtlebot3_simulations:/home/evanyan13/colcon_ws/install/state_machine:/home/evanyan13/colcon_ws/install/py_pubsub:/home/evanyan13/colcon_ws/install/navi_main:/home/evanyan13/colcon_ws/install/marker:/home/evanyan13/colcon_ws/install/line_follower:/home/evanyan13/colcon_ws/install/lidar_pubsub:/home/evanyan13/colcon_ws/install/launcher:/home/evanyan13/colcon_ws/install/autonomous_exploration:/home/evanyan13/colcon_ws/install/auto_nav:/home/evanyan13/colcon_ws/install/a_star:/opt/ros/foxy /usr/bin/cmake --build /home/evanyan13/colcon_ws/build/turtlebot3_simulations -- -j6 -l6
+[5.484s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/evanyan13/colcon_ws/build/turtlebot3_simulations': CMAKE_PREFIX_PATH=/home/evanyan13/colcon_ws/install/turtlebot3_gazebo:/home/evanyan13/colcon_ws/install/turtlebot3_fake_node:/home/evanyan13/colcon_ws/install/turtlebot3_simulations:/home/evanyan13/colcon_ws/install/state_machine:/home/evanyan13/colcon_ws/install/py_pubsub:/home/evanyan13/colcon_ws/install/navi_main:/home/evanyan13/colcon_ws/install/marker:/home/evanyan13/colcon_ws/install/line_follower:/home/evanyan13/colcon_ws/install/lidar_pubsub:/home/evanyan13/colcon_ws/install/launcher:/home/evanyan13/colcon_ws/install/autonomous_exploration:/home/evanyan13/colcon_ws/install/auto_nav:/home/evanyan13/colcon_ws/install/a_star:/opt/ros/foxy /usr/bin/cmake --install /home/evanyan13/colcon_ws/build/turtlebot3_simulations
+[5.510s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(turtlebot3_simulations)
+[5.519s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/evanyan13/colcon_ws/build/turtlebot3_simulations' returned '0': CMAKE_PREFIX_PATH=/home/evanyan13/colcon_ws/install/turtlebot3_gazebo:/home/evanyan13/colcon_ws/install/turtlebot3_fake_node:/home/evanyan13/colcon_ws/install/turtlebot3_simulations:/home/evanyan13/colcon_ws/install/state_machine:/home/evanyan13/colcon_ws/install/py_pubsub:/home/evanyan13/colcon_ws/install/navi_main:/home/evanyan13/colcon_ws/install/marker:/home/evanyan13/colcon_ws/install/line_follower:/home/evanyan13/colcon_ws/install/lidar_pubsub:/home/evanyan13/colcon_ws/install/launcher:/home/evanyan13/colcon_ws/install/autonomous_exploration:/home/evanyan13/colcon_ws/install/auto_nav:/home/evanyan13/colcon_ws/install/a_star:/opt/ros/foxy /usr/bin/cmake --install /home/evanyan13/colcon_ws/build/turtlebot3_simulations
+[5.534s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_simulations' for CMake module files
+[5.534s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_simulations' for CMake config files
+[5.534s] Level 1:colcon.colcon_core.shell:create_environment_hook('turtlebot3_simulations', 'cmake_prefix_path')
+[5.556s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/turtlebot3_simulations/share/turtlebot3_simulations/hook/cmake_prefix_path.ps1'
+[5.556s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/install/turtlebot3_simulations/share/turtlebot3_simulations/hook/cmake_prefix_path.dsv'
+[5.556s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/turtlebot3_simulations/share/turtlebot3_simulations/hook/cmake_prefix_path.sh'
+[5.556s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_simulations/bin'
+[5.556s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_simulations/lib/pkgconfig/turtlebot3_simulations.pc'
+[5.557s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_simulations/lib/python3.8/site-packages'
+[5.557s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_simulations/bin'
+[5.579s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/turtlebot3_simulations/share/turtlebot3_simulations/package.ps1'
+[5.579s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/evanyan13/colcon_ws/install/turtlebot3_simulations/share/turtlebot3_simulations/package.dsv'
+[5.580s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/turtlebot3_simulations/share/turtlebot3_simulations/package.sh'
+[5.580s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/turtlebot3_simulations/share/turtlebot3_simulations/package.bash'
+[5.580s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/turtlebot3_simulations/share/turtlebot3_simulations/package.zsh'
+[5.581s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/evanyan13/colcon_ws/install/turtlebot3_simulations/share/colcon-core/packages/turtlebot3_simulations)
+[5.634s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(turtlebot3_simulations)
+[5.656s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_simulations' for CMake module files
+[5.656s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_simulations' for CMake config files
+[5.656s] Level 1:colcon.colcon_core.shell:create_environment_hook('turtlebot3_simulations', 'cmake_prefix_path')
+[5.682s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/turtlebot3_simulations/share/turtlebot3_simulations/hook/cmake_prefix_path.ps1'
+[5.683s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/install/turtlebot3_simulations/share/turtlebot3_simulations/hook/cmake_prefix_path.dsv'
+[5.683s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/turtlebot3_simulations/share/turtlebot3_simulations/hook/cmake_prefix_path.sh'
+[5.684s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_simulations/bin'
+[5.684s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_simulations/lib/pkgconfig/turtlebot3_simulations.pc'
+[5.684s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_simulations/lib/python3.8/site-packages'
+[5.684s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/turtlebot3_simulations/bin'
+[5.707s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/turtlebot3_simulations/share/turtlebot3_simulations/package.ps1'
+[5.707s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/evanyan13/colcon_ws/install/turtlebot3_simulations/share/turtlebot3_simulations/package.dsv'
+[5.707s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/turtlebot3_simulations/share/turtlebot3_simulations/package.sh'
+[5.707s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/turtlebot3_simulations/share/turtlebot3_simulations/package.bash'
+[5.708s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/turtlebot3_simulations/share/turtlebot3_simulations/package.zsh'
+[5.708s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/evanyan13/colcon_ws/install/turtlebot3_simulations/share/colcon-core/packages/turtlebot3_simulations)
+[5.712s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/evanyan13/colcon_ws/build/marker': PYTHONPATH=/home/evanyan13/colcon_ws/build/marker/prefix_override:/home/evanyan13/colcon_ws/install/marker/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/marker/build --no-deps install_data
+[5.713s] Level 1:colcon.colcon_core.shell:create_environment_hook('line_follower', 'pythonpath_develop')
+[5.713s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/evanyan13/colcon_ws/build/line_follower' returned '0': PYTHONPATH=/home/evanyan13/colcon_ws/build/line_follower/prefix_override:/home/evanyan13/colcon_ws/install/line_follower/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/line_follower/build --no-deps install_data
+[5.736s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/build/line_follower/share/line_follower/hook/pythonpath_develop.ps1'
+[5.736s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/build/line_follower/share/line_follower/hook/pythonpath_develop.dsv'
+[5.736s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/build/line_follower/share/line_follower/hook/pythonpath_develop.sh'
+[5.757s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/line_follower' for CMake module files
+[5.757s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/line_follower' for CMake config files
+[5.757s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/line_follower/lib'
+[5.757s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/line_follower/bin'
+[5.757s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/line_follower/lib/pkgconfig/line_follower.pc'
+[5.757s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/line_follower/lib/python3.8/site-packages'
+[5.757s] Level 1:colcon.colcon_core.shell:create_environment_hook('line_follower', 'pythonpath')
+[5.777s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/line_follower/share/line_follower/hook/pythonpath.ps1'
+[5.778s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/install/line_follower/share/line_follower/hook/pythonpath.dsv'
+[5.778s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/line_follower/share/line_follower/hook/pythonpath.sh'
+[5.778s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/line_follower/bin'
+[5.778s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(line_follower)
+[5.798s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/line_follower/share/line_follower/package.ps1'
+[5.798s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/evanyan13/colcon_ws/install/line_follower/share/line_follower/package.dsv'
+[5.798s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/line_follower/share/line_follower/package.sh'
+[5.798s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/line_follower/share/line_follower/package.bash'
+[5.798s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/line_follower/share/line_follower/package.zsh'
+[5.799s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/evanyan13/colcon_ws/install/line_follower/share/colcon-core/packages/line_follower)
+[5.802s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/evanyan13/colcon_ws/build/navi_main': PYTHONPATH=/home/evanyan13/colcon_ws/build/navi_main/prefix_override:/home/evanyan13/colcon_ws/install/navi_main/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/navi_main/build --no-deps install_data
+[5.804s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/evanyan13/colcon_ws/build/py_pubsub': PYTHONPATH=/home/evanyan13/colcon_ws/build/py_pubsub/prefix_override:/home/evanyan13/colcon_ws/install/py_pubsub/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/py_pubsub/build --no-deps install_data
+[5.809s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/evanyan13/colcon_ws/build/state_machine': PYTHONPATH=/home/evanyan13/colcon_ws/build/state_machine/prefix_override:/home/evanyan13/colcon_ws/install/state_machine/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/state_machine/build --no-deps install_data
+[5.967s] Level 1:colcon.colcon_core.shell:create_environment_hook('marker', 'pythonpath_develop')
+[5.967s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/evanyan13/colcon_ws/build/marker' returned '0': PYTHONPATH=/home/evanyan13/colcon_ws/build/marker/prefix_override:/home/evanyan13/colcon_ws/install/marker/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/marker/build --no-deps install_data
+[5.988s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/build/marker/share/marker/hook/pythonpath_develop.ps1'
+[5.988s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/build/marker/share/marker/hook/pythonpath_develop.dsv'
+[5.988s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/build/marker/share/marker/hook/pythonpath_develop.sh'
+[6.012s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/marker' for CMake module files
+[6.012s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/marker' for CMake config files
+[6.013s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/marker/lib'
+[6.013s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/marker/bin'
+[6.013s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/marker/lib/pkgconfig/marker.pc'
+[6.013s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/marker/lib/python3.8/site-packages'
+[6.013s] Level 1:colcon.colcon_core.shell:create_environment_hook('marker', 'pythonpath')
+[6.037s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/marker/share/marker/hook/pythonpath.ps1'
+[6.038s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/install/marker/share/marker/hook/pythonpath.dsv'
+[6.038s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/marker/share/marker/hook/pythonpath.sh'
+[6.038s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/marker/bin'
+[6.038s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(marker)
+[6.060s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/marker/share/marker/package.ps1'
+[6.061s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/evanyan13/colcon_ws/install/marker/share/marker/package.dsv'
+[6.061s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/marker/share/marker/package.sh'
+[6.061s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/marker/share/marker/package.bash'
+[6.062s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/marker/share/marker/package.zsh'
+[6.062s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/evanyan13/colcon_ws/install/marker/share/colcon-core/packages/marker)
+[6.064s] Level 1:colcon.colcon_core.shell:create_environment_hook('navi_main', 'pythonpath_develop')
+[6.065s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/evanyan13/colcon_ws/build/navi_main' returned '0': PYTHONPATH=/home/evanyan13/colcon_ws/build/navi_main/prefix_override:/home/evanyan13/colcon_ws/install/navi_main/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/navi_main/build --no-deps install_data
+[6.085s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/build/navi_main/share/navi_main/hook/pythonpath_develop.ps1'
+[6.085s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/build/navi_main/share/navi_main/hook/pythonpath_develop.dsv'
+[6.085s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/build/navi_main/share/navi_main/hook/pythonpath_develop.sh'
+[6.105s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/navi_main' for CMake module files
+[6.105s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/navi_main' for CMake config files
+[6.105s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/navi_main/lib'
+[6.105s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/navi_main/bin'
+[6.105s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/navi_main/lib/pkgconfig/navi_main.pc'
+[6.105s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/navi_main/lib/python3.8/site-packages'
+[6.105s] Level 1:colcon.colcon_core.shell:create_environment_hook('navi_main', 'pythonpath')
+[6.131s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/navi_main/share/navi_main/hook/pythonpath.ps1'
+[6.132s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/install/navi_main/share/navi_main/hook/pythonpath.dsv'
+[6.132s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/navi_main/share/navi_main/hook/pythonpath.sh'
+[6.132s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/navi_main/bin'
+[6.132s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(navi_main)
+[6.151s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/navi_main/share/navi_main/package.ps1'
+[6.152s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/evanyan13/colcon_ws/install/navi_main/share/navi_main/package.dsv'
+[6.152s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/navi_main/share/navi_main/package.sh'
+[6.152s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/navi_main/share/navi_main/package.bash'
+[6.152s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/navi_main/share/navi_main/package.zsh'
+[6.153s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/evanyan13/colcon_ws/install/navi_main/share/colcon-core/packages/navi_main)
+[6.153s] Level 1:colcon.colcon_core.shell:create_environment_hook('py_pubsub', 'pythonpath_develop')
+[6.153s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/evanyan13/colcon_ws/build/py_pubsub' returned '0': PYTHONPATH=/home/evanyan13/colcon_ws/build/py_pubsub/prefix_override:/home/evanyan13/colcon_ws/install/py_pubsub/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/py_pubsub/build --no-deps install_data
+[6.172s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/build/py_pubsub/share/py_pubsub/hook/pythonpath_develop.ps1'
+[6.173s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/build/py_pubsub/share/py_pubsub/hook/pythonpath_develop.dsv'
+[6.173s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/build/py_pubsub/share/py_pubsub/hook/pythonpath_develop.sh'
+[6.192s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/py_pubsub' for CMake module files
+[6.192s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/py_pubsub' for CMake config files
+[6.192s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/py_pubsub/lib'
+[6.192s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/py_pubsub/bin'
+[6.193s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/py_pubsub/lib/pkgconfig/py_pubsub.pc'
+[6.193s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/py_pubsub/lib/python3.8/site-packages'
+[6.193s] Level 1:colcon.colcon_core.shell:create_environment_hook('py_pubsub', 'pythonpath')
+[6.211s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/py_pubsub/share/py_pubsub/hook/pythonpath.ps1'
+[6.211s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/install/py_pubsub/share/py_pubsub/hook/pythonpath.dsv'
+[6.211s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/py_pubsub/share/py_pubsub/hook/pythonpath.sh'
+[6.212s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/py_pubsub/bin'
+[6.212s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(py_pubsub)
+[6.231s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/py_pubsub/share/py_pubsub/package.ps1'
+[6.231s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/evanyan13/colcon_ws/install/py_pubsub/share/py_pubsub/package.dsv'
+[6.232s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/py_pubsub/share/py_pubsub/package.sh'
+[6.232s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/py_pubsub/share/py_pubsub/package.bash'
+[6.232s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/py_pubsub/share/py_pubsub/package.zsh'
+[6.232s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/evanyan13/colcon_ws/install/py_pubsub/share/colcon-core/packages/py_pubsub)
+[6.233s] Level 1:colcon.colcon_core.shell:create_environment_hook('state_machine', 'pythonpath_develop')
+[6.233s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/evanyan13/colcon_ws/build/state_machine' returned '0': PYTHONPATH=/home/evanyan13/colcon_ws/build/state_machine/prefix_override:/home/evanyan13/colcon_ws/install/state_machine/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/state_machine/build --no-deps install_data
+[6.252s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/build/state_machine/share/state_machine/hook/pythonpath_develop.ps1'
+[6.252s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/build/state_machine/share/state_machine/hook/pythonpath_develop.dsv'
+[6.253s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/build/state_machine/share/state_machine/hook/pythonpath_develop.sh'
+[6.273s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/state_machine' for CMake module files
+[6.273s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/state_machine' for CMake config files
+[6.274s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/state_machine/lib'
+[6.274s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/state_machine/bin'
+[6.274s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/state_machine/lib/pkgconfig/state_machine.pc'
+[6.274s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/state_machine/lib/python3.8/site-packages'
+[6.274s] Level 1:colcon.colcon_core.shell:create_environment_hook('state_machine', 'pythonpath')
+[6.292s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/state_machine/share/state_machine/hook/pythonpath.ps1'
+[6.293s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/evanyan13/colcon_ws/install/state_machine/share/state_machine/hook/pythonpath.dsv'
+[6.293s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/evanyan13/colcon_ws/install/state_machine/share/state_machine/hook/pythonpath.sh'
+[6.293s] Level 1:colcon.colcon_core.environment:checking '/home/evanyan13/colcon_ws/install/state_machine/bin'
+[6.293s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(state_machine)
+[6.313s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/state_machine/share/state_machine/package.ps1'
+[6.313s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/evanyan13/colcon_ws/install/state_machine/share/state_machine/package.dsv'
+[6.313s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/state_machine/share/state_machine/package.sh'
+[6.314s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/state_machine/share/state_machine/package.bash'
+[6.314s] INFO:colcon.colcon_core.shell:Creating package script '/home/evanyan13/colcon_ws/install/state_machine/share/state_machine/package.zsh'
+[6.314s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/evanyan13/colcon_ws/install/state_machine/share/colcon-core/packages/state_machine)
+[6.314s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[6.315s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[6.315s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[6.315s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[6.338s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[6.338s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[6.338s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[6.346s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[6.367s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/evanyan13/colcon_ws/install/local_setup.ps1'
+[6.367s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/evanyan13/colcon_ws/install/_local_setup_util_ps1.py'
+[6.368s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/evanyan13/colcon_ws/install/setup.ps1'
+[6.389s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/evanyan13/colcon_ws/install/local_setup.sh'
+[6.390s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/evanyan13/colcon_ws/install/_local_setup_util_sh.py'
+[6.390s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/evanyan13/colcon_ws/install/setup.sh'
+[6.409s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/evanyan13/colcon_ws/install/local_setup.bash'
+[6.410s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/evanyan13/colcon_ws/install/setup.bash'
+[6.430s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/evanyan13/colcon_ws/install/local_setup.zsh'
+[6.430s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/evanyan13/colcon_ws/install/setup.zsh'

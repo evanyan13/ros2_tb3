@@ -1,0 +1,23 @@
+running develop
+running egg_info
+creating autonomous_exploration.egg-info
+writing autonomous_exploration.egg-info/PKG-INFO
+writing dependency_links to autonomous_exploration.egg-info/dependency_links.txt
+writing entry points to autonomous_exploration.egg-info/entry_points.txt
+writing requirements to autonomous_exploration.egg-info/requires.txt
+writing top-level names to autonomous_exploration.egg-info/top_level.txt
+writing manifest file 'autonomous_exploration.egg-info/SOURCES.txt'
+reading manifest file 'autonomous_exploration.egg-info/SOURCES.txt'
+writing manifest file 'autonomous_exploration.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/evanyan13/colcon_ws/src/ROS2-FrontierBaseExplorationForAutonomousRobot/autonomous_exploration/install/autonomous_exploration/lib/python3.8/site-packages/site.py
+Creating /home/evanyan13/colcon_ws/src/ROS2-FrontierBaseExplorationForAutonomousRobot/autonomous_exploration/install/autonomous_exploration/lib/python3.8/site-packages/autonomous-exploration.egg-link (link to .)
+Installing control script to /home/evanyan13/colcon_ws/src/ROS2-FrontierBaseExplorationForAutonomousRobot/autonomous_exploration/install/autonomous_exploration/lib/autonomous_exploration
+
+Installed /home/evanyan13/colcon_ws/src/ROS2-FrontierBaseExplorationForAutonomousRobot/autonomous_exploration/build/autonomous_exploration
+running install_data
+creating /home/evanyan13/colcon_ws/src/ROS2-FrontierBaseExplorationForAutonomousRobot/autonomous_exploration/install/autonomous_exploration/share/ament_index
+creating /home/evanyan13/colcon_ws/src/ROS2-FrontierBaseExplorationForAutonomousRobot/autonomous_exploration/install/autonomous_exploration/share/ament_index/resource_index
+creating /home/evanyan13/colcon_ws/src/ROS2-FrontierBaseExplorationForAutonomousRobot/autonomous_exploration/install/autonomous_exploration/share/ament_index/resource_index/packages
+copying resource/autonomous_exploration -> /home/evanyan13/colcon_ws/src/ROS2-FrontierBaseExplorationForAutonomousRobot/autonomous_exploration/install/autonomous_exploration/share/ament_index/resource_index/packages
+copying package.xml -> /home/evanyan13/colcon_ws/src/ROS2-FrontierBaseExplorationForAutonomousRobot/autonomous_exploration/install/autonomous_exploration/share/autonomous_exploration

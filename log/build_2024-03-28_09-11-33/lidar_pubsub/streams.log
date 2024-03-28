@@ -1,0 +1,18 @@
+[1.288s] Invoking command in '/home/evanyan13/colcon_ws/build/lidar_pubsub': PYTHONPATH=/home/evanyan13/colcon_ws/build/lidar_pubsub/prefix_override:/home/evanyan13/colcon_ws/install/lidar_pubsub/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/lidar_pubsub/build --no-deps install_data
+[1.420s] running develop
+[1.487s] running egg_info
+[1.488s] writing lidar_pubsub.egg-info/PKG-INFO
+[1.488s] writing dependency_links to lidar_pubsub.egg-info/dependency_links.txt
+[1.488s] writing entry points to lidar_pubsub.egg-info/entry_points.txt
+[1.488s] writing requirements to lidar_pubsub.egg-info/requires.txt
+[1.488s] writing top-level names to lidar_pubsub.egg-info/top_level.txt
+[1.504s] reading manifest file 'lidar_pubsub.egg-info/SOURCES.txt'
+[1.505s] writing manifest file 'lidar_pubsub.egg-info/SOURCES.txt'
+[1.527s] running build_ext
+[1.531s] Creating /home/evanyan13/colcon_ws/install/lidar_pubsub/lib/python3.8/site-packages/lidar-pubsub.egg-link (link to .)
+[1.531s] Installing listener script to /home/evanyan13/colcon_ws/install/lidar_pubsub/lib/py_pubsub
+[1.531s] Installing talker script to /home/evanyan13/colcon_ws/install/lidar_pubsub/lib/py_pubsub
+[1.532s] 
+[1.532s] Installed /home/evanyan13/colcon_ws/build/lidar_pubsub
+[1.532s] running install_data
+[1.997s] Invoked command in '/home/evanyan13/colcon_ws/build/lidar_pubsub' returned '0': PYTHONPATH=/home/evanyan13/colcon_ws/build/lidar_pubsub/prefix_override:/home/evanyan13/colcon_ws/install/lidar_pubsub/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/lidar_pubsub/build --no-deps install_data

@@ -1,0 +1,66 @@
+[0.549s] Invoking command in '/home/evanyan13/colcon_ws/src/auto_nav': PYTHONPATH=/home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/prefix_override:/home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base build/auto_nav build --build-base /home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/build install --record /home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/install.log --install-scripts $base/lib/auto_nav --single-version-externally-managed
+[0.650s] running egg_info
+[0.651s] creating build/auto_nav/auto_nav.egg-info
+[0.651s] writing build/auto_nav/auto_nav.egg-info/PKG-INFO
+[0.651s] writing dependency_links to build/auto_nav/auto_nav.egg-info/dependency_links.txt
+[0.651s] writing entry points to build/auto_nav/auto_nav.egg-info/entry_points.txt
+[0.651s] writing requirements to build/auto_nav/auto_nav.egg-info/requires.txt
+[0.651s] writing top-level names to build/auto_nav/auto_nav.egg-info/top_level.txt
+[0.654s] writing manifest file 'build/auto_nav/auto_nav.egg-info/SOURCES.txt'
+[0.669s] reading manifest file 'build/auto_nav/auto_nav.egg-info/SOURCES.txt'
+[0.670s] writing manifest file 'build/auto_nav/auto_nav.egg-info/SOURCES.txt'
+[0.670s] running build
+[0.670s] running build_py
+[0.670s] creating /home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/build
+[0.670s] creating /home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/build/lib
+[0.670s] creating /home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/build/lib/auto_nav
+[0.670s] copying auto_nav/r2moverotate.py -> /home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/build/lib/auto_nav
+[0.670s] copying auto_nav/laptopA.py -> /home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/build/lib/auto_nav
+[0.671s] copying auto_nav/r2auto_nav.py -> /home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/build/lib/auto_nav
+[0.671s] copying auto_nav/r2occupancy.py -> /home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/build/lib/auto_nav
+[0.671s] copying auto_nav/r2scanner.py -> /home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/build/lib/auto_nav
+[0.672s] copying auto_nav/r2mover.py -> /home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/build/lib/auto_nav
+[0.672s] copying auto_nav/setup.py -> /home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/build/lib/auto_nav
+[0.672s] copying auto_nav/r2occupancy2.py -> /home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/build/lib/auto_nav
+[0.672s] copying auto_nav/__init__.py -> /home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/build/lib/auto_nav
+[0.672s] copying auto_nav/helloworld1.py -> /home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/build/lib/auto_nav
+[0.673s] running install
+[0.673s] running install_lib
+[0.673s] creating /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/python3.8/site-packages/auto_nav
+[0.673s] copying /home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/build/lib/auto_nav/r2moverotate.py -> /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/python3.8/site-packages/auto_nav
+[0.674s] copying /home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/build/lib/auto_nav/laptopA.py -> /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/python3.8/site-packages/auto_nav
+[0.674s] copying /home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/build/lib/auto_nav/r2auto_nav.py -> /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/python3.8/site-packages/auto_nav
+[0.674s] copying /home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/build/lib/auto_nav/r2occupancy.py -> /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/python3.8/site-packages/auto_nav
+[0.674s] copying /home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/build/lib/auto_nav/r2scanner.py -> /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/python3.8/site-packages/auto_nav
+[0.674s] copying /home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/build/lib/auto_nav/r2mover.py -> /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/python3.8/site-packages/auto_nav
+[0.674s] copying /home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/build/lib/auto_nav/setup.py -> /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/python3.8/site-packages/auto_nav
+[0.674s] copying /home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/build/lib/auto_nav/r2occupancy2.py -> /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/python3.8/site-packages/auto_nav
+[0.674s] copying /home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/build/lib/auto_nav/__init__.py -> /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/python3.8/site-packages/auto_nav
+[0.674s] copying /home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/build/lib/auto_nav/helloworld1.py -> /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/python3.8/site-packages/auto_nav
+[0.674s] byte-compiling /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/python3.8/site-packages/auto_nav/r2moverotate.py to r2moverotate.cpython-38.pyc
+[0.675s] byte-compiling /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/python3.8/site-packages/auto_nav/laptopA.py to laptopA.cpython-38.pyc
+[0.675s] byte-compiling /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/python3.8/site-packages/auto_nav/r2auto_nav.py to r2auto_nav.cpython-38.pyc
+[0.676s] byte-compiling /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/python3.8/site-packages/auto_nav/r2occupancy.py to r2occupancy.cpython-38.pyc
+[0.676s] byte-compiling /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/python3.8/site-packages/auto_nav/r2scanner.py to r2scanner.cpython-38.pyc
+[0.676s] byte-compiling /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/python3.8/site-packages/auto_nav/r2mover.py to r2mover.cpython-38.pyc
+[0.676s] byte-compiling /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/python3.8/site-packages/auto_nav/setup.py to setup.cpython-38.pyc
+[0.677s] byte-compiling /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/python3.8/site-packages/auto_nav/r2occupancy2.py to r2occupancy2.cpython-38.pyc
+[0.677s] byte-compiling /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/python3.8/site-packages/auto_nav/__init__.py to __init__.cpython-38.pyc
+[0.677s] byte-compiling /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/python3.8/site-packages/auto_nav/helloworld1.py to helloworld1.cpython-38.pyc
+[0.677s] running install_data
+[0.677s] creating /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/share/ament_index
+[0.677s] creating /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/share/ament_index/resource_index
+[0.677s] creating /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/share/ament_index/resource_index/packages
+[0.677s] copying resource/auto_nav -> /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/share/ament_index/resource_index/packages
+[0.677s] copying package.xml -> /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/share/auto_nav
+[0.677s] running install_egg_info
+[0.678s] Copying build/auto_nav/auto_nav.egg-info to /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/python3.8/site-packages/auto_nav-0.0.0-py3.8.egg-info
+[0.678s] running install_scripts
+[0.686s] Installing r2auto_nav script to /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/auto_nav
+[0.686s] Installing r2mover script to /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/auto_nav
+[0.686s] Installing r2moverotate script to /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/auto_nav
+[0.686s] Installing r2occupancy script to /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/auto_nav
+[0.686s] Installing r2occupancy2 script to /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/auto_nav
+[0.686s] Installing r2scanner script to /home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/auto_nav
+[0.687s] writing list of installed files to '/home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/install.log'
+[0.697s] Invoked command in '/home/evanyan13/colcon_ws/src/auto_nav' returned '0': PYTHONPATH=/home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/prefix_override:/home/evanyan13/colcon_ws/src/auto_nav/install/auto_nav/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base build/auto_nav build --build-base /home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/build install --record /home/evanyan13/colcon_ws/src/auto_nav/build/auto_nav/install.log --install-scripts $base/lib/auto_nav --single-version-externally-managed

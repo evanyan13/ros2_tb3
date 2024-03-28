@@ -1,0 +1,17 @@
+[1.589s] Invoking command in '/home/evanyan13/colcon_ws/build/autonomous_exploration': PYTHONPATH=/home/evanyan13/colcon_ws/build/autonomous_exploration/prefix_override:/home/evanyan13/colcon_ws/install/autonomous_exploration/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/autonomous_exploration/build --no-deps install_data
+[1.726s] running develop
+[1.792s] running egg_info
+[1.792s] writing autonomous_exploration.egg-info/PKG-INFO
+[1.792s] writing dependency_links to autonomous_exploration.egg-info/dependency_links.txt
+[1.792s] writing entry points to autonomous_exploration.egg-info/entry_points.txt
+[1.792s] writing requirements to autonomous_exploration.egg-info/requires.txt
+[1.792s] writing top-level names to autonomous_exploration.egg-info/top_level.txt
+[1.808s] reading manifest file 'autonomous_exploration.egg-info/SOURCES.txt'
+[1.808s] writing manifest file 'autonomous_exploration.egg-info/SOURCES.txt'
+[1.828s] running build_ext
+[1.828s] Creating /home/evanyan13/colcon_ws/install/autonomous_exploration/lib/python3.8/site-packages/autonomous-exploration.egg-link (link to .)
+[1.828s] Installing control script to /home/evanyan13/colcon_ws/install/autonomous_exploration/lib/autonomous_exploration
+[1.829s] 
+[1.829s] Installed /home/evanyan13/colcon_ws/build/autonomous_exploration
+[1.829s] running install_data
+[2.266s] Invoked command in '/home/evanyan13/colcon_ws/build/autonomous_exploration' returned '0': PYTHONPATH=/home/evanyan13/colcon_ws/build/autonomous_exploration/prefix_override:/home/evanyan13/colcon_ws/install/autonomous_exploration/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/autonomous_exploration/build --no-deps install_data

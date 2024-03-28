@@ -3,7 +3,6 @@ setup.cfg
 setup.py
 navi_main/__init__.py
 navi_main/global_planner.py
-navi_main/line_follower.py
 navi_main/local_planner.py
 navi_main.egg-info/PKG-INFO
 navi_main.egg-info/SOURCES.txt
@@ -14,6 +13,8 @@ navi_main.egg-info/top_level.txt
 navi_main.egg-info/zip-safe
 navi_main/global_planner_package/__init__.py
 navi_main/global_planner_package/astar_path_finder.py
+navi_main/global_planner_package/common.py
 navi_main/global_planner_package/global_map.py
+navi_main/global_planner_package/global_mover.py
 navi_main/global_planner_package/global_planner_node.py
 resource/navi_main
