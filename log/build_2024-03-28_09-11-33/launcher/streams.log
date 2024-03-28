@@ -1,0 +1,16 @@
+[1.395s] Invoking command in '/home/evanyan13/colcon_ws/build/launcher': PYTHONPATH=/home/evanyan13/colcon_ws/build/launcher/prefix_override:/home/evanyan13/colcon_ws/install/launcher/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/launcher/build --no-deps install_data
+[1.531s] running develop
+[1.599s] running egg_info
+[1.599s] writing launcher.egg-info/PKG-INFO
+[1.600s] writing dependency_links to launcher.egg-info/dependency_links.txt
+[1.600s] writing entry points to launcher.egg-info/entry_points.txt
+[1.600s] writing requirements to launcher.egg-info/requires.txt
+[1.600s] writing top-level names to launcher.egg-info/top_level.txt
+[1.609s] reading manifest file 'launcher.egg-info/SOURCES.txt'
+[1.610s] writing manifest file 'launcher.egg-info/SOURCES.txt'
+[1.634s] running build_ext
+[1.635s] Creating /home/evanyan13/colcon_ws/install/launcher/lib/python3.8/site-packages/launcher.egg-link (link to .)
+[1.635s] 
+[1.635s] Installed /home/evanyan13/colcon_ws/build/launcher
+[1.635s] running install_data
+[2.182s] Invoked command in '/home/evanyan13/colcon_ws/build/launcher' returned '0': PYTHONPATH=/home/evanyan13/colcon_ws/build/launcher/prefix_override:/home/evanyan13/colcon_ws/install/launcher/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/launcher/build --no-deps install_data

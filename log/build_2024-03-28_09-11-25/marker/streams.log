@@ -1,0 +1,16 @@
+[1.901s] Invoking command in '/home/evanyan13/colcon_ws/build/marker': PYTHONPATH=/home/evanyan13/colcon_ws/build/marker/prefix_override:/home/evanyan13/colcon_ws/install/marker/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/marker/build --no-deps install_data
+[2.031s] running develop
+[2.101s] running egg_info
+[2.101s] writing marker.egg-info/PKG-INFO
+[2.101s] writing dependency_links to marker.egg-info/dependency_links.txt
+[2.101s] writing entry points to marker.egg-info/entry_points.txt
+[2.101s] writing requirements to marker.egg-info/requires.txt
+[2.101s] writing top-level names to marker.egg-info/top_level.txt
+[2.117s] reading manifest file 'marker.egg-info/SOURCES.txt'
+[2.117s] writing manifest file 'marker.egg-info/SOURCES.txt'
+[2.135s] running build_ext
+[2.136s] Creating /home/evanyan13/colcon_ws/install/marker/lib/python3.8/site-packages/marker.egg-link (link to .)
+[2.136s] 
+[2.136s] Installed /home/evanyan13/colcon_ws/build/marker
+[2.136s] running install_data
+[2.151s] Invoked command in '/home/evanyan13/colcon_ws/build/marker' returned '0': PYTHONPATH=/home/evanyan13/colcon_ws/build/marker/prefix_override:/home/evanyan13/colcon_ws/install/marker/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/build/marker/build --no-deps install_data

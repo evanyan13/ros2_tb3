@@ -1,0 +1,13 @@
+package.xml
+setup.cfg
+setup.py
+autonomous_exploration/__init__.py
+autonomous_exploration/control.py
+autonomous_exploration.egg-info/PKG-INFO
+autonomous_exploration.egg-info/SOURCES.txt
+autonomous_exploration.egg-info/dependency_links.txt
+autonomous_exploration.egg-info/entry_points.txt
+autonomous_exploration.egg-info/requires.txt
+autonomous_exploration.egg-info/top_level.txt
+autonomous_exploration.egg-info/zip-safe
+resource/autonomous_exploration

@@ -1,0 +1,16 @@
+[1.217s] Invoking command in '/home/evanyan13/colcon_ws/src/build/state_machine': PYTHONPATH=/home/evanyan13/colcon_ws/src/build/state_machine/prefix_override:/home/evanyan13/colcon_ws/src/install/state_machine/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/src/build/state_machine/build --no-deps install_data
+[1.338s] running develop
+[1.403s] running egg_info
+[1.403s] writing state_machine.egg-info/PKG-INFO
+[1.403s] writing dependency_links to state_machine.egg-info/dependency_links.txt
+[1.404s] writing entry points to state_machine.egg-info/entry_points.txt
+[1.404s] writing requirements to state_machine.egg-info/requires.txt
+[1.404s] writing top-level names to state_machine.egg-info/top_level.txt
+[1.419s] reading manifest file 'state_machine.egg-info/SOURCES.txt'
+[1.419s] writing manifest file 'state_machine.egg-info/SOURCES.txt'
+[1.437s] running build_ext
+[1.437s] Creating /home/evanyan13/colcon_ws/src/install/state_machine/lib/python3.8/site-packages/state-machine.egg-link (link to .)
+[1.438s] 
+[1.438s] Installed /home/evanyan13/colcon_ws/src/build/state_machine
+[1.438s] running install_data
+[1.627s] Invoked command in '/home/evanyan13/colcon_ws/src/build/state_machine' returned '0': PYTHONPATH=/home/evanyan13/colcon_ws/src/build/state_machine/prefix_override:/home/evanyan13/colcon_ws/src/install/state_machine/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py develop --editable --build-directory /home/evanyan13/colcon_ws/src/build/state_machine/build --no-deps install_data
