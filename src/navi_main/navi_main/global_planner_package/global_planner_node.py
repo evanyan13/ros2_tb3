@@ -2,7 +2,7 @@ import rclpy
 import math
 from geometry_msgs.msg import Pose, PoseStamped
 from . import pixel_tolerance
-from .common import euler_from_quaternion
+from .utils import euler_from_quaternion
 
 class GlobalPlannerNode:
     def __init__(
