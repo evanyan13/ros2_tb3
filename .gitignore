@@ -1,1 +1,42 @@
+# IDE and editor files
+*.pyc
 __pycache__/
+*.swp
+*~
+.idea/
+.vscode/
+*.sublime-workspace
+
+# ROS2 build and log directories
+build/
+install/
+log/
+src/*/build/
+src/*/install/
+src/*/log/
+
+# Python virtual environments
+venv/
+*.venv/
+env/
+
+# Other Python ignored files
+*.egg-info/
+dist/
+build/
+sdist/
+wheels/
+cache/
+
+# Dependency directories (if not tracking dependencies)
+deps/
+
+# Compiled dynamic reconfigure files
+*_cfg.py
+
+# Jupyter notebook files
+.ipynb_checkpoints
+
+# Environment-specific configuration files
+.env
+
