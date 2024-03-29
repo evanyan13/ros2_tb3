@@ -1,9 +1,14 @@
+import rclpy
 import math
 import unittest
-from geometry_msgs.msg import Pose, Quaternion
+from geometry_msgs.msg import Pose, PoseStamped, Quaternion
+
 from navi_main.global_planner_package.global_planner_node import GlobalPlannerNode
 
 class TestGlobalPlannerNode(unittest.TestCase):
+    def setUp(self) -> None:
+        rclpy.init()
+        self.node = rclpy.create_node('test_node')
 
     def test_calculate_distance(self):
         node_a = GlobalPlannerNode(0, 0)
@@ -52,6 +57,18 @@ class TestGlobalPlannerNode(unittest.TestCase):
         self.assertEqual(node.y, 2.0)
         self.assertAlmostEqual(node.theta, math.pi, places=5)
 
+    def test_from_pose_stamped(self):
+        example_node = GlobalPlannerNode(2.0, 3.0)
+        current_time = self.node.get_clock().now().to_msg()
+
+        pose_stamped =example_node.to_pose_stamped(current_time)
+        
+        self.assertIsInstance(pose_stamped, PoseStamped)
+        self.assertEqual(pose_stamped.header.stamp, current_time)
+
+    def tearDown(self) -> None:
+        self.node.destroy_node()
+        rclpy.shutdown()
 
 if __name__ == "__main__":
     unittest.main()
