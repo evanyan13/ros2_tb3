@@ -74,6 +74,17 @@ class GlobalPlannerNode:
 
         return new_state
     
+    @staticmethod
+    def from_tf(position: list, quaternion: list):
+        new_state = GlobalPlannerNode()
+        new_state.x = position[0]
+        new_state.y = position[1]
+
+        (roll, pitch, yaw) = euler_from_quaternion(*quaternion)
+        new_state.theta = yaw
+
+        return new_state
+    
     def to_pose_stamped(self, current_time):
         pose = PoseStamped()
         pose.header.stamp = current_time

@@ -4,6 +4,7 @@ import unittest
 from geometry_msgs.msg import Pose, PoseStamped, Quaternion
 
 from navi_main.global_planner_package.global_planner_node import GlobalPlannerNode
+from navi_main.global_planner_package.utils import euler_from_quaternion
 
 class TestGlobalPlannerNode(unittest.TestCase):
     def setUp(self) -> None:
@@ -56,6 +57,19 @@ class TestGlobalPlannerNode(unittest.TestCase):
         self.assertEqual(node.x, 1.0)
         self.assertEqual(node.y, 2.0)
         self.assertAlmostEqual(node.theta, math.pi, places=5)
+
+    def test_from_tf(self):
+        test_position = [1.0, 2.0, 0.0]
+        test_quaternion = [0.0, 0.0, 0.0, 1.0]
+
+        test_node = GlobalPlannerNode.from_tf(test_position, test_quaternion)
+
+        self.assertIsInstance(test_node, GlobalPlannerNode)
+        self.assertEqual(test_node.x, test_position[0])
+        self.assertEqual(test_node.y, test_position[1])
+
+        _, _, expected_yaw = euler_from_quaternion(*test_quaternion)
+        self.assertEqual(test_node.theta, expected_yaw)
 
     def test_from_pose_stamped(self):
         example_node = GlobalPlannerNode(2.0, 3.0)
