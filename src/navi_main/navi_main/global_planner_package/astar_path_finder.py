@@ -1,4 +1,5 @@
 import heapq
+
 from .global_map import GlobalMap
 from .global_planner_node import GlobalPlannerNode
 

@@ -1,8 +1,8 @@
 import rclpy
 import math
 from geometry_msgs.msg import Pose, PoseStamped
-from . import pixel_tolerance
-from .utils import euler_from_quaternion
+
+from .utils import euler_from_quaternion, pixel_tolerance
 
 class GlobalPlannerNode:
     def __init__(
@@ -73,3 +73,12 @@ class GlobalPlannerNode:
         new_state.theta = yaw
 
         return new_state
+    
+    def to_pose_stamped(self, current_time):
+        pose = PoseStamped()
+        pose.header.stamp = current_time
+        pose.pose.position.x = self.x
+        pose.pose.position.y = self.y
+        pose.pose.orientation.w = 1.0
+
+        return pose

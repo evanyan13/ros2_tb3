@@ -1,7 +1,8 @@
 import numpy as np
-from .global_planner_node import GlobalPlannerNode
 from nav_msgs.msg import OccupancyGrid
-from . import pixel_tolerance
+
+from .utils import pixel_tolerance
+from .global_planner_node import GlobalPlannerNode
 
 class GlobalMap:
     def __init__(self, grid_map: OccupancyGrid):

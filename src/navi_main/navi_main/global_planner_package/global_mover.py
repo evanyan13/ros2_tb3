@@ -5,6 +5,7 @@ from geometry_msgs.msg import Twist
 from nav_msgs.msg import Path
 from sensor_msgs.msg import LaserScan
 from math import atan2, pi
+
 from .global_planner_node import GlobalPlannerNode
 
 move_tolerance = 0.1

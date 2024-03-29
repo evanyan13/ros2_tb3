@@ -2,7 +2,7 @@ import rclpy
 import random
 import unittest
 from math import pi
-from unittest.mock import MagicMock, Mock, patch
+from unittest.mock import MagicMock, Mock
 from nav_msgs.msg import Path
 from sensor_msgs.msg import LaserScan
 from geometry_msgs.msg import PoseStamped, Quaternion, Twist
