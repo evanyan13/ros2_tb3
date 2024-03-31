@@ -29,11 +29,11 @@ class GlobalPathPlanner(Node):
         self.tf_buffer = Buffer()
         self.tf_listener = TransformListener(self.tf_buffer, self)
 
-        self.map_subscriber = self.create_subscription(OccupancyGrid, "/map", self.map_callback, 10)
-        self.goal_subscriber = self.create_subscription(PoseStamped, "/goal", self.goal_callback, 10)
+        self.map_subscriber = self.create_subscription(OccupancyGrid, "map", self.map_callback, 10)
+        self.goal_subscriber = self.create_subscription(PoseStamped, "goal", self.goal_callback, 10)
 
-        self.path_publisher = self.create_publisher(Path, "/path", 10)
-        self.mover_publisher = self.create_publisher(Path, "/move", 1)
+        self.path_publisher = self.create_publisher(Path, "path", 10)
+        self.mover_publisher = self.create_publisher(Path, "move", 1)
 
     def map_callback(self, msg: OccupancyGrid):
         self.map = GlobalMap(msg)
@@ -135,7 +135,9 @@ class GlobalPathPlanner(Node):
         self.goal = pose_stamped
         
         self.goal_callback(self.goal)
-        return self.calculate_path()
+        self.get_logger().info("Global Planner: Sent goal")
+
+        return True
     
     def cancel_goal(self):
         self.mover.stop_moving()

@@ -30,9 +30,9 @@ def generate_posestamped(node, x, y):
     goal = PoseStamped()
     goal.header.stamp = node.get_clock().now().to_msg()
     goal.header.frame_id = "map"
-    goal.position.x = x
-    goal.position.y = y
-    goal.orientation.w = 1.0
+    goal.pose.position.x = x
+    goal.pose.position.y = y
+    goal.pose.orientation.w = 1.0
     return goal
 
 if __name__ == '__main__':
