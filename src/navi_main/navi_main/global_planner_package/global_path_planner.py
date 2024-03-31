@@ -38,42 +38,47 @@ class GlobalPathPlanner(Node):
     def map_callback(self, msg: OccupancyGrid):
         self.map = GlobalMap(msg)
         self.is_map_loaded = True
+        self.get_logger().info(f"map_callback: Map loaded")
     
     def goal_callback(self, msg: PoseStamped):
+        self.get_logger().info("goal_callback: Received goal message")
         if self.mover.is_moving:
             self.cancel_goal()
+            self.get_logger().info("goal_callback: Previous goal cancelled")
 
-        self.get_logger().info("Goal Callback: Received new goal")
         self.goal = GlobalPlannerNode.from_pose(msg.pose)
         self.is_goal_cancelled = False
         self.is_goal_reached = False
+        self.get_logger().info(f"goal_callback: New goal received ({self.goal.x}, {self.goal.y})")
 
         try:
-            trans = self.tf_buffer.lookup_transform('map', 'base_link', rclpy.time.Time())
+            trans = self.tf_buffer.lookup_transform(target_frame='map', source_frame='base_link', time=rclpy.time.Time())
             self.start = GlobalPlannerNode.from_tf(trans.transform.translation, trans.transform.rotation)
             self.mover.robot_pos = self.start
+            self.get_logger().info(f"goal_callback: Start set ({self.start.x}, {self.start.y})")
         except TransformException as e:
-            self.get_logger().info(f"Could not transform base_link to map: {str(e)}")
+            self.get_logger().warn(f"Could not transform base_link to map: {str(e)}")
             return
         
         if not self.map.is_node_free(self.goal) or not self.map or not self.start:
-            self.get_logger().info("Goal cannot be reached")
+            self.get_logger().warn("Goal cannot be reached")
             self.display_path([]) # Empty path
             return
         
-        self.calculate_path()
+        self.publish_path()
     
-    def calculate_path(self):
-        self.get_logger().info("Calculating path")
+    def publish_path(self):
+        self.get_logger().info("publish_path: Starting path calculation")
         path_list = find_astar_path(self.map, self.start, self.goal)
 
         if path_list:
-            self.get_logger().info("Path Received")
+            self.get_logger().info(f"publish_path: Found path from astar,{len(path_list)} points")
             path_list = self.smooth_path_bspline(path_list)
             path_msg = self.display_path(path_list)
             self.mover_publisher.publish(path_msg)
+            self.get_logger().info("publish_path: Path published")
         else:
-            self.get_logger().info("No path found")
+            self.get_logger().warn("publish_path: No path found")
             self.display_path([])
 
     def smooth_path_bspline(self, path_list: list) -> list:
@@ -105,7 +110,7 @@ class GlobalPathPlanner(Node):
     
     def display_path(self, path_list: list) -> Path:
         path_msg = Path()
-        path_msg.header.frame_id = "/map"
+        path_msg.header.frame_id = "map"
         path_msg.header.stamp = self.get_clock().now().to_msg()
 
         for node in path_list:
@@ -133,9 +138,10 @@ class GlobalPathPlanner(Node):
     def send_goal(self, pose_stamped: PoseStamped):
         self.is_goal_cancelled = False
         self.goal = pose_stamped
-        
+        self.get_logger().info("send_goal: New goal set")
+
+        self.get_logger().info("send_goal: Sending goal to goal_callback")
         self.goal_callback(self.goal)
-        self.get_logger().info("Global Planner: Sent goal")
 
         return True
     

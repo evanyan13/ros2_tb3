@@ -2,6 +2,7 @@ package.xml
 setup.cfg
 setup.py
 navi_main/__init__.py
+navi_main/debug_node.py
 navi_main/global_planner_main.py
 navi_main/global_planner_user.py
 navi_main/local_planner.py

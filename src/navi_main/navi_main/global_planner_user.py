@@ -18,9 +18,9 @@ def main():
             goal = generate_posestamped(node, pose_x, pose_y)
 
             if node.send_goal(goal):
-                print('Goal sent successfully')
+                node.get_logger().info('main_user: Goal sent successfully')
             else:
-                print('Goal could not be reached.')
+                node.get_logger().warn('main_user: Goal sent successfully')
         except Exception as e:
             print(f"Error: {e}")
 

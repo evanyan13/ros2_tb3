@@ -58,7 +58,7 @@ class TestGlobalPathPlanner(unittest.TestCase):
 
         self.path_planner.map = Mock(spec=GlobalMap)
         self.path_planner.map.is_node_free = Mock(return_value=True)
-        self.path_planner.calculate_path = Mock()
+        self.path_planner.publish_path = Mock()
         
         # Set up the goal pose
         test_goal = PoseStamped()
@@ -69,7 +69,7 @@ class TestGlobalPathPlanner(unittest.TestCase):
         self.path_planner.goal_callback(test_goal)
 
         self.path_planner.tf_buffer.lookup_transform.assert_called_once()
-        self.path_planner.calculate_path.assert_called_once()
+        self.path_planner.publish_path.assert_called_once()
         self.assertFalse(self.path_planner.is_goal_cancelled)
         self.assertIsNotNone(self.path_planner.goal)
 
@@ -83,7 +83,7 @@ class TestGlobalPathPlanner(unittest.TestCase):
         self.path_planner.mover_publisher.publish = Mock()
         self.path_planner.get_logger().info = Mock()
         
-        self.path_planner.calculate_path()
+        self.path_planner.publish_path()
 
         mock_find_astar_path.called_once_with(self.path_planner.map,
                                               self.path_planner.start,
@@ -138,12 +138,12 @@ class TestGlobalPathPlanner(unittest.TestCase):
     # @patch('navi_main.global_planner_package.global_planner_node.GlobalPlannerNode.from_pose')
     def test_send_goal(self):
         test_pose = PoseStamped()
-        self.path_planner.calculate_path = Mock(return_value=True)
+        self.path_planner.publish_path = Mock(return_value=True)
 
         result = self.path_planner.send_goal(test_pose)
 
         # mock_from_pose.assert_called_once_with(test_pose)
-        self.path_planner.calculate_path.assert_called_once()
+        self.path_planner.publish_path.assert_called_once()
         self.assertFalse(self.path_planner.is_goal_cancelled)
         self.assertIsInstance(self.path_planner.goal, GlobalPlannerNode)
         self.assertTrue(result) 

@@ -7,13 +7,14 @@ def main():
     rclpy.init()
     node = GlobalPathPlanner()
 
-    print("Path Planner is running...")
+    node.get_logger().info("Path Planner is running...")
+
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:
         pass
     except Exception as e:
-        print(f"Error occured {e}")
+        node.get_logger().warn(f"Exception: {str(e)}")
     finally:
         node.destroy_node()
         rclpy.shutdown()
