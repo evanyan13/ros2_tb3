@@ -27,12 +27,12 @@ class GlobalMover(Node):
         self.is_moving = False
         self.is_obstacle_ahead = False
 
-        self.mover_subscriber = self.create_subscription(Path, 'move', self.move_callback, 10)
+        self.path_subscriber = self.create_subscription(Path, 'path', self.path_callback, 10)
         self.scan_subscriber = self.create_subscription(LaserScan, 'scan', self.scan_callback, 10)
 
         self.velocity_publisher = self.create_publisher(Twist, 'cmd_vel', 10)
 
-    def move_callback(self, path: Path):
+    def path_callback(self, path: Path):
         node_path = []
 
         for pose in path.poses:
