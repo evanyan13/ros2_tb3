@@ -105,7 +105,7 @@ class GlobalPathPlanner(Node):
     
     def display_path(self, path_list: list) -> Path:
         path_msg = Path()
-        path_msg.header.frame_id = "map"
+        path_msg.header.frame_id = "/map"
         path_msg.header.stamp = self.get_clock().now().to_msg()
 
         for node in path_list:
@@ -130,9 +130,11 @@ class GlobalPathPlanner(Node):
 
         return self.is_goal_reached
     
-    def send_goal(self, pose: Pose):
+    def send_goal(self, pose_stamped: PoseStamped):
         self.is_goal_cancelled = False
-        self.goal = GlobalPlannerNode.from_pose(pose)
+        self.goal = pose_stamped
+        
+        self.goal_callback(self.goal)
         return self.calculate_path()
     
     def cancel_goal(self):

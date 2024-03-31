@@ -135,15 +135,14 @@ class TestGlobalPathPlanner(unittest.TestCase):
         # Check if the method exited correctly
         self.assertTrue(self.path_planner.is_map_loaded)
 
-    @patch('navi_main.global_planner_package.global_planner_node.GlobalPlannerNode.from_pose')
-    def test_send_goal(self, mock_from_pose):
-        test_pose = Pose()
-        mock_from_pose.return_value = GlobalPlannerNode(2.0, 3.0)
+    # @patch('navi_main.global_planner_package.global_planner_node.GlobalPlannerNode.from_pose')
+    def test_send_goal(self):
+        test_pose = PoseStamped()
         self.path_planner.calculate_path = Mock(return_value=True)
 
         result = self.path_planner.send_goal(test_pose)
 
-        mock_from_pose.assert_called_once_with(test_pose)
+        # mock_from_pose.assert_called_once_with(test_pose)
         self.path_planner.calculate_path.assert_called_once()
         self.assertFalse(self.path_planner.is_goal_cancelled)
         self.assertIsInstance(self.path_planner.goal, GlobalPlannerNode)
