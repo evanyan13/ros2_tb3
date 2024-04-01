@@ -6,7 +6,7 @@ from nav_msgs.msg import Path
 from sensor_msgs.msg import LaserScan
 from math import atan2, pi
 
-from .global_planner_node import GlobalPlannerNode
+from .global_node import GlobalPlannerNode
 
 move_tolerance = 0.1
 scan_tolerance_front = 0.4
@@ -173,14 +173,14 @@ class GlobalMover(Node):
         return angle
 
 
-def main(args=None):
-    rclpy.init(args=args)
-    node = GlobalMover()
-    rclpy.spin(node)
-    node.destroy_node()
-    rclpy.shutdown()
+# def main(args=None):
+#     rclpy.init(args=args)
+#     node = GlobalMover()
+#     rclpy.spin(node)
+#     node.destroy_node()
+#     rclpy.shutdown()
 
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
     

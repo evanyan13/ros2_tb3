@@ -24,3 +24,6 @@ def euler_from_quaternion(x, y, z, w):
     yaw_z = math.atan2(t3, t4)
 
     return roll_x, pitch_y, yaw_z # in radians
+
+def print_path(path: list):
+    print([(n.x, n.y) for n in path])

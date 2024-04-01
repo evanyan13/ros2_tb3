@@ -3,7 +3,7 @@ import math
 import unittest
 from geometry_msgs.msg import Pose, PoseStamped, Quaternion
 
-from navi_main.global_planner_package.global_planner_node import GlobalPlannerNode
+from navi_main.global_planner_package.global_node import GlobalPlannerNode
 from navi_main.global_planner_package.utils import euler_from_quaternion
 
 class TestGlobalPlannerNode(unittest.TestCase):

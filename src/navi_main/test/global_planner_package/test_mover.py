@@ -7,15 +7,15 @@ from nav_msgs.msg import Path
 from sensor_msgs.msg import LaserScan
 from geometry_msgs.msg import PoseStamped, Quaternion, Twist
 
-from navi_main.global_planner_main import GlobalPlannerMain
+from navi_main.global_planner_package.global_planner import GlobalPlanner
 from navi_main.global_planner_package.global_mover import GlobalMover
-from navi_main.global_planner_package.global_planner_node import GlobalPlannerNode
+from navi_main.global_planner_package.global_node import GlobalPlannerNode
 
 
 class TestGlobalMover(unittest.TestCase):
     def setUp(self) -> None:
         rclpy.init()
-        self.planner = GlobalPlannerMain()
+        self.planner = GlobalPlanner()
         self.mover = GlobalMover(self.planner)
         self.mover.robot_pos = GlobalPlannerNode()
         self.mover.follow_path = MagicMock()

@@ -1,7 +1,7 @@
 import heapq
 
 from .global_map import GlobalMap
-from .global_planner_node import GlobalPlannerNode
+from .global_node import GlobalPlannerNode
 
 
 def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlannerNode) -> list:
@@ -74,6 +74,3 @@ def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlanne
 
     print("Path not found")
     return []
-
-def print_path(path: list):
-    print([(n.x, n.y) for n in path])

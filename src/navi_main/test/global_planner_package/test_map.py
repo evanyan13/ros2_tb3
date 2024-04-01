@@ -1,7 +1,8 @@
 import unittest
 from nav_msgs.msg import OccupancyGrid
+
 from navi_main.global_planner_package.global_map import GlobalMap
-from navi_main.global_planner_package.global_planner_node import GlobalPlannerNode
+from navi_main.global_planner_package.global_node import GlobalPlannerNode
 
 VALID_NODE = GlobalPlannerNode(1, 1)
 INVALID_NODE = GlobalPlannerNode(-1, -1)
@@ -21,6 +22,10 @@ class TestMapPrinting(unittest.TestCase):
                             100, 100, 100, 100, -1,
                             -1, -1, -1, -1, -1]  # Sample grid data
         self.map = GlobalMap(self.grid)
+
+    def test_find_frontiers(self):
+        frontiers = self.map.find_frontiers()
+        print(f"Frontiers: {frontiers}")
 
     def test_print_map(self):
         start_index = (2, 2)

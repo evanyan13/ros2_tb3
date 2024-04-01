@@ -6,14 +6,14 @@ from unittest.mock import MagicMock, patch
 from geometry_msgs.msg import Point, Quaternion, PoseStamped
 from nav_msgs.msg import OccupancyGrid, Odometry, Path
 
-from navi_main.global_planner_main import GlobalPlannerMain
+from navi_main.global_planner_package.global_planner import GlobalPlanner
 from navi_main.global_planner_package.global_map import GlobalMap
-from navi_main.global_planner_package.global_planner_node import GlobalPlannerNode
+from navi_main.global_planner_package.global_node import GlobalPlannerNode
 
-class TestGlobalPlannerMain(unittest.TestCase):
+class TestGlobalPlanner(unittest.TestCase):
     def setUp(self) -> None:
         rclpy.init()
-        self.node = GlobalPlannerMain()
+        self.node = GlobalPlanner()
     
     def test_map_callback(self):
         map_msg = OccupancyGrid()
@@ -28,7 +28,7 @@ class TestGlobalPlannerMain(unittest.TestCase):
         odom_msg.pose.pose.position = Point(x=1.0, y=2.0, z=0.0)
         odom_msg.pose.pose.orientation = Quaternion(x=0.0, y=0.0, z=1.0)
 
-        with patch('navi_main.global_planner_main.euler_from_quaternion') as mock_euler:
+        with patch('navi_main.global_planner_package.global_planner.euler_from_quaternion') as mock_euler:
             mock_euler.return_value = (0.0, 0.0, 0.0)
             self.node.odom_callback(odom_msg)
 
@@ -45,7 +45,7 @@ class TestGlobalPlannerMain(unittest.TestCase):
         self.node.map = MagicMock()
         self.node.mover.robot_pos = MagicMock()
 
-        with patch('navi_main.global_planner_main.GlobalPlannerMain.plan_path') as mock_plan_path:
+        with patch.object(self.node, 'plan_path') as mock_plan_path:
             mock_plan_path.return_value = True
             self.node.goal_callback(goal_msg)
 
@@ -141,13 +141,13 @@ class TestGlobalPlannerMain(unittest.TestCase):
 
         self.node.start = GlobalPlannerNode(0.0, 0.0)
         self.node.goal = GlobalPlannerNode(1.0, 2.0)
-        with patch('navi_main.global_planner_main.find_astar_path') as mock_astar_fail:
+        with patch('navi_main.global_planner_package.global_planner.find_astar_path') as mock_astar_fail:
             mock_astar_fail.return_value = []
             self.node.plan_path()
         self.assertEqual(self.node.state, 'IDLE')
         print(f"[CORRECT] Fail to plan_path given no astar path: {self.node.state}")
 
-        with patch('navi_main.global_planner_main.find_astar_path') as mock_astar_success:
+        with patch('navi_main.global_planner_package.global_planner.find_astar_path') as mock_astar_success:
             mock_astar_success.return_value = [self.node.start, self.node.goal]
             self.node.plan_path()
         self.assertEqual(self.node.state, 'NAVIGATING')
