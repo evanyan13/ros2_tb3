@@ -108,6 +108,51 @@ class TestGlobalPlannerMain(unittest.TestCase):
             self.assertEqual(pose_stamped.pose.position.x, path_list[i].x)
             self.assertEqual(pose_stamped.pose.position.y, path_list[i].y)
 
+    def test_state_machine_transition(self):
+        self.assertEqual(self.node.state, 'IDLE')
+        print(f"[CORRECT] Idle state at init: {self.node.state}")
+
+        self.node.start_planning()
+        self.assertEqual(self.node.state, 'PLANNING')
+        print(f"[CORRECT] From idle to planning: {self.node.state}")
+
+        self.node.path_found()
+        self.assertEqual(self.node.state, 'NAVIGATING')
+        print(f"[CORRECT] From planning to navigating: {self.node.state}")
+
+        self.node.goal_reached()
+        self.assertEqual(self.node.state, 'IDLE')
+        print(f"[CORRECT] From navigating to idle: {self.node.state}")
+
+        self.node.start_planning()
+        self.assertEqual(self.node.state, 'PLANNING')
+        self.node.fail()
+        self.assertEqual(self.node.state, 'IDLE')
+        print(f"[CORRECT] From any state to idle: {self.node.state}")      
+    
+    def test_state_machine_function_calls(self):
+        self.assertEqual(self.node.state, 'IDLE')
+        print(f"[CORRECT] Idle state at init: {self.node.state}")
+
+        self.node.map = GlobalMap(OccupancyGrid())
+        self.node.plan_path()
+        self.assertEqual(self.node.state, 'IDLE')
+        print(f"[CORRECT] Fail to plan_path: {self.node.state}")
+
+        self.node.start = GlobalPlannerNode(0.0, 0.0)
+        self.node.goal = GlobalPlannerNode(1.0, 2.0)
+        with patch('navi_main.global_planner_main.find_astar_path') as mock_astar_fail:
+            mock_astar_fail.return_value = []
+            self.node.plan_path()
+        self.assertEqual(self.node.state, 'IDLE')
+        print(f"[CORRECT] Fail to plan_path given no astar path: {self.node.state}")
+
+        with patch('navi_main.global_planner_main.find_astar_path') as mock_astar_success:
+            mock_astar_success.return_value = [self.node.start, self.node.goal]
+            self.node.plan_path()
+        self.assertEqual(self.node.state, 'NAVIGATING')
+        print(f"[CORRECT] Found astar path from planning to navigating: {self.node.state}")
+
     def tearDown(self) -> None:
         self.node.destroy_node()
         rclpy.shutdown()

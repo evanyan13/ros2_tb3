@@ -72,12 +72,12 @@ class GlobalPlannerMain(Node):
         Given map information, plan and publish the path from start node to end node
         """
         if self.state != 'IDLE':
-            self.get_logger().info("plan_path: Already planning or navigating")
+            self.get_logger().warn("plan_path: Already planning or navigating")
             return
         
-        if not self.map or not self.start or self.goal:
+        if not self.map or not self.start or not self.goal:
             self.fail()
-            self.get_logger().info("plan_path: Map and nodes are not initialised properly")
+            self.get_logger().warn("plan_path: Map and nodes are not initialised properly")
             return
         
         self.start_planning()
@@ -95,7 +95,7 @@ class GlobalPlannerMain(Node):
             self.get_logger().info("plan_path: Path published")
             self.path_found()
         else:
-            self.get_logger().info("plan_path: No path found")
+            self.get_logger().warn("plan_path: No path found")
             self.fail()
 
     def smooth_path_bspline(self, path_list: list) -> list:
