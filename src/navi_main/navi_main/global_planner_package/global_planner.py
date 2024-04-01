@@ -53,7 +53,7 @@ class GlobalPlanner(Node):
                       odom_msg.pose.pose.position.y,
                       odom_msg.pose.pose.orientation.z,
                       odom_msg.pose.pose.orientation.w)
-        _, _, yaw = euler_from_quaternion(quaternion)
+        _, _, yaw = euler_from_quaternion(*quaternion)
         self.mover.robot_pos = GlobalPlannerNode(odom_msg.pose.pose.position.x,
                                            odom_msg.pose.pose.position.y,
                                            yaw)
