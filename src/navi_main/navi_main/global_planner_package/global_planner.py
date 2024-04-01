@@ -1,4 +1,3 @@
-import time
 import rclpy
 import numpy as np
 from transitions import Machine
@@ -34,8 +33,10 @@ class GlobalPlanner(Node):
         self.map_subscriber = self.create_subscription(OccupancyGrid, 'map', self.map_callback, 10)
         self.odom_subscriber = self.create_subscription(Odometry, 'odom', self.odom_callback, 10)
         self.goal_subscriber = self.create_subscription(PoseStamped, 'goal', self.goal_callback, 10)
+        self.get_logger().info('init: Subscriptions initialised')
 
         self.path_publisher = self.create_publisher(Path, "path", 10)
+        self.get_logger().info(f'init: GlobalPlanner initialised {self.state}')
 
     def initialise_state(self):
         self.machine = Machine(model=self, states=GlobalPlanner.states, initial='IDLE')
@@ -46,7 +47,7 @@ class GlobalPlanner(Node):
 
     def map_callback(self, map_msg: OccupancyGrid):
         self.map = GlobalMap(map_msg)
-        self.get_logger().info(f"map_callback: Map loaded")
+        # self.get_logger().info(f"map_callback: Map loaded")
 
     def odom_callback(self, odom_msg: Odometry):
         quaternion = (odom_msg.pose.pose.position.x,
@@ -57,7 +58,8 @@ class GlobalPlanner(Node):
         self.mover.robot_pos = GlobalPlannerNode(odom_msg.pose.pose.position.x,
                                            odom_msg.pose.pose.position.y,
                                            yaw)
-        self.get_logger().info("odom_callback: Odometry (robot_pos) updated")
+        # self.get_logger().info(f"odom_callback: Odometry ({self.mover.robot_pos.x},\
+        #                        {self.mover.robot_pos.y} updated")
     
     def goal_callback(self, pose_msg: PoseStamped):
         self.goal = GlobalPlannerNode.from_pose(pose_msg.pose)
@@ -144,13 +146,13 @@ class GlobalPlanner(Node):
             rclpy.spin_once(self, timeout_sec=0.2)
 
 
-# def main(args=None):
-#     rclpy.init(args=args)
-#     node = GlobalPlannerMain()
-#     rclpy.spin(node)
-#     node.destroy_node()
-#     rclpy.shutdown()
+def main(args=None):
+    rclpy.init(args=args)
+    node = GlobalPlanner()
+    rclpy.spin(node)
+    node.destroy_node()
+    rclpy.shutdown()
 
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()
