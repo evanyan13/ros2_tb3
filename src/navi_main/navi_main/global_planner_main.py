@@ -44,23 +44,23 @@ class GlobalPlannerMain(Node):
         self.machine.add_transition(trigger='goal_reached', source='NAVIGATING', dest='IDLE')
         self.machine.add_transition(trigger='fail', source='*', dest='IDLE')
 
-    def map_callback(self, msg: OccupancyGrid):
-        self.map = GlobalMap(msg)
+    def map_callback(self, map_msg: OccupancyGrid):
+        self.map = GlobalMap(map_msg)
         self.get_logger().info(f"map_callback: Map loaded")
 
-    def odom_callback(self, msg: Odometry):
-        quaternion = (msg.pose.pose.position.x,
-                      msg.pose.pose.position.y,
-                      msg.pose.pose.orientation.z,
-                      msg.pose.pose.orientation.w)
+    def odom_callback(self, odom_msg: Odometry):
+        quaternion = (odom_msg.pose.pose.position.x,
+                      odom_msg.pose.pose.position.y,
+                      odom_msg.pose.pose.orientation.z,
+                      odom_msg.pose.pose.orientation.w)
         _, _, yaw = euler_from_quaternion(quaternion)
-        self.mover.robot_pos = GlobalPlannerNode(msg.pose.pose.position.x,
-                                           msg.pose.pose.position.y,
+        self.mover.robot_pos = GlobalPlannerNode(odom_msg.pose.pose.position.x,
+                                           odom_msg.pose.pose.position.y,
                                            yaw)
         self.get_logger().info("odom_callback: Odometry (robot_pos) updated")
     
-    def goal_callback(self, msg: PoseStamped):
-        self.goal = GlobalPlannerNode.from_pose(msg.pose)
+    def goal_callback(self, pose_msg: PoseStamped):
+        self.goal = GlobalPlannerNode.from_pose(pose_msg.pose)
         self.get_logger().info(f'goal_callback: Received new goal: ({self.goal.x}, {self.goal.y})')
         if self.map and self.mover.robot_pos:
             self.plan_path()
