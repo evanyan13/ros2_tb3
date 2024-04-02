@@ -2,8 +2,8 @@ import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import PoseStamped
 
-from navi_main.global_planner_package.global_map import GlobalMap
-from navi_main.global_planner_package.global_node import GlobalPlannerNode
+from .global_map import GlobalMap
+from .global_node import GlobalPlannerNode
 
 class FrontierExplorer(Node):
     def __init__(self, global_map: GlobalMap, robot_pos: GlobalPlannerNode):
@@ -13,16 +13,18 @@ class FrontierExplorer(Node):
         
         self.goal_publisher = self.create_publisher(PoseStamped, 'goal', 10)
 
+        time_period = 3
+        self.timer = self.create_timer(time_period, self.publish_goal)
+
     def publish_goal(self):
         self.get_logger().info("Attempting to publish goal...")
         if not self.map or not self.robot_pos:
-            self.get_logger().warn("evaluate_and_publish_goal: Stopped Map / robot_pos not initialised")
+            self.get_logger().warn("publish_goal: Stopped Map / robot_pos not initialised")
             return
         
         frontiers = self.map.find_frontiers()
-
         if not frontiers:
-            self.get_logger().warn("evaluate_and_publish_goal: No frontiers found")
+            self.get_logger().warn("publish_goal: No frontiers found")
             return
 
         bot_x, bot_y = self.map.coordinates_to_indices(self.robot_pos.x, self.robot_pos.y)
@@ -39,6 +41,7 @@ class FrontierExplorer(Node):
 
         self.goal_publisher.publish(goal_msg)
         self.get_logger().info(f"Published new goal: ({goal_msg.pose.position.x}, {goal_msg.pose.position.y})")
+
 
 def main(args=None):
     rclpy.init(args=args)

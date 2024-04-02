@@ -1,3 +1,5 @@
+import csv
+import os
 import numpy as np
 from nav_msgs.msg import OccupancyGrid
 
@@ -29,6 +31,16 @@ class GlobalMap:
                     if any(self.data[ny][nx] == unknown_value for nx, ny in neighbours):
                         frontiers.append((x, y))
         return frontiers
+    
+    def generate_occupancy(self):
+        filename = 'map.csv'
+        
+        with open(filename, 'w', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            for row in self.data:
+                writer.writerow(row)
+        
+        return os.path.abspath(filename)
 
     def get_occupancy_value_by_indices(self, i: int, j: int) -> int:
         """
@@ -69,13 +81,13 @@ class GlobalMap:
         Checks if node is valid/within boundary of the map
         """
         i, j = self.coordinates_to_indices(node.x, node.y)
-        return (0 <= i < self.height) and (0 <= j < self.width)
+        return (i < self.height) and (j < self.width)
 
     def is_node_valid_by_indices(self, i: int, j: int) -> bool:
         """
         Checks if node is valid/within boundary of the map by indices
         """
-        return (0 <= i < self.height) and (0 <= j < self.width)
+        return (i < self.height) and (j < self.width)
     
     def is_node_avail(self, node: GlobalPlannerNode) -> bool:
         """

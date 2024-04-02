@@ -1,4 +1,5 @@
 import heapq
+import rclpy.logging as log
 
 from .global_map import GlobalMap
 from .global_node import GlobalPlannerNode
@@ -10,12 +11,12 @@ def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlanne
     """
     # Check if start and goal nodes are valid
     if not (map.is_node_valid(start) and map.is_node_valid(goal)):
-        print("Start or goal node is invalid")
+        log.get_logger('find_astar_path').info("Start or goal node is invalid")
         return []
 
     # Check if start and goal nodes are avail
     if not map.is_node_avail(start) or  not map.is_node_avail(goal):
-        print("Start or goal node is occupied")
+        log.get_logger("find_astar_path").info("Start or goal node is occupied")
         return []
     
     # Check if are at the destination
@@ -36,7 +37,7 @@ def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlanne
     while open_nodes:
         _, current_node = heapq.heappop(open_nodes)
         open_set.remove((current_node.x, current_node.y))
-        print(f"\nProcessing Node: ({current_node.x}, {current_node.y}), f: {current_node.f}")
+        log.get_logger("find_astar_path").info(f"Processing Node: ({current_node.x}, {current_node.y}), f: {current_node.f}")
 
         # Skip if current node has been visited before
         if (current_node.x, current_node.y) in visited_set:
@@ -44,14 +45,14 @@ def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlanne
 
         # Return when current node is the goal
         if current_node.equals(goal):
-            print(f"Goal reached: ({current_node.x}, {current_node.y})")
+            log.get_logger("find_astar_path").info(f"Goal reached: ({current_node.x}, {current_node.y})")
             return current_node.backtrack_path()
 
         visited_set.add((current_node.x, current_node.y))
 
         for neighbour in current_node.generate_neighbours(map.resolution):
             n_index = neighbour.x, neighbour.y
-            print(f"Checking neighbour: {n_index}")
+            # print(f"Checking neighbour: {n_index}")
             if n_index in visited_set:
                 continue
 

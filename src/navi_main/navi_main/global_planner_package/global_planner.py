@@ -1,5 +1,6 @@
 import rclpy
 import numpy as np
+import threading
 from transitions import Machine
 from rclpy.node import Node
 from geometry_msgs.msg import PoseStamped
@@ -23,17 +24,16 @@ class GlobalPlanner(Node):
         self.start = None
         self.goal = None
         self.curr_path = None
-
-        self.initialise_state()
-        self.get_logger().info('init: States initialised')
+        self.planner_ready = threading.Event()
 
         self.mover = GlobalMover(self)
-        self.get_logger().info('init: GlobalMover initialised')
+
+        self.initialise_state()
+        self.get_logger().info(f'init: States initialised {self.state}')
 
         self.map_subscriber = self.create_subscription(OccupancyGrid, 'map', self.map_callback, 10)
         self.odom_subscriber = self.create_subscription(Odometry, 'odom', self.odom_callback, 10)
         self.goal_subscriber = self.create_subscription(PoseStamped, 'goal', self.goal_callback, 10)
-        self.get_logger().info('init: Subscriptions initialised')
 
         self.path_publisher = self.create_publisher(Path, "path", 10)
         self.get_logger().info(f'init: GlobalPlanner initialised {self.state}')
@@ -47,7 +47,9 @@ class GlobalPlanner(Node):
 
     def map_callback(self, map_msg: OccupancyGrid):
         self.map = GlobalMap(map_msg)
-        # self.get_logger().info(f"map_callback: Map loaded")
+        self.check_ready()
+
+        # self.get_logger().info(f"map_callback: Map loaded {self.map.origin}")
 
     def odom_callback(self, odom_msg: Odometry):
         quaternion = (odom_msg.pose.pose.position.x,
@@ -55,11 +57,18 @@ class GlobalPlanner(Node):
                       odom_msg.pose.pose.orientation.z,
                       odom_msg.pose.pose.orientation.w)
         _, _, yaw = euler_from_quaternion(*quaternion)
-        self.mover.robot_pos = GlobalPlannerNode(odom_msg.pose.pose.position.x,
-                                           odom_msg.pose.pose.position.y,
+
+        current_pos = GlobalPlannerNode(odom_msg.pose.pose.position.x,\
+                                           odom_msg.pose.pose.position.y,\
                                            yaw)
-        # self.get_logger().info(f"odom_callback: Odometry ({self.mover.robot_pos.x},\
-        #                        {self.mover.robot_pos.y} updated")
+        
+        self.mover.robot_pos = current_pos
+        self.start = current_pos
+        self.check_ready() 
+    
+    def check_ready(self):
+        if self.map and self.mover and self.mover.robot_pos:
+            self.planner_ready.set() # Signal that GlobalPlanner is ready
     
     def goal_callback(self, pose_msg: PoseStamped):
         self.goal = GlobalPlannerNode.from_pose(pose_msg.pose)
@@ -83,7 +92,9 @@ class GlobalPlanner(Node):
             return
         
         self.start_planning()
-        self.get_logger().info("plan_path: Start path planning")
+        start_pt = (self.start.x, self.start.y)
+        goal_pt = (self.goal.x, self.goal.y)
+        self.get_logger().info(f"plan_path: Start path planning {start_pt, goal_pt}")
 
         path_list = find_astar_path(self.map, self.start, self.goal)
         if path_list:

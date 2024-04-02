@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'global_planner_main = navi_main.global_planner_main:main',
+            'navi_main = navi_main.global_planner_main:main',
+            'planner = navi_main.global_planner_package.global_planner:main',
         ],
     },
 )

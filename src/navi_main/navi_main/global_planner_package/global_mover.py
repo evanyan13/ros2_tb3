@@ -19,7 +19,7 @@ class GlobalMover(Node):
     def __init__(self, planner):
         super().__init__('global_mover')
 
-        self.robot_pos = None
+        self.robot_pos = GlobalPlannerNode()
         self.path_deviation = 0.0
         self.planner = planner
 
