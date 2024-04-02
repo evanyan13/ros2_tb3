@@ -47,8 +47,8 @@ cont.start(7.5)
 time.sleep(1)      
 
 # Flip PVC pipe upright
-half.ChangeDutyCycle(4.75) # slow counterclockwise
-time.sleep(0.85) # Calibrated time to rotate approximately 180 assuming 61 RPM
+half.ChangeDutyCycle(6) # slow counterclockwise
+time.sleep(3) 
 half.ChangeDutyCycle(7.25)
 time.sleep(2.5)
 
@@ -60,7 +60,7 @@ time.sleep(2.5)
 
 # Rotate the continuous rotation servo
 cont.ChangeDutyCycle(10) # 100% clockwise
-time.sleep(5)  # Rotate for 5 sec
+time.sleep(4)  # Rotate for 4 sec
 cont.ChangeDutyCycle(7.5) # Stop
 time.sleep(2.5)
 
