@@ -19,7 +19,7 @@ class FrontierExplorer(Node):
     def publish_goal(self):
         self.get_logger().info("Attempting to publish goal...")
         if not self.map or not self.robot_pos:
-            self.get_logger().warn("publish_goal: Stopped Map / robot_pos not initialised")
+            self.get_logger().warn("publish_goal: STOPPED Map / robot_pos not initialised")
             return
         
         frontiers = self.map.find_frontiers()

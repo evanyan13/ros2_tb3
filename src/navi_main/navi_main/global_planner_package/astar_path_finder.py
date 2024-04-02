@@ -16,7 +16,9 @@ def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlanne
 
     # Check if start and goal nodes are avail
     if not map.is_node_avail(start) or  not map.is_node_avail(goal):
-        log.get_logger("find_astar_path").info("Start or goal node is occupied")
+        start_node = (start.x, start.y)
+        goal_node = (goal.x, goal.y)
+        log.get_logger("find_astar_path").info(f"Start or goal node is occupied ({start_node}, {goal_node})")
         return []
     
     # Check if are at the destination

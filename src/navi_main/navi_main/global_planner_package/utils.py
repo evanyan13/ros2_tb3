@@ -1,4 +1,9 @@
 import math
+import csv
+import numpy as np
+import matplotlib.pyplot as plt
+from nav_msgs.msg import OccupancyGrid, MapMetaData
+from geometry_msgs.msg import Pose
 
 pixel_tolerance = 1
 
@@ -25,5 +30,52 @@ def euler_from_quaternion(x, y, z, w):
 
     return roll_x, pitch_y, yaw_z # in radians
 
+
 def print_path(path: list):
     print([(n.x, n.y) for n in path])
+
+
+def read_occupancy_grid_from_csv(filename):
+    with open(filename, 'r') as csvfile:
+        reader = csv.reader(csvfile)
+        data = np.array([list(map(int, row)) for row in reader], dtype=np.int8)
+
+    resolution=1.0
+    origin=(0.0, 0.0, 0.0)
+    height, width = data.shape
+
+    grid = OccupancyGrid()
+    grid.info = MapMetaData()
+    grid.info.resolution = resolution
+    grid.info.width = width
+    grid.info.height = height
+    grid.info.origin = Pose()
+    grid.info.origin.position.x = origin[0]
+    grid.info.origin.position.y = origin[1]
+    grid.info.origin.position.z = 0.0
+    grid.data = [int(value) for value in data.flatten()]
+
+    return grid
+
+
+def display_occupancy_grid(grid_data):
+    plt.imshow(grid_data, cmap='gray', interpolation='none')
+    plt.title('Occupancy Grid')
+    plt.colorbar(label='Occupancy value')
+    plt.show()
+
+
+def display_with_frontier(grid_data, frontiers):
+    cmap = plt.cm.gray
+    norm = plt.Normalize(vmin=-1, vmax=100)
+    plt.imshow(grid_data, cmap=cmap, norm=norm, origin='upper')
+
+    frontier_x, frontier_y = zip(*frontiers) if frontiers else ([], [])
+    plt.scatter(frontier_x, frontier_y, color='red', s=10)
+
+    plt.title('Occupancy Grid with Frontiers')
+    plt.xlabel('X')
+    plt.ylabel('Y')
+    plt.colorbar(label='Occupancy value')
+
+    plt.show()

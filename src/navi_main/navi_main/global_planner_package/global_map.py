@@ -25,15 +25,15 @@ class GlobalMap:
 
         for y in range(1, self.height - 1):
             for x in range(1, self.width - 1):
-                if self.data[y, x] == 0:
-                    neighbours = [(x + dx, y + dy) for dx, dy
+                if 0 <= self.data[y, x] < 100:
+                    neighbours = [(x + dx, y + dy) for dx, dy \
                                   in [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, -1), (-1, 1), (1, 1)]]
                     if any(self.data[ny][nx] == unknown_value for nx, ny in neighbours):
                         frontiers.append((x, y))
         return frontiers
     
     def generate_occupancy(self):
-        filename = 'map.csv'
+        filename = '/home/evanyan13/colcon_ws/src/navi_main/test/map.csv'
         
         with open(filename, 'w', newline='') as csvfile:
             writer = csv.writer(csvfile)
@@ -81,13 +81,13 @@ class GlobalMap:
         Checks if node is valid/within boundary of the map
         """
         i, j = self.coordinates_to_indices(node.x, node.y)
-        return (i < self.height) and (j < self.width)
+        return (0 <= i < self.height) and (0 <= j < self.width)
 
     def is_node_valid_by_indices(self, i: int, j: int) -> bool:
         """
         Checks if node is valid/within boundary of the map by indices
         """
-        return (i < self.height) and (j < self.width)
+        return (0 <= i < self.height) and (0 <= j < self.width)
     
     def is_node_avail(self, node: GlobalPlannerNode) -> bool:
         """
@@ -97,7 +97,7 @@ class GlobalMap:
 
         # Checks if the node is out of bound
         if self.is_node_valid_by_indices(i, j):
-            return (self.get_occupancy_value_by_indices(i, j) < 100)
+            return (0 <= self.get_occupancy_value_by_indices(i, j) < 100)
 
     def is_node_free(self, node: GlobalPlannerNode) -> bool:
         """
