@@ -15,10 +15,28 @@ def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlanne
     #     return []
 
     # Check if start and goal nodes are avail
-    if not map.is_node_avail(start) or  not map.is_node_avail(goal):
-        start_node = (start.x, start.y)
-        goal_node = (goal.x, goal.y)
-        log.get_logger("find_astar_path").info(f"Start or goal node is occupied ({start_node}, {goal_node})")
+    if not map.is_node_avail(start) or not map.is_node_avail(goal):
+        log.get_logger("find_astar_path").info(f"--------FAILED TO CHECK-------")
+        start_index = map.coordinates_to_indices(start.x, start.y)
+        goal_index = map.coordinates_to_indices(goal.x, goal.y)
+        log.get_logger("find_astar_path").info(f"CHECK indices ({start_index}, {goal_index}) in map (h x w): ({map.height}, {map.width})")
+
+        start_index_valid = map.is_node_valid_by_indices(*start_index)
+        goal_index_valid = map.is_node_valid_by_indices(*goal_index)
+        start_coord_valid = map.is_node_valid(start)
+        goal_coord_valid = map.is_node_valid(goal)      
+        log.get_logger("find_astar_path").info(f"CHECK valid...")
+        log.get_logger("find_astar_path").info(f"Valid by indices: start: {start_index_valid}, goal: {goal_index_valid}")
+        log.get_logger("find_astar_path").info(f"Valid by coord: start: {start_coord_valid}, goal: {goal_coord_valid}")
+
+        start_index_occ = map.get_occupancy_value_by_indices(*start_index)
+        goal_index_occ = map.get_occupancy_value_by_indices(*goal_index)
+        start_coord_occ = map.get_occupancy_value_by_coordinates(start.x, start.y)
+        goal_coord_occ = map.get_occupancy_value_by_coordinates(goal.x, goal.y) 
+        log.get_logger("find_astar_path").info(f"CHECK occupancy...")
+        log.get_logger("find_astar_path").info(f"Occ by indices: start: {start_index_occ}, goal: {goal_index_occ}")
+        log.get_logger("find_astar_path").info(f"Occ by coord: start: {start_coord_occ}, goal: {goal_coord_occ}")
+        log.get_logger("find_astar_path").info(f"--------CHECK COMPLETE-------")
         return []
     
     # Check if are at the destination

@@ -46,7 +46,9 @@ def plot_path(self, map: GlobalMap, path):
     x_coords, y_coords = zip(*[(node.x, node.y) for node in path])
 
     # Plot the occupancy grid
-    plt.imshow(map.data.reshape((map.height, map.width)), cmap='gray', origin='lower')
+    cmap = plt.cm.gray
+    norm = plt.Normalize(vmin=-1, vmax=100)
+    plt.imshow(map.data.reshape((map.height, map.width)), cmap=cmap, norm=norm, origin='lower')
     plt.scatter(x_coords, y_coords, c='red')  # Path in red
     plt.scatter(self.start.x, self.start.y, c='blue')  # Start in blue
     plt.scatter(self.goal.x, self.goal.y, c='green')  # End in green
