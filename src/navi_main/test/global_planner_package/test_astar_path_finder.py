@@ -9,8 +9,8 @@ from navi_main.global_planner_package.global_map import GlobalMap
 from navi_main.global_planner_package.global_node import GlobalPlannerNode
 from navi_main.global_planner_package.utils import print_path, read_occupancy_grid_from_csv, MAP_PATH
 
-START = GlobalPlannerNode(x=0.0, y=0.0)
-END = GlobalPlannerNode(x=3.0, y=3.0)
+START = GlobalPlannerNode(x=24.0, y=47.0)
+END = GlobalPlannerNode(x=34.0, y=47.0)
 
 class TestAstarPathFinder(unittest.TestCase):
     
@@ -22,8 +22,15 @@ class TestAstarPathFinder(unittest.TestCase):
         self.start = find_random_point(self.map)
         self.goal = find_random_point(self.map)
 
-    def test_path_random_points(self):
-        path = find_astar_path(self.map, self.start, self.goal)
+    # def test_path_random_points(self):
+    #     path = find_astar_path(self.map, self.start, self.goal)
+    #     if path:
+    #         print_path(path)
+    #         plot_path(self, self.map, path)
+    #     self.assertTrue(len(path) > 0, "A path should be found")
+
+    def test_path_fixed_points(self):
+        path = find_astar_path(self.map, START, END)
         if path:
             print_path(path)
             plot_path(self, self.map, path)

@@ -30,7 +30,6 @@ class FrontierExplorer(Node):
         bot_x, bot_y = self.map.coordinates_to_indices(self.robot_pos.x, self.robot_pos.y)
         closet_frontier = min(frontiers, key=lambda point: (point[0] - bot_x)**2 + (point[1] - bot_y)**2)
 
-        self.get_logger().warn(f"publish_goal: CHECK {closet_frontier[0]}, {closet_frontier[1]}")
         goal_pose = self.map.indices_to_coordinates(closet_frontier[0], closet_frontier[1])
 
         goal_msg = PoseStamped()

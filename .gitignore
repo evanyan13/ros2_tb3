@@ -8,12 +8,12 @@ __pycache__/
 *.sublime-workspace
 
 # ROS2 build and log directories
-build/
-install/
-log/
-src/*/build/
-src/*/install/
-src/*/log/
+build/*
+install/*
+log/*
+src/*/build/*
+src/*/install/*
+src/*/log/*
 
 # Python virtual environments
 venv/

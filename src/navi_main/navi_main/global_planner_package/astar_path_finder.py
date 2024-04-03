@@ -5,44 +5,23 @@ from .global_map import GlobalMap
 from .global_node import GlobalPlannerNode
 
 
-def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlannerNode) -> list:
+def find_astar_path(map: GlobalMap, start_node: GlobalPlannerNode, goal_node: GlobalPlannerNode) -> list:
     """
     Find path from start to goal node using Astar Algorithm
     """
-    # Check if start and goal nodes are valid
-    # if not (map.is_node_valid(start) and map.is_node_valid(goal)):
-    #     log.get_logger('find_astar_path').info("Start or goal node is invalid")
-    #     return []
-
-    # Check if start and goal nodes are avail
-    if not map.is_node_avail(start) or not map.is_node_avail(goal):
-        log.get_logger("find_astar_path").info(f"--------FAILED TO CHECK-------")
-        start_index = map.coordinates_to_indices(start.x, start.y)
-        goal_index = map.coordinates_to_indices(goal.x, goal.y)
-        log.get_logger("find_astar_path").info(f"CHECK indices ({start_index}, {goal_index}) in map (h x w): ({map.height}, {map.width})")
-
-        start_index_valid = map.is_node_valid_by_indices(*start_index)
-        goal_index_valid = map.is_node_valid_by_indices(*goal_index)
-        start_coord_valid = map.is_node_valid(start)
-        goal_coord_valid = map.is_node_valid(goal)      
-        log.get_logger("find_astar_path").info(f"CHECK valid...")
-        log.get_logger("find_astar_path").info(f"Valid by indices: start: {start_index_valid}, goal: {goal_index_valid}")
-        log.get_logger("find_astar_path").info(f"Valid by coord: start: {start_coord_valid}, goal: {goal_coord_valid}")
-
-        start_index_occ = map.get_occupancy_value_by_indices(*start_index)
-        goal_index_occ = map.get_occupancy_value_by_indices(*goal_index)
-        start_coord_occ = map.get_occupancy_value_by_coordinates(start.x, start.y)
-        goal_coord_occ = map.get_occupancy_value_by_coordinates(goal.x, goal.y) 
-        log.get_logger("find_astar_path").info(f"CHECK occupancy...")
-        log.get_logger("find_astar_path").info(f"Occ by indices: start: {start_index_occ}, goal: {goal_index_occ}")
-        log.get_logger("find_astar_path").info(f"Occ by coord: start: {start_coord_occ}, goal: {goal_coord_occ}")
-        log.get_logger("find_astar_path").info(f"--------CHECK COMPLETE-------")
-        return []
-    
     # Check if are at the destination
-    if start.equals(goal):
+    if start_node.equals(goal_node):
         print("We are already at the destination")
-        return []
+        return [start]
+    
+    # Convert coordinates to indices
+    start_i, start_j = map.coordinates_to_indices(start_node.x, start_node.y)
+    goal_i, goal_j = map.coordinates_to_indices(goal_node.x, goal_node.y)
+
+    start = GlobalPlannerNode(start_i, start_j, start_node.theta)
+    goal = GlobalPlannerNode(goal_i, goal_j, goal_node.theta)
+
+    log.get_logger("find_astar_path").info(f"Finding path for: ({start_i}, {start_j}) -> ({goal_i}, {goal_j}))")
 
     open_nodes = []
     open_set = set()
@@ -57,7 +36,8 @@ def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlanne
     while open_nodes:
         _, curr_node = heapq.heappop(open_nodes)
         open_set.remove((curr_node.x, curr_node.y))
-        occ_value = map.get_occupancy_value_by_coordinates(curr_node.x, curr_node.y)
+        print(curr_node.x, curr_node.y)
+        occ_value = map.get_occupancy_value_by_indices(curr_node.x, curr_node.y)
         log.get_logger("find_astar_path").info(f"Processing Node: ({curr_node.x}, {curr_node.y}), f: {curr_node.f}, occ: {occ_value}")
 
         # Skip if current node has been visited before
@@ -73,7 +53,6 @@ def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlanne
 
         for neighbour in curr_node.generate_neighbours(map.resolution):
             n_index = neighbour.x, neighbour.y
-            # print(f"Checking neighbour: {n_index}")
             if n_index in visited_set:
                 continue
 
@@ -94,5 +73,4 @@ def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlanne
                     else:
                         visited_set.add(n_index)
 
-    print("Path not found")
     return []

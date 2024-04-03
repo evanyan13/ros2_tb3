@@ -25,12 +25,12 @@ class GlobalMap:
         unknown_value = -1
         frontiers = []
 
-        for x in range(1, self.height - 1):
-            for y in range(1, self.width - 1):
-                if 0 <= self.data[x, y] < 100:
-                    neighbours = [(x + dx, y + dy) for dx, dy \
+        for y in range(1, self.height - 1):
+            for x in range(1, self.width - 1):
+                if 0 <= self.data[y, x] < 100:
+                    neighbours = [(y + dy, x + dx) for dx, dy \
                                   in [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, -1), (-1, 1), (1, 1)]]
-                    if any(self.data[nx][ny] == unknown_value for nx, ny in neighbours):
+                    if any(self.data[ny][nx] == unknown_value for ny, nx in neighbours):
                         frontiers.append((x, y))
         return frontiers
     
@@ -44,10 +44,12 @@ class GlobalMap:
         
         return os.path.abspath(filename)
 
-    def get_occupancy_value_by_indices(self, i: int, j: int) -> int:
+    def get_occupancy_value_by_indices(self, i, j) -> int:
         """
         Access occupany value by indices of OccupancyGrid
         """
+        i = int(i)
+        j = int(j)
         if 0 <= i < self.height and 0 <= j < self.width:
             return self.data[i, j]
         return -1 # Unkown value

@@ -1,6 +1,8 @@
 import rclpy
 import numpy as np
 import threading
+import tf2_ros
+from tf2_ros import LookupException, ConnectivityException, ExtrapolationException
 from transitions import Machine
 from rclpy.node import Node
 from geometry_msgs.msg import PoseStamped
@@ -32,10 +34,14 @@ class GlobalPlanner(Node):
         self.get_logger().info(f'init: States initialised {self.state}')
 
         self.map_subscriber = self.create_subscription(OccupancyGrid, 'map', self.map_callback, 10)
-        self.odom_subscriber = self.create_subscription(Odometry, 'odom', self.odom_callback, 10)
+        # self.odom_subscriber = self.create_subscription(Odometry, 'odom', self.odom_callback, 10)
         self.goal_subscriber = self.create_subscription(PoseStamped, 'goal', self.goal_callback, 10)
 
         self.path_publisher = self.create_publisher(Path, "path", 10)
+
+        self.tf_buffer = tf2_ros.Buffer()
+        self.tf_listener = tf2_ros.TransformListener(self.tf_buffer, self)
+
         self.get_logger().info(f'init: GlobalPlanner initialised {self.state}')
 
     def initialise_state(self):
@@ -47,24 +53,28 @@ class GlobalPlanner(Node):
 
     def map_callback(self, map_msg: OccupancyGrid):
         self.map = GlobalMap(map_msg)
+        self.update_ros_pos_from_tf()
         self.check_ready()
+    
+    def update_ros_pos_from_tf(self):
+        try:
+            now = rclpy.time.Time()
+            transform = self.tf_buffer.lookup_transform('map', 'base_link', now)
 
-        # self.get_logger().info(f"map_callback: Map loaded {self.map.origin}")
+            translation = transform.transform.translation
+            rotation = transform.transform.rotation
+            _, _, yaw = euler_from_quaternion(rotation.x, rotation.y, rotation.z, rotation.w)
 
-    def odom_callback(self, odom_msg: Odometry):
-        quaternion = (odom_msg.pose.pose.position.x,
-                      odom_msg.pose.pose.position.y,
-                      odom_msg.pose.pose.orientation.z,
-                      odom_msg.pose.pose.orientation.w)
-        _, _, yaw = euler_from_quaternion(*quaternion)
+            # Update the robot's current position
+            self.mover.robot_pos = GlobalPlannerNode(translation.x, translation.y, yaw)
+            self.start = self.mover.robot_pos
 
-        current_pos = GlobalPlannerNode(odom_msg.pose.pose.position.x,\
-                                           odom_msg.pose.pose.position.y,\
-                                           yaw)
-        
-        self.mover.robot_pos = current_pos
-        self.start = current_pos
-        self.check_ready() 
+            # Initialise current robot_pos to 0
+            start_x, start_y = self.map.coordinates_to_indices(self.start.x, self.start.y)
+            self.map.data[start_y][start_x] = 0
+
+        except(LookupException, ConnectivityException, ExtrapolationException) as e:
+            self.get_logger().error(f'Could not transform base_link to map: {e}')
     
     def check_ready(self):
         if self.map and self.mover and self.mover.robot_pos:
