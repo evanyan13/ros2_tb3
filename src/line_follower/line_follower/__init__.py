@@ -2,14 +2,14 @@ import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Twist
 from std_msgs.msg import String
-import Rpi.GPIO as GPIO
+import RPi.GPIO as GPIO
 import time
 
 class LineFollower(Node):
     def __init__(self):
         super().__init__('line_follower')
         self.publisher_cmd_vel = self.create_publisher(Twist,'cmd_vel',10)
-        self.subscriber_color = self.create_subscription(String,'color_info',10)
+        self.subscriber_color = self.create_subscription(String, 'color_info', self.color_callback, 10)
         self.setup()
         self.line_following = False
         self.sensor_left = 0
@@ -24,8 +24,8 @@ class LineFollower(Node):
     
     def color_callback(self,msg):
         if msg.data == 'RED' and not self.line_following:
-            self.start_line_following
-
+            self.start_line_following()
+            
     def start_line_following(self):
         self.line_following = True
         twist = Twist()
@@ -40,7 +40,7 @@ class LineFollower(Node):
                 twist.angular.z -= 0.2
             else:
                 self.check_end_line()
-            self.publisher_cmd_vel.publish(Twist)
+            self.publisher_cmd_vel.publish(twist)
     
     def check_end_line(self):
         if self.sensor_left == 0 and self.sensor_right == 0:
@@ -59,8 +59,8 @@ def main(args=None):
     try:
         rclpy.spin(line_follower)
     except KeyboardInterrupt:
-            pass
-    line_follower.stop_line_follower
+        line_follower.stop_line_follower()
+    
     line_follower.destroy_node()
     rclpy.shutdown
 
