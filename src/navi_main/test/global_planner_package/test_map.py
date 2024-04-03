@@ -1,7 +1,7 @@
 import unittest
 from nav_msgs.msg import OccupancyGrid
  
-from navi_main.global_planner_package.utils import read_occupancy_grid_from_csv, display_with_frontier
+from navi_main.global_planner_package.utils import read_occupancy_grid_from_csv, display_with_frontier, MAP_PATH
 from navi_main.global_planner_package.global_map import GlobalMap
 from navi_main.global_planner_package.global_node import GlobalPlannerNode
 
@@ -13,7 +13,7 @@ OCCUPIED_NODE = GlobalPlannerNode(2, 3)
 class TestMapPrinting(unittest.TestCase):
     # Setup an example OccupancyGrid
     def setUp(self):
-        filename = '/home/evanyan13/colcon_ws/src/navi_main/test/map.csv'
+        filename = MAP_PATH
         self.grid = read_occupancy_grid_from_csv(filename)
         self.map_real = GlobalMap(self.grid)
 

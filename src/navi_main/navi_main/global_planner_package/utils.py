@@ -5,7 +5,9 @@ import matplotlib.pyplot as plt
 from nav_msgs.msg import OccupancyGrid, MapMetaData
 from geometry_msgs.msg import Pose
 
+# Package wide parameters
 pixel_tolerance = 1
+MAP_PATH = '/home/evanyan13/colcon_ws/map.csv'
 
 # code from https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/
 def euler_from_quaternion(x, y, z, w):
@@ -71,7 +73,7 @@ def display_with_frontier(grid_data, frontiers):
     plt.imshow(grid_data, cmap=cmap, norm=norm, origin='upper')
 
     frontier_x, frontier_y = zip(*frontiers) if frontiers else ([], [])
-    plt.scatter(frontier_x, frontier_y, color='red', s=10)
+    plt.scatter(frontier_y, frontier_x, color='red', s=10)
 
     plt.title('Occupancy Grid with Frontiers')
     plt.xlabel('X')

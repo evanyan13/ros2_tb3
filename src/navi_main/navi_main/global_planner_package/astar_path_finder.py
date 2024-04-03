@@ -10,9 +10,9 @@ def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlanne
     Find path from start to goal node using Astar Algorithm
     """
     # Check if start and goal nodes are valid
-    if not (map.is_node_valid(start) and map.is_node_valid(goal)):
-        log.get_logger('find_astar_path').info("Start or goal node is invalid")
-        return []
+    # if not (map.is_node_valid(start) and map.is_node_valid(goal)):
+    #     log.get_logger('find_astar_path').info("Start or goal node is invalid")
+    #     return []
 
     # Check if start and goal nodes are avail
     if not map.is_node_avail(start) or  not map.is_node_avail(goal):
@@ -37,29 +37,30 @@ def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlanne
     open_set.add((start.x, start.y))
  
     while open_nodes:
-        _, current_node = heapq.heappop(open_nodes)
-        open_set.remove((current_node.x, current_node.y))
-        log.get_logger("find_astar_path").info(f"Processing Node: ({current_node.x}, {current_node.y}), f: {current_node.f}")
+        _, curr_node = heapq.heappop(open_nodes)
+        open_set.remove((curr_node.x, curr_node.y))
+        occ_value = map.get_occupancy_value_by_coordinates(curr_node.x, curr_node.y)
+        log.get_logger("find_astar_path").info(f"Processing Node: ({curr_node.x}, {curr_node.y}), f: {curr_node.f}, occ: {occ_value}")
 
         # Skip if current node has been visited before
-        if (current_node.x, current_node.y) in visited_set:
+        if (curr_node.x, curr_node.y) in visited_set:
             continue
 
         # Return when current node is the goal
-        if current_node.equals(goal):
-            log.get_logger("find_astar_path").info(f"Goal reached: ({current_node.x}, {current_node.y})")
-            return current_node.backtrack_path()
+        if curr_node.equals(goal):
+            log.get_logger("find_astar_path").info(f"Goal reached: ({curr_node.x}, {curr_node.y})")
+            return curr_node.backtrack_path()
 
-        visited_set.add((current_node.x, current_node.y))
+        visited_set.add((curr_node.x, curr_node.y))
 
-        for neighbour in current_node.generate_neighbours(map.resolution):
+        for neighbour in curr_node.generate_neighbours(map.resolution):
             n_index = neighbour.x, neighbour.y
             # print(f"Checking neighbour: {n_index}")
             if n_index in visited_set:
                 continue
 
             if map.is_node_valid(neighbour) and map.is_node_avail(neighbour):
-                g_new = current_node.g + current_node.calculate_distance(neighbour)
+                g_new = curr_node.g + curr_node.calculate_distance(neighbour)
                 h_new = neighbour.calculate_distance(goal)
                 f_new = g_new + h_new
 
@@ -67,7 +68,7 @@ def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlanne
                     neighbour.g = g_new
                     neighbour.h = h_new
                     neighbour.f = f_new
-                    neighbour.parent = current_node
+                    neighbour.parent = curr_node
 
                     if n_index not in open_set:
                         heapq.heappush(open_nodes, (neighbour.f, neighbour))

@@ -3,8 +3,10 @@ import os
 import numpy as np
 from nav_msgs.msg import OccupancyGrid
 
-from .utils import pixel_tolerance
+from .utils import pixel_tolerance, MAP_PATH
 from .global_node import GlobalPlannerNode
+
+OCC_THRESHOLD = 20
 
 class GlobalMap:
     def __init__(self, grid_map: OccupancyGrid):
@@ -23,17 +25,17 @@ class GlobalMap:
         unknown_value = -1
         frontiers = []
 
-        for y in range(1, self.height - 1):
-            for x in range(1, self.width - 1):
-                if 0 <= self.data[y, x] < 100:
+        for x in range(1, self.height - 1):
+            for y in range(1, self.width - 1):
+                if 0 <= self.data[x, y] < 100:
                     neighbours = [(x + dx, y + dy) for dx, dy \
                                   in [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, -1), (-1, 1), (1, 1)]]
-                    if any(self.data[ny][nx] == unknown_value for nx, ny in neighbours):
+                    if any(self.data[nx][ny] == unknown_value for nx, ny in neighbours):
                         frontiers.append((x, y))
         return frontiers
     
     def generate_occupancy(self):
-        filename = '/home/evanyan13/colcon_ws/src/navi_main/test/map.csv'
+        filename = MAP_PATH
         
         with open(filename, 'w', newline='') as csvfile:
             writer = csv.writer(csvfile)
@@ -97,24 +99,7 @@ class GlobalMap:
 
         # Checks if the node is out of bound
         if self.is_node_valid_by_indices(i, j):
-            return (0 <= self.get_occupancy_value_by_indices(i, j) < 100)
-
-    def is_node_free(self, node: GlobalPlannerNode) -> bool:
-        """
-        Checks whether a given node is in a free space on the map
-        """
-        i, j = self.coordinates_to_indices(node.x, node.y)
-
-        # Checks if the node is out of bound
-        if not self.is_node_valid_by_indices(i, j):
-            return False
-
-        tolerance = pixel_tolerance
-        min_i, max_i = max(i - tolerance, 0), min(i + tolerance, self.height - 1)
-        min_j, max_j = max(j - tolerance, 0), min(j + tolerance, self.width - 1)
-
-        # Check if any of the cells in the tolerance area are occupied
-        return np.all(self.data[min_i:max_i + 1, min_j:max_j + 1] < 100)
+            return (0 <= self.get_occupancy_value_by_indices(i, j) < OCC_THRESHOLD)
 
     def print_map(self, start, end):
         if start == end:

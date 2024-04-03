@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from navi_main.global_planner_package.astar_path_finder import find_astar_path
 from navi_main.global_planner_package.global_map import GlobalMap
 from navi_main.global_planner_package.global_node import GlobalPlannerNode
-from navi_main.global_planner_package.utils import print_path, read_occupancy_grid_from_csv
+from navi_main.global_planner_package.utils import print_path, read_occupancy_grid_from_csv, MAP_PATH
 
 START = GlobalPlannerNode(x=0.0, y=0.0)
 END = GlobalPlannerNode(x=3.0, y=3.0)
@@ -15,7 +15,7 @@ END = GlobalPlannerNode(x=3.0, y=3.0)
 class TestAstarPathFinder(unittest.TestCase):
     
     def setUp(self) -> None:
-        filename = '/home/evanyan13/colcon_ws/src/navi_main/test/map.csv'  # Path to your CSV file
+        filename = MAP_PATH  # Path to your CSV file
         self.grid = read_occupancy_grid_from_csv(filename)
         self.map = GlobalMap(self.grid)
 
@@ -37,6 +37,7 @@ def find_random_point(map: GlobalMap):
         i, j = map.indices_to_coordinates(x, y)
         node = GlobalPlannerNode(x=i, y=j)
         if map.is_node_avail(node):
+            print(node.x, node.y, map.get_occupancy_value_by_coordinates(node.x, node.y)) 
             return node
 
 
