@@ -12,16 +12,12 @@ def find_astar_path(map: GlobalMap, start_node: GlobalPlannerNode, goal_node: Gl
     # Check if are at the destination
     if start_node.equals(goal_node):
         print("We are already at the destination")
-        return [start]
+        return [start_node]
     
     # Convert coordinates to indices
-    start_i, start_j = map.coordinates_to_indices(start_node.x, start_node.y)
-    goal_i, goal_j = map.coordinates_to_indices(goal_node.x, goal_node.y)
-
-    start = GlobalPlannerNode(start_i, start_j, start_node.theta)
-    goal = GlobalPlannerNode(goal_i, goal_j, goal_node.theta)
-
-    log.get_logger("find_astar_path").info(f"Finding path for: ({start_i}, {start_j}) -> ({goal_i}, {goal_j}))")
+    start = start_node.coord_node_to_indice_node(map)
+    goal = goal_node.coord_node_to_indice_node(map)
+    log.get_logger("find_astar_path").info(f"Finding path for: ({start.x}, {start.y}) -> ({goal.x}, {goal.y}))")
 
     open_nodes = []
     open_set = set()
@@ -36,8 +32,7 @@ def find_astar_path(map: GlobalMap, start_node: GlobalPlannerNode, goal_node: Gl
     while open_nodes:
         _, curr_node = heapq.heappop(open_nodes)
         open_set.remove((curr_node.x, curr_node.y))
-        print(curr_node.x, curr_node.y)
-        occ_value = map.get_occupancy_value_by_indices(curr_node.x, curr_node.y)
+        occ_value = map.get_occupancy_value_by_indices(int(curr_node.x), int(curr_node.y))
         log.get_logger("find_astar_path").info(f"Processing Node: ({curr_node.x}, {curr_node.y}), f: {curr_node.f}, occ: {occ_value}")
 
         # Skip if current node has been visited before
@@ -47,30 +42,36 @@ def find_astar_path(map: GlobalMap, start_node: GlobalPlannerNode, goal_node: Gl
         # Return when current node is the goal
         if curr_node.equals(goal):
             log.get_logger("find_astar_path").info(f"Goal reached: ({curr_node.x}, {curr_node.y})")
-            return curr_node.backtrack_path()
+            indice_path = curr_node.backtrack_path()
+            coord_path = []
+            for node in indice_path:
+                if node is not None:
+                    coord_node = node.indice_node_to_coord_node(map)
+                    coord_path.append(coord_node)
+            return coord_path
 
         visited_set.add((curr_node.x, curr_node.y))
 
-        for neighbour in curr_node.generate_neighbours(map.resolution):
-            n_index = neighbour.x, neighbour.y
-            if n_index in visited_set:
+        for neighbour in curr_node.generate_neighbours(1.0):
+            if (neighbour.x, neighbour.y) in visited_set:
                 continue
 
-            if map.is_node_valid(neighbour) and map.is_node_avail(neighbour):
+            if map.is_indice_valid(neighbour.x, neighbour.y) and map.is_indice_avail(neighbour.x, neighbour.y):
                 g_new = curr_node.g + curr_node.calculate_distance(neighbour)
                 h_new = neighbour.calculate_distance(goal)
                 f_new = g_new + h_new
 
-                if (f_new < neighbour.f) or n_index not in open_set:
+                if (f_new < neighbour.f) or (neighbour.x, neighbour.y) not in open_set:
                     neighbour.g = g_new
                     neighbour.h = h_new
                     neighbour.f = f_new
                     neighbour.parent = curr_node
 
-                    if n_index not in open_set:
+                    if (neighbour.x, neighbour.y) not in open_set:
                         heapq.heappush(open_nodes, (neighbour.f, neighbour))
-                        open_set.add(n_index)
+                        open_set.add((neighbour.x, neighbour.y))
                     else:
-                        visited_set.add(n_index)
+                        visited_set.add((neighbour.x, neighbour.y))
 
     return []
+    

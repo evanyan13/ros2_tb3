@@ -20,31 +20,37 @@ class TestAstarPathFinder(unittest.TestCase):
         self.map = GlobalMap(self.grid)
 
         self.start = find_random_point(self.map)
-        self.goal = find_random_point(self.map)
+        self.goal = find_random_point(self.map, self.start)
 
-    # def test_path_random_points(self):
-    #     path = find_astar_path(self.map, self.start, self.goal)
-    #     if path:
-    #         print_path(path)
-    #         plot_path(self, self.map, path)
-    #     self.assertTrue(len(path) > 0, "A path should be found")
-
-    def test_path_fixed_points(self):
-        path = find_astar_path(self.map, START, END)
+    def test_path_random_points(self):
+        path = find_astar_path(self.map, self.start, self.goal)
         if path:
             print_path(path)
             plot_path(self, self.map, path)
         self.assertTrue(len(path) > 0, "A path should be found")
 
+    # def test_path_fixed_points(self):
+    #     path = find_astar_path(self.map, START, END)
+    #     if path:
+    #         print_path(path)
+    #         plot_path(self, self.map, path)
+    #     self.assertTrue(len(path) > 0, "A path should be found")
 
-def find_random_point(map: GlobalMap):
+
+def find_random_point(map: GlobalMap, exclude_node = None):
+    exclude = []
+    if exclude_node is not None:
+        exclude.append((exclude_node.x, exclude_node.y))
+
     while True:
         x = random.randint(0, map.width - 1)
         y = random.randint(0, map.height - 1)
-        i, j = map.indices_to_coordinates(x, y)
-        node = GlobalPlannerNode(x=i, y=j)
-        if map.is_node_avail(node):
+        node = GlobalPlannerNode(x=x, y=y)
+        if map.is_indice_avail(x, y) and (node.x, node.y) not in exclude:
             return node
+
+        occ_value = map.get_occupancy_value_by_indices(x, y)
+        print(f"Checking node: ({node.x, node.y}) | in_indice_avail {map.is_indice_avail(x, y)} | occ_value {occ_value} | not in exclude {(node.x, node.y) not in exclude}")
 
 
 def plot_path(self, map: GlobalMap, path):

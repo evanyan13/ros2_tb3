@@ -6,7 +6,7 @@ from nav_msgs.msg import OccupancyGrid
 from .utils import pixel_tolerance, MAP_PATH
 from .global_node import GlobalPlannerNode
 
-OCC_THRESHOLD = 20
+OCC_THRESHOLD = 41
 
 class GlobalMap:
     def __init__(self, grid_map: OccupancyGrid):
@@ -17,50 +17,6 @@ class GlobalMap:
 
         # Convert OccupancyGrid data to 2D numpy array
         self.data = np.array(grid_map.data).reshape(self.height, self.width)
-
-    def find_frontiers(self):
-        """
-        Find available frontiers in current data
-        """
-        unknown_value = -1
-        frontiers = []
-
-        for y in range(1, self.height - 1):
-            for x in range(1, self.width - 1):
-                if 0 <= self.data[y, x] < 100:
-                    neighbours = [(y + dy, x + dx) for dx, dy \
-                                  in [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, -1), (-1, 1), (1, 1)]]
-                    if any(self.data[ny][nx] == unknown_value for ny, nx in neighbours):
-                        frontiers.append((x, y))
-        return frontiers
-    
-    def generate_occupancy(self):
-        filename = MAP_PATH
-        
-        with open(filename, 'w', newline='') as csvfile:
-            writer = csv.writer(csvfile)
-            for row in self.data:
-                writer.writerow(row)
-        
-        return os.path.abspath(filename)
-
-    def get_occupancy_value_by_indices(self, i: int, j: int) -> int:
-        """
-        Access occupany value by indices of OccupancyGrid
-        """
-        i = int(i)
-        j = int(j)
-        if 0 <= i < self.height and 0 <= j < self.width:
-            return self.data[i, j]
-        return -1 # Unkown value
-
-    def get_occupancy_value_by_coordinates(self, x: float, y: float) -> int:
-        """
-        Access occupany value by real world coordinates
-        """
-        i, j = self.coordinates_to_indices(x, y)
-        value = self.get_occupancy_value_by_indices(i, j)
-        return value
 
     def coordinates_to_indices(self, x: float, y: float) -> tuple:
         """
@@ -80,28 +36,66 @@ class GlobalMap:
 
         return x, y
     
-    def is_node_valid(self, node: GlobalPlannerNode) -> bool:
+    def get_occupancy_value_by_indices(self, i: int, j: int) -> int:
         """
-        Checks if node is valid/within boundary of the map
+        Access occupany value by indices of OccupancyGrid
         """
-        i, j = self.coordinates_to_indices(node.x, node.y)
+        if self.is_indice_valid(i, j):
+            return self.data[i, j]
+        return -1 # Unkown value
+
+    def get_occupancy_value_by_coordinates(self, x: float, y: float) -> int:
+        """
+        Access occupany value by real world coordinates
+        """
+        i, j = self.coordinates_to_indices(x, y)
+        value = self.get_occupancy_value_by_indices(i, j)
+        return value
+
+    def is_indice_valid(self, i: int, j: int) -> bool:
         return (0 <= i < self.height) and (0 <= j < self.width)
 
-    def is_node_valid_by_indices(self, i: int, j: int) -> bool:
-        """
-        Checks if node is valid/within boundary of the map by indices
-        """
-        return (0 <= i < self.height) and (0 <= j < self.width)
+    def is_indice_avail(self, i: int, j: int):
+        if self.is_indice_valid(i, j):
+            return (0 <= self.get_occupancy_value_by_indices(i, j) < OCC_THRESHOLD)
+        return False
+        
+    def is_node_valid(self, node: GlobalPlannerNode) -> bool:
+        i, j = self.coordinates_to_indices(node.x, node.y)
+        return self.is_indice_valid(i, j)
     
     def is_node_avail(self, node: GlobalPlannerNode) -> bool:
-        """
-        Checks whether a given node is in a free space on the map
-        """
         i, j = self.coordinates_to_indices(node.x, node.y)
+        return self.is_indice_avail(i, j)
+    
+    def find_frontiers(self):
+        """
+        Find available frontiers in current data
+        """
+        unknown_value = -1
+        frontiers = []
 
-        # Checks if the node is out of bound
-        if self.is_node_valid_by_indices(i, j):
-            return (0 <= self.get_occupancy_value_by_indices(i, j) < OCC_THRESHOLD)
+        for y in range(1, self.height - 1):
+            for x in range(1, self.width - 1):
+                if 0 <= self.data[y, x] < 100:
+                    neighbours = [(y + dy, x + dx) for dx, dy \
+                                  in [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, -1), (-1, 1), (1, 1)]]
+                    if any(self.data[ny][nx] == unknown_value for ny, nx in neighbours):
+                        frontiers.append((x, y))
+        return frontiers
+    
+    def generate_occupancy(self):
+        """
+        Export occupancy grid data as csv to MAP_PATHs
+        """
+        filename = MAP_PATH
+        
+        with open(filename, 'w', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            for row in self.data:
+                writer.writerow(row)
+        
+        return os.path.abspath(filename)
 
     def print_map(self, start, end):
         if start == end:

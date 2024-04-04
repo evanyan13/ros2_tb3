@@ -40,7 +40,7 @@ class GlobalPlannerNode:
         
         return neighbours
     
-    def generate_neighbours_single(self):
+    def generate_neighbours_indices(self):
         neighbours = []
         moves = [(0, 1), (1, 1), (1, 0), (1, -1),
                  (0, -1), (-1, -1), (-1, 0), (-1, 1)]
@@ -48,7 +48,7 @@ class GlobalPlannerNode:
         for move in moves:
             new_x = self.x + move[0]
             new_y = self.y + move[1]
-            neighbours.append(GlobalPlannerNode(new_x, new_y))
+            neighbours.append((new_x, new_y))
 
         return neighbours
     
@@ -59,11 +59,11 @@ class GlobalPlannerNode:
         path = []
         current_node = self
 
-        while current_node.parent:
+        while current_node:
             path.append(current_node)
             current_node = current_node.parent
         
-        return (path + [current_node])[::-1]
+        return path[::-1]
     
     def __lt__(self, other):
         """
@@ -105,3 +105,13 @@ class GlobalPlannerNode:
         pose.pose.orientation.w = 1.0
 
         return pose
+
+    def coord_node_to_indice_node(self, map):
+        node_i, node_j = map.coordinates_to_indices(self.x, self.y)
+        indice_node = GlobalPlannerNode(node_i, node_j, self.theta, self.parent)
+        return indice_node
+
+    def indice_node_to_coord_node(self, map):
+        coord_x, coord_y = map.indices_to_coordinates(self.x, self.y)
+        coord_node = GlobalPlannerNode(coord_x, coord_y, self.theta, self.parent)
+        return coord_node

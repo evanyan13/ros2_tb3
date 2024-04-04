@@ -17,14 +17,22 @@ class TestGlobalPlannerNode(unittest.TestCase):
         self.assertEqual(node_a.calculate_distance(node_b), 5)
 
     def test_generate_neighbours(self):
-        map_resolution = 1
+        map_resolution = 2
         start_node = GlobalPlannerNode(1, 2)
         generated_neighbours = start_node.generate_neighbours(map_resolution)
         generated_neighbours_pos = [(n.x, n.y) for n in generated_neighbours]
-        expected_neighbours = [(1, 3), (2, 3), (2, 2), (2, 1),
-                               (1, 1), (0, 1), (0, 2), (0, 3)]
+        expected_neighbours = [(1, 4), (3, 4), (3, 2), (3, 0),
+                               (1, 0), (-1, 0), (-1, 2), (-1, 4)]
         print(f"Generated Neighbours: {generated_neighbours_pos}")
         self.assertEqual(set(generated_neighbours_pos), set(expected_neighbours))
+
+    def test_generate_neighbours_indices(self):
+        start_node = GlobalPlannerNode(1, 2)
+        generated_neighbours = start_node.generate_neighbours_indices()
+        expected_neighbours = [(1, 3), (2, 3), (2, 2), (2, 1),
+                               (1, 1), (0, 1), (0, 2), (0, 3)]
+        print(f"Generated Neighbours: {generated_neighbours}")
+        self.assertEqual(set(generated_neighbours), set(expected_neighbours))
 
     def test_backtrack_path(self):
         start_node = GlobalPlannerNode(0, 0)
