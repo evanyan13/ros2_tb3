@@ -5,13 +5,6 @@ import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BCM)
 
 # Choose appropriate pwm channels to be used to control the servos
-import time
-import RPi.GPIO as GPIO
-
-# Set pin numbering convention
-GPIO.setmode(GPIO.BCM)
-
-# Choose appropriate pwm channels to be used to control the servos
 cont_servo = 18
 half_servo = 20
 
@@ -34,21 +27,21 @@ half = GPIO.PWM(half_servo, 50)
 # 100% clockwise speed = 2 ms pulse width = 10% duty cycle (for 50 Hz = 20 ms)
 # May require some simple calibration:
 # Output the desired stop duty cycle to the servo
-# Then gently adjust the potentiometer in the recessed hole with a small screwdriver until the servo>
+# Then gently adjust the potentiometer in the recessed hole with a small screwdriver until the servo stops moving.
 
 # SPT5535LV-360W (half)
-# 100% counterclockwise speed = 0.5 - 0.95 ms pulse width = around 2.5% - 4.75% duty cycle (for 50 H>
+# 100% counterclockwise speed = 0.5 - 0.95 ms pulse width = around 2.5% - 4.75% duty cycle (for 50 Hz = 20 ms)
 # Stop = between 1.45 - 1.55 ms pulse width = around 7.25% - 7.75% duty cycle (for 50 Hz = 20 ms)
-# 100% clockwise speed = 1.95 - 2.5 ms pulse width = around 9.75% - 12.5% duty cycle (for 50 Hz = 20>
+# 100% clockwise speed = 1.95 - 2.5 ms pulse width = around 9.75% - 12.5% duty cycle (for 50 Hz = 20 ms)
 
-half.start(7.25)    # The pin starts to output PWM signals at 50 Hz with an initial duty cycle of 7.>
+half.start(7.25)    # The pin starts to output PWM signals at 50 Hz with an initial duty cycle of 7.5% which corresponds to stop for a continuous rotation servo
 time.sleep(1)      # The delay is to allow time for the servo to react
 cont.start(7.5)    
 time.sleep(1)      
 
 # Flip PVC pipe upright
 half.ChangeDutyCycle(6) # slow counterclockwise
-time.sleep(4) 
+time.sleep(3.25) # Calibrated time to rotate approximately 180 assuming 61 RPM
 half.ChangeDutyCycle(7.25)
 time.sleep(2.5)
 
@@ -60,7 +53,7 @@ time.sleep(2.5)
 
 # Rotate the continuous rotation servo
 cont.ChangeDutyCycle(10) # 100% clockwise
-time.sleep(3.5)  # Rotate for 4 sec
+time.sleep(3.25)  # Rotate for 3.25 sec
 cont.ChangeDutyCycle(7.5) # Stop
 time.sleep(2.5)
 

@@ -23,7 +23,7 @@ cont.ChangeDutyCycle(7.5)
 time.sleep(2.5)
 
 #half.ChangeDutyCycle(8) # slow clockwise
-#time.sleep(1.5)
+#time.sleep(2)
 #half.ChangeDutyCycle(7.25)
 #time.sleep(2.5)
 
