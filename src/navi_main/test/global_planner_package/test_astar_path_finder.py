@@ -48,9 +48,8 @@ def find_random_point(map: GlobalMap, exclude_node = None):
         node = GlobalPlannerNode(x=x, y=y)
         if map.is_indice_avail(x, y) and (node.x, node.y) not in exclude:
             return node
-
-        occ_value = map.get_occupancy_value_by_indices(x, y)
-        print(f"Checking node: ({node.x, node.y}) | in_indice_avail {map.is_indice_avail(x, y)} | occ_value {occ_value} | not in exclude {(node.x, node.y) not in exclude}")
+        # occ_value = map.get_occupancy_value_by_indices(x, y)
+        # print(f"Checking node: ({node.x, node.y}) | in_indice_avail {map.is_indice_avail(x, y)} | occ_value {occ_value} | not in exclude {(node.x, node.y) not in exclude}")
 
 
 def plot_path(self, map: GlobalMap, path):

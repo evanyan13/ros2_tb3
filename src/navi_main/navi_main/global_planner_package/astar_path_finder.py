@@ -3,12 +3,15 @@ import rclpy.logging as log
 
 from .global_map import GlobalMap
 from .global_node import GlobalPlannerNode
+from .utils import plot_path
 
 
 def find_astar_path(map: GlobalMap, start_node: GlobalPlannerNode, goal_node: GlobalPlannerNode) -> list:
     """
     Find path from start to goal node using Astar Algorithm
     """
+    logger = log.get_logger("find_astar_path")
+
     # Check if are at the destination
     if start_node.equals(goal_node):
         print("We are already at the destination")
@@ -17,7 +20,7 @@ def find_astar_path(map: GlobalMap, start_node: GlobalPlannerNode, goal_node: Gl
     # Convert coordinates to indices
     start = start_node.coord_node_to_indice_node(map)
     goal = goal_node.coord_node_to_indice_node(map)
-    log.get_logger("find_astar_path").info(f"Finding path for: ({start.x}, {start.y}) -> ({goal.x}, {goal.y}))")
+    logger.info(f"Finding path for: ({start.x}, {start.y}) -> ({goal.x}, {goal.y}))")
 
     open_nodes = []
     open_set = set()
@@ -32,8 +35,8 @@ def find_astar_path(map: GlobalMap, start_node: GlobalPlannerNode, goal_node: Gl
     while open_nodes:
         _, curr_node = heapq.heappop(open_nodes)
         open_set.remove((curr_node.x, curr_node.y))
-        occ_value = map.get_occupancy_value_by_indices(int(curr_node.x), int(curr_node.y))
-        log.get_logger("find_astar_path").info(f"Processing Node: ({curr_node.x}, {curr_node.y}), f: {curr_node.f}, occ: {occ_value}")
+        occ_value = map.get_occupancy_value_by_indices(curr_node.x, curr_node.y)
+        # log.get_logger("find_astar_path").info(f"Processing Node: ({curr_node.x}, {curr_node.y}), f: {curr_node.f}, occ: {occ_value}")
 
         # Skip if current node has been visited before
         if (curr_node.x, curr_node.y) in visited_set:
@@ -41,18 +44,17 @@ def find_astar_path(map: GlobalMap, start_node: GlobalPlannerNode, goal_node: Gl
 
         # Return when current node is the goal
         if curr_node.equals(goal):
-            log.get_logger("find_astar_path").info(f"Goal reached: ({curr_node.x}, {curr_node.y})")
+            logger.info(f"Goal reached: ({curr_node.x}, {curr_node.y})")
             indice_path = curr_node.backtrack_path()
             coord_path = []
             for node in indice_path:
-                if node is not None:
                     coord_node = node.indice_node_to_coord_node(map)
                     coord_path.append(coord_node)
             return coord_path
 
         visited_set.add((curr_node.x, curr_node.y))
 
-        for neighbour in curr_node.generate_neighbours(1.0):
+        for neighbour in curr_node.generate_neighbours(1):
             if (neighbour.x, neighbour.y) in visited_set:
                 continue
 
@@ -70,8 +72,7 @@ def find_astar_path(map: GlobalMap, start_node: GlobalPlannerNode, goal_node: Gl
                     if (neighbour.x, neighbour.y) not in open_set:
                         heapq.heappush(open_nodes, (neighbour.f, neighbour))
                         open_set.add((neighbour.x, neighbour.y))
-                    else:
-                        visited_set.add((neighbour.x, neighbour.y))
 
+    explored_path = curr_node.backtrack_path()
+    logger.info(f"No path found: {[(n.x, n.y) for n in explored_path]}")
     return []
-    

@@ -40,6 +40,8 @@ class GlobalMap:
         """
         Access occupany value by indices of OccupancyGrid
         """
+        i = int(i)
+        j = int(j)
         if self.is_indice_valid(i, j):
             return self.data[i, j]
         return -1 # Unkown value

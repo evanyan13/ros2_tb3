@@ -27,7 +27,7 @@ class GlobalPlannerNode:
         """
         return math.sqrt((self.x - end.x) ** 2 + (self.y - end.y) ** 2)
 
-    def generate_neighbours(self, map_resolution: float) -> list:
+    def generate_neighbours(self, map_resolution) -> list:
         neighbours = []
         step = pixel_tolerance * map_resolution
         moves = [(0, step), (step, step), (step, 0), (step, -step),
@@ -58,12 +58,11 @@ class GlobalPlannerNode:
         """
         path = []
         current_node = self
-
-        while current_node:
+        while current_node is not None:
             path.append(current_node)
             current_node = current_node.parent
-        
-        return path[::-1]
+        path.reverse()
+        return path
     
     def __lt__(self, other):
         """
