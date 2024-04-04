@@ -101,27 +101,18 @@ def plot_path(map, start, goal, path):
     plt.title("A* Path Finding")
     plt.show()
 
-# constants
-occ_bins = [-1, 0, 50, 100]
-map_bg_color = 1
 
-def plot_map_helper(map, msg, robot_pos):
+def plot_map_helper(map, msg, robot_pos, path=None):
     # create numpy array
     occdata = np.array(msg.data)
     # compute histogram to identify bins with -1, values between 0 and below 50, 
     # and values between 50 and 100. The binned_statistic function will also
     # return the bin numbers so we can use that easily to create the image 
+    occ_bins = [-1, 0, 50, 100]
     occ_counts, edges, binnum = scipy.stats.binned_statistic(occdata, np.nan, statistic='count', bins=occ_bins)
     # get width and height of map
     iwidth = msg.info.width
     iheight = msg.info.height
-    # calculate total number of bins
-    total_bins = iwidth * iheight
-
-    # get map resolution
-    map_res = msg.info.resolution
-    # get map origin struct has fields of x, y, and z
-    map_origin = msg.info.origin.position
 
     grid_x, grid_y= map.coordinates_to_indices(robot_pos.x, robot_pos.y)
 
@@ -163,11 +154,8 @@ def plot_map_helper(map, msg, robot_pos):
     # create new image
     new_width = iwidth + right + left
     new_height = iheight + top + bottom
-    img_transformed = Image.new(img.mode, (new_width, new_height), map_bg_color)
+    img_transformed = Image.new(img.mode, (new_width, new_height), 1)
     img_transformed.paste(img, (left, top))
 
-    # rotate by 90 degrees so that the forward direction is at the top of the image
-    rotated = img_transformed.rotate(np.degrees(robot_pos.theta)-90, expand=True, fillcolor=map_bg_color)
-
-    return rotated
+    return img_transformed
     

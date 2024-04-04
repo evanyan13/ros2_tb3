@@ -2,8 +2,8 @@ import rclpy
 import numpy as np
 import threading
 import tf2_ros
-import time
-import matplotlib.pyplot as plt
+import queue
+import rclpy.logging as log
 from transitions import Machine
 from rclpy.node import Node
 from geometry_msgs.msg import PoseStamped
@@ -28,7 +28,7 @@ class GlobalPlanner(Node):
         self.start = None
         self.goal = None
         self.curr_path = None
-        self.curr_map = None
+        self.plot_queue = queue.Queue()
         self.planner_ready = threading.Event()
 
         self.mover = GlobalMover(self)
@@ -46,10 +46,6 @@ class GlobalPlanner(Node):
 
         self.get_logger().info(f'init: GlobalPlanner initialised {self.state}')
 
-        # self.plot_thread = threading.Thread(target=self.plot_map)
-        # self.plot_thread.daemon = True
-        # self.plot_thread.start()
-
     def initialise_state(self):
         self.machine = Machine(model=self, states=GlobalPlanner.states, initial='IDLE')
         self.machine.add_transition(trigger='start_planning', source='IDLE', dest='PLANNING')
@@ -59,9 +55,10 @@ class GlobalPlanner(Node):
 
     def map_callback(self, map_msg: OccupancyGrid):
         self.map = GlobalMap(map_msg)
-        self.curr_map = map_msg
         self.update_ros_pos_from_tf()
-        self.check_ready()
+        if self.check_ready():
+            map_data = plot_map_helper(self.map, map_msg, self.mover.robot_pos)
+            self.plot_queue.put(map_data)
     
     def update_ros_pos_from_tf(self):
         try:
@@ -86,6 +83,7 @@ class GlobalPlanner(Node):
     def check_ready(self):
         if self.map and self.mover and self.mover.robot_pos:
             self.planner_ready.set() # Signal that GlobalPlanner is ready
+            return True
     
     def goal_callback(self, pose_msg: PoseStamped):
         self.goal = GlobalPlannerNode.from_pose(pose_msg.pose)
@@ -172,20 +170,6 @@ class GlobalPlanner(Node):
     def wait_for_map(self):
         while not self.map and rclpy.ok():
             rclpy.spin_once(self, timeout_sec=0.2)
-
-    def plot_map(self):
-        while rclpy.ok():
-            if self.map is not None and self.mover.robot_pos is not None:
-                data = plot_map_helper(self.map, self.curr_map, self.mover.robot_pos)
-                # show the image using grayscale map
-                # plt.imshow(img, cmap='gray', origin='lower')
-                # plt.imshow(img_transformed, cmap='gray', origin='lower')
-                plt.imshow(data, cmap='gray', origin='lower')
-                plt.draw_all()
-                # pause to make sure the plot gets created
-                plt.pause(0.00000000001)
-
-            time.sleep(1)  # Adjust the sleep time based on your needs
 
 
 def main(args=None):
