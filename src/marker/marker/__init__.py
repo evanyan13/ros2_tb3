@@ -8,7 +8,7 @@ class ColorSensor(Node):
     def __init__(self):
         super().__init__('color_sensor')
         self.publisher_color = self.create_publisher(String, 'color_info', 10)
-        self.timer = self.create_timer(3,self.publish_color_info) #publishes every 3 sec
+        self.timer = self.create_timer(3,self.color_detect) #publishes every 3 sec
         
     def setup(self):
         GPIO.setmode(GPIO.BCM)
