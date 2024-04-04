@@ -34,7 +34,8 @@ def euler_from_quaternion(x, y, z, w):
 
 
 def print_path(path: list):
-    print([(n.x, n.y) for n in path])
+    to_print = [(n.x, n.y) for n in path]
+    print(f"Printing Path: {to_print}")
 
 
 def read_occupancy_grid_from_csv(filename):
@@ -70,10 +71,10 @@ def display_occupancy_grid(grid_data):
 def display_with_frontier(grid_data, frontiers):
     cmap = plt.cm.gray
     norm = plt.Normalize(vmin=-1, vmax=100)
-    plt.imshow(grid_data, cmap=cmap, norm=norm, origin='upper')
+    plt.imshow(grid_data, cmap=cmap, norm=norm, origin='lower')
 
     frontier_x, frontier_y = zip(*frontiers) if frontiers else ([], [])
-    plt.scatter(frontier_y, frontier_x, color='red', s=10)
+    plt.scatter(frontier_x, frontier_y, color='red', s=10)
 
     plt.title('Occupancy Grid with Frontiers')
     plt.xlabel('X')

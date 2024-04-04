@@ -44,7 +44,7 @@ class GlobalMap:
         
         return os.path.abspath(filename)
 
-    def get_occupancy_value_by_indices(self, i, j) -> int:
+    def get_occupancy_value_by_indices(self, i: int, j: int) -> int:
         """
         Access occupany value by indices of OccupancyGrid
         """

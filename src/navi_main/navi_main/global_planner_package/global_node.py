@@ -8,7 +8,7 @@ class GlobalPlannerNode:
     def __init__(
             self,
             x: float = 0.0,
-            y: float = 0.0,
+            y: float = 0.0, 
             theta: float = 0.0,
             parent = None
     ):
@@ -38,6 +38,18 @@ class GlobalPlannerNode:
             new_y = self.y + move[1]
             neighbours.append(GlobalPlannerNode(new_x, new_y))
         
+        return neighbours
+    
+    def generate_neighbours_single(self):
+        neighbours = []
+        moves = [(0, 1), (1, 1), (1, 0), (1, -1),
+                 (0, -1), (-1, -1), (-1, 0), (-1, 1)]
+        
+        for move in moves:
+            new_x = self.x + move[0]
+            new_y = self.y + move[1]
+            neighbours.append(GlobalPlannerNode(new_x, new_y))
+
         return neighbours
     
     def backtrack_path(self) -> list:

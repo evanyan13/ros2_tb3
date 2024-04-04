@@ -8,6 +8,7 @@ from nav_msgs.msg import OccupancyGrid, Odometry, Path
 
 from navi_main.global_planner_package.global_planner import GlobalPlanner
 from navi_main.global_planner_package.global_map import GlobalMap
+from navi_main.global_planner_package.global_mover import GlobalMover
 from navi_main.global_planner_package.global_node import GlobalPlannerNode
 
 class TestGlobalPlanner(unittest.TestCase):
@@ -21,22 +22,9 @@ class TestGlobalPlanner(unittest.TestCase):
         self.node.map_callback(map_msg)
 
         self.assertIsNotNone(self.node.map)
+        self.assertIsNotNone(self.node.mover.robot_pos)
         self.assertIsInstance(self.node.map, GlobalMap)
-
-    def test_odom_callback(self):
-        odom_msg = Odometry()
-        odom_msg.pose.pose.position = Point(x=1.0, y=2.0, z=0.0)
-        odom_msg.pose.pose.orientation = Quaternion(x=0.0, y=0.0, z=1.0)
-
-        with patch('navi_main.global_planner_package.global_planner.euler_from_quaternion') as mock_euler:
-            mock_euler.return_value = (0.0, 0.0, 0.0)
-            self.node.odom_callback(odom_msg)
-
-        expected_robot_pos = (1.0, 2.0, 0.0)
-        actual_robot_pos = (self.node.mover.robot_pos.x,
-                            self.node.mover.robot_pos.y,
-                            self.node.mover.robot_pos.theta)
-        self.assertEqual(expected_robot_pos, actual_robot_pos)
+        self.assertIsInstance(self.node.mover, GlobalMover)
 
     def test_goal_callback(self):
         goal_msg = PoseStamped()

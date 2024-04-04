@@ -44,7 +44,6 @@ def find_random_point(map: GlobalMap):
         i, j = map.indices_to_coordinates(x, y)
         node = GlobalPlannerNode(x=i, y=j)
         if map.is_node_avail(node):
-            print(node.x, node.y, map.get_occupancy_value_by_coordinates(node.x, node.y)) 
             return node
 
 
