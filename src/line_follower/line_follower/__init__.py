@@ -29,27 +29,36 @@ class LineFollower(Node):
     def start_line_following(self):
         self.line_following = True
         twist = Twist()
+        twist.linear.x = 0.5
+        twist.angular.z = 0.3
+        time.sleep(0.5)
+        twist.angular.z = -0.6
+        time.sleep(0.5) 
         while self.line_following:
             self.sensor_left = GPIO.input(self.IR_left)
             self.sensor_right = GPIO.input(self.IR_right)
             if self.sensor_left and self.sensor_right:
                 twist.linear.x = 0.5
+                twist.angular.z = 0
             elif self.sensor_left and not self.sensor_right:
-                twist.angular.z += 0.2
+                twist.angular.z = 0.2
+                twist.linear.x = 0
             elif self.sensor_right and not self.sensor_left:
-                twist.angular.z -= 0.2
+                twist.angular.z = -0.2
+                twist.linear.x = 0
             else:
                 self.check_end_line()
             self.publisher_cmd_vel.publish(twist)
     
     def check_end_line(self):
-        if self.sensor_left == 0 and self.sensor_right == 0:
+        if not self.sensor_left and not self.sensor_right:
             self.stop_line_follower()
     
     def stop_line_follower(self):
         self.line_following = False
         twist_stop = Twist()
         twist_stop.linear.x = 0
+        twist_stop.angular.z = 0
         self.publisher_cmd_vel.publish(twist_stop)
         GPIO.cleanup()
         
