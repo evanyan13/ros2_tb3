@@ -3,14 +3,17 @@ import csv
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats
-from PIL import Image
+from PIL import Image, ImageDraw
 
 from nav_msgs.msg import OccupancyGrid, MapMetaData
 from geometry_msgs.msg import Pose
 
+
 # Package wide parameters
 pixel_tolerance = 1
 MAP_PATH = '/home/evanyan13/colcon_ws/map.csv'
+OCC_THRESHOLD = 41
+
 
 # code from https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/
 def euler_from_quaternion(x, y, z, w):
@@ -124,38 +127,11 @@ def plot_map_helper(map, msg, robot_pos, path=None):
     odata[grid_y][grid_x] = 0
     # create image from 2D array using PIL
     img = Image.fromarray(odata)
-    # find center of image
-    i_centerx = iwidth/2
-    i_centery = iheight/2
-    # find how much to shift the image to move grid_x and grid_y to center of image
-    shift_x = round(grid_x - i_centerx)
-    shift_y = round(grid_y - i_centery)
+    draw = ImageDraw.Draw(img)
 
-    # pad image to move robot position to the center
-    # adapted from https://note.nkmk.me/en/python-pillow-add-margin-expand-canvas/ 
-    left = 0
-    right = 0
-    top = 0
-    bottom = 0
-    if shift_x > 0:
-        # pad right margin
-        right = 2 * shift_x
-    else:
-        # pad left margin
-        left = 2 * (-shift_x)
-        
-    if shift_y > 0:
-        # pad bottom margin
-        bottom = 2 * shift_y
-    else:
-        # pad top margin
-        top = 2 * (-shift_y)
-        
-    # create new image
-    new_width = iwidth + right + left
-    new_height = iheight + top + bottom
-    img_transformed = Image.new(img.mode, (new_width, new_height), 1)
-    img_transformed.paste(img, (left, top))
+    robot_pixel_radius = 1
+    draw.ellipse([grid_x - robot_pixel_radius, grid_y - robot_pixel_radius,
+                  grid_x + robot_pixel_radius, grid_y + robot_pixel_radius])
 
-    return img_transformed
+    return img
     

@@ -3,10 +3,8 @@ import os
 import numpy as np
 from nav_msgs.msg import OccupancyGrid
 
-from .utils import pixel_tolerance, MAP_PATH
+from .utils import MAP_PATH, OCC_THRESHOLD
 from .global_node import GlobalPlannerNode
-
-OCC_THRESHOLD = 41
 
 class GlobalMap:
     def __init__(self, grid_map: OccupancyGrid):

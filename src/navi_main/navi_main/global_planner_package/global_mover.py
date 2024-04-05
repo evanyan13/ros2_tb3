@@ -110,7 +110,7 @@ class GlobalMover(Node):
         while distance_moved < 0.4 and rclpy.ok():
             self.velocity_publisher.publish(twist_msg)
             t1 = self.get_clock().now()
-            distance_moved = linear_velocity * (t1 - t0)
+            distance_moved = linear_velocity * float(t1 - t0)
             rclpy.spin_once(self, timeout_sec=0.01)
         
         self.is_obstacle_ahead = False
