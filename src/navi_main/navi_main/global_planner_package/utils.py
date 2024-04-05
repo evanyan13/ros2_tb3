@@ -105,7 +105,7 @@ def plot_path_node(map, start, goal, path):
     plt.show()
 
 
-def plot_map_helper(map, msg, robot_pos, goal, path, visited):
+def plot_map_helper(map, msg, robot_pos, goal, path):
     # create numpy array
     occdata = np.array(msg.data)
     # compute histogram to identify bins with -1, values between 0 and below 50, 
@@ -113,9 +113,6 @@ def plot_map_helper(map, msg, robot_pos, goal, path, visited):
     # return the bin numbers so we can use that easily to create the image 
     occ_bins = [-1, 0, 50, 100]
     occ_counts, edges, binnum = scipy.stats.binned_statistic(occdata, np.nan, statistic='count', bins=occ_bins)
-    # get width and height of map
-    iwidth = msg.info.width
-    iheight = msg.info.height
 
     grid_x, grid_y= map.coordinates_to_indices(robot_pos.x, robot_pos.y)
 
@@ -137,19 +134,11 @@ def plot_map_helper(map, msg, robot_pos, goal, path, visited):
         goal_x, goal_y = map.coordinates_to_indices(goal.x, goal.y)
         draw.ellipse([goal_x - pixel_radius, goal_y - pixel_radius,
                     goal_x + pixel_radius, goal_y + pixel_radius])
-        
-    print(f"Path received at map_helper: {path}")
+
     if path:
+        print("Path being plotted")
         path_pixels = [map.coordinates_to_indices(node.x, node.y) for node in path]
         draw.line(path_pixels, width=1)
-    
-    print(f"Visited received at map_helper: {path}")
-    if visited:
-        print("Visited Nodes being plotted")
-        visited_radius = 1
-        for vx, vy in visited:
-            draw.ellipse([vx - visited_radius, vy - visited_radius,
-                        vx + visited_radius, vy + visited_radius])
 
     return img
     

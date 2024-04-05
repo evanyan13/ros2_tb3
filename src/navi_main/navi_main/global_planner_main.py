@@ -41,7 +41,7 @@ def main(args=None):
             while not global_planner.plot_queue.empty():
                 img = global_planner.plot_queue.get()
                 if img is not None:
-                    ax.imshow(img, cmap='terrain', origin='lower')
+                    ax.imshow(img, cmap='gist_earth', origin='lower')
                     plt.draw_all()
                     plt.pause(0.0000001)
     except KeyboardInterrupt:

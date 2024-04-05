@@ -50,7 +50,7 @@ class Cell:
         
         for di, dj in directions:
             ni, nj = self.i + di, self.j + dj
-            if map.is_indice_valid(ni, nj) and map.is_indice_avail(ni, nj):
+            if map.is_indice_avail(ni, nj):
                 neighbours.append(Cell(ni, nj, self))
         return neighbours
 

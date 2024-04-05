@@ -79,14 +79,18 @@ class GlobalMap:
         """
         unknown_value = -1
         frontiers = []
+        moves = [(0, 1), (1, 1), (1, 0), (1, -1),
+                (0, -1), (-1, -1), (-1, 0), (-1, 1)]
 
         for y in range(1, self.height - 1):
             for x in range(1, self.width - 1):
-                if 0 <= self.data[y, x] < 100:
-                    neighbours = [(y + dy, x + dx) for dx, dy \
-                                  in [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, -1), (-1, 1), (1, 1)]]
-                    if any(self.data[ny][nx] == unknown_value for ny, nx in neighbours):
-                        frontiers.append((x, y))
+                if self.data[y, x] == unknown_value:
+                    neighbours = [(y + dy, x + dx) for dy, dx in moves]
+
+                    for ny, nx in neighbours:
+                        if self.is_indice_avail(nx, ny):
+                            frontiers.append((nx, ny))
+                            break
         return frontiers
     
     def generate_occupancy(self):
