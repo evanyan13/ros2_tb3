@@ -34,6 +34,10 @@ class GlobalMap:
 
         return x, y
     
+    def indices_to_node(self, i: int, j: int) -> GlobalPlannerNode:
+        x, y = self.indices_to_coordinates(i, j)
+        return GlobalPlannerNode(x, y)
+    
     def get_occupancy_value_by_indices(self, i: int, j: int) -> int:
         """
         Access occupany value by indices of OccupancyGrid
@@ -57,7 +61,8 @@ class GlobalMap:
 
     def is_indice_avail(self, i: int, j: int):
         if self.is_indice_valid(i, j):
-            return (0 <= self.get_occupancy_value_by_indices(i, j) < OCC_THRESHOLD)
+            value = self.get_occupancy_value_by_indices(i, j)
+            return value < OCC_THRESHOLD and value >= 0
         return False
         
     def is_node_valid(self, node: GlobalPlannerNode) -> bool:
@@ -67,7 +72,7 @@ class GlobalMap:
     def is_node_avail(self, node: GlobalPlannerNode) -> bool:
         i, j = self.coordinates_to_indices(node.x, node.y)
         return self.is_indice_avail(i, j)
-    
+
     def find_frontiers(self):
         """
         Find available frontiers in current data

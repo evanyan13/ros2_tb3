@@ -90,7 +90,7 @@ def display_with_frontier(grid_data, frontiers):
     plt.show()
 
 
-def plot_path(map, start, goal, path):
+def plot_path_node(map, start, goal, path):
     # Convert path nodes to map coordinates
     x_coords, y_coords = zip(*[(node.x, node.y) for node in path])
 

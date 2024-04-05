@@ -25,7 +25,6 @@ class TestAstarPathFinder(unittest.TestCase):
     def test_path_random_points(self):
         path = find_astar_path(self.map, self.start, self.goal)
         if path:
-            print_path(path)
             plot_path(self, self.map, path)
         self.assertTrue(len(path) > 0, "A path should be found")
 
@@ -56,13 +55,16 @@ def plot_path(self, map: GlobalMap, path):
     # Convert path nodes to map coordinates
     x_coords, y_coords = zip(*[(node.x, node.y) for node in path])
 
+    start_i, start_j = map.coordinates_to_indices(self.start.x, self.start.y)
+    goal_i, goal_j = map.coordinates_to_indices(self.goal.x, self.goal.y)
+
     # Plot the occupancy grid
-    cmap = plt.cm.gray
+    cmap = plt.cm.terrain
     norm = plt.Normalize(vmin=-1, vmax=100)
-    plt.imshow(map.data.reshape((map.height, map.width)), cmap=cmap, norm=norm, origin='lower')
+    plt.imshow(map.data, cmap=cmap, norm=norm, origin='lower')
     plt.scatter(x_coords, y_coords, c='red')  # Path in red
-    plt.scatter(self.start.x, self.start.y, c='blue')  # Start in blue
-    plt.scatter(self.goal.x, self.goal.y, c='green')  # End in green
+    plt.scatter(start_i, start_j, c='blue')  # Start in blue
+    plt.scatter(goal_i, goal_j, c='green')  # End in green
     plt.title("A* Path Finding")
     plt.show()
 
