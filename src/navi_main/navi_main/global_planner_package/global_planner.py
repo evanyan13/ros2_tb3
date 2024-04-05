@@ -30,6 +30,7 @@ class GlobalPlanner(Node):
         self.curr_path = None
         self.plot_queue = queue.Queue()
         self.planner_ready = threading.Event()
+        self.visited_set = None
 
         self.mover = GlobalMover(self)
 
@@ -57,7 +58,7 @@ class GlobalPlanner(Node):
         self.map = GlobalMap(map_msg)
         self.update_ros_pos_from_tf()
         if self.check_ready():
-            map_data = plot_map_helper(self.map, map_msg, self.mover.robot_pos)
+            map_data = plot_map_helper(self.map, map_msg, self.mover.robot_pos, self.goal, self.curr_path, self.visited_set)
             self.plot_queue.put(map_data)
     
     def update_ros_pos_from_tf(self):
@@ -111,9 +112,10 @@ class GlobalPlanner(Node):
         goal_pt = (self.goal.x, self.goal.y)
         self.get_logger().info(f"plan_path: Start path planning {start_pt, goal_pt}")
 
-        path_list = find_astar_path(self.map, self.start, self.goal)
+        path_list, visited = find_astar_path(self.map, self.start, self.goal)
         if path_list:
             self.curr_path = path_list
+            self.visited_set = visited
             self.get_logger().info(f"plan_path: Path found from astar, {len(path_list)} points")
             path_list = self.smooth_path_bspline(path_list)
             
@@ -123,6 +125,7 @@ class GlobalPlanner(Node):
             self.get_logger().info("plan_path: Path published")
             self.path_found()
         else:
+            self.visited_set = visited
             self.get_logger().warn("plan_path: No path found")
             self.fail()
 

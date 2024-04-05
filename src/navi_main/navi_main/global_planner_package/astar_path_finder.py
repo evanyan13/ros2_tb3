@@ -13,7 +13,7 @@ def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlanne
     goal_i, goal_j = map.coordinates_to_indices(goal.x, goal.y)
     start_cell = Cell(start_i, start_j)
     goal_cell = Cell(goal_i, goal_j)
-    logger.info(f"Finding path ({start_i}, {start_j}) -> ({goal_i}, {goal_j})")
+    logger.info(f"Finding path ({start_i}, {start_j}) -> ({goal_i}, {goal_j}) ... ")
 
     start_cell.g = 0
     start_cell.h = start_cell.calculate_heuristic(goal_cell)
@@ -26,17 +26,17 @@ def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlanne
 
     while open_set:
         current_f, current = heapq.heappop(open_set)
+        # logger.info(f"Looking at node: ({current.i}, {current.j})")
 
         if (current.i, current.j) in visited_set:
             continue
 
         if current == goal_cell:
             path = current.backtrack_path()
-            logger.info(f"Path found (indice): {path}")
             path_nodes = [map.indices_to_node(i, j) for i, j in path]
             path_coord = [(node.x, node.y) for node in path_nodes]
             logger.info(f"Path found (coord): {path_coord}")
-            return path_nodes
+            return path_nodes, list(visited_set)
 
         visited_set.add((current.i, current.j))
         neighbours = current.get_neighbours(map)
@@ -54,10 +54,10 @@ def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlanne
 
                 cells[(neighbour.i, neighbour.j)] = neighbour
                 heapq.heappush(open_set, (neighbour.f, neighbour))
-                logger.info(f"Neighbour added to open_set: ({neighbour.i}, {neighbour.j})")
+                # logger.info(f"Neighbour added to open_set: ({neighbour.i}, {neighbour.j})")
     
     logger.info(f"No path found")
-    return []
+    return None, list(visited_set)
 
 
 # def find_astar_path(map: GlobalMap, start_node: GlobalPlannerNode, goal_node: GlobalPlannerNode) -> list:

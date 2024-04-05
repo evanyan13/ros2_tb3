@@ -15,6 +15,12 @@ class Cell:
         """
         return math.sqrt((self.i - goal.i) ** 2 + (self.j - goal.j) ** 2)
     
+    def calculate_heuristic_man(self, goal):
+        """
+        Returns manhattan distance btw two nodes
+        """
+        return abs(self.i - goal.i) + abs(self.j - goal.j)
+    
     def update_costs(self, g_cost, goal):
         """
         If new g cost is lower, update the node

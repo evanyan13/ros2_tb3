@@ -28,9 +28,10 @@ class FrontierExplorer(Node):
             return
 
         bot_x, bot_y = self.map.coordinates_to_indices(self.robot_pos.x, self.robot_pos.y)
-        closet_frontier = min(frontiers, key=lambda point: (point[0] - bot_x)**2 + (point[1] - bot_y)**2)
+        furtherest_frontier = max(frontiers, key=lambda point: (point[0] - bot_x)**2 + (point[1] - bot_y)**2)
+        # closet_frontier = min(frontiers, key=lambda point: (point[0] - bot_x)**2 + (point[1] - bot_y)**2)
 
-        goal_pose = self.map.indices_to_coordinates(closet_frontier[0], closet_frontier[1])
+        goal_pose = self.map.indices_to_coordinates(furtherest_frontier[0], furtherest_frontier[1])
 
         goal_msg = PoseStamped()
         goal_msg.header.stamp = self.get_clock().now().to_msg()
