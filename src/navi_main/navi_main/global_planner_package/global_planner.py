@@ -3,9 +3,9 @@ import numpy as np
 import threading
 import tf2_ros
 import queue
-import rclpy.logging as log
 from transitions import Machine
 from rclpy.node import Node
+from rclpy.qos import qos_profile_sensor_data
 from geometry_msgs.msg import PoseStamped
 from nav_msgs.msg import OccupancyGrid, Path
 from scipy.interpolate import make_interp_spline
@@ -36,8 +36,8 @@ class GlobalPlanner(Node):
         self.initialise_state()
         self.get_logger().info(f'init: States initialised {self.state}')
 
-        self.map_subscriber = self.create_subscription(OccupancyGrid, 'map', self.map_callback, 10)
-        self.goal_subscriber = self.create_subscription(PoseStamped, 'goal', self.goal_callback, 10)
+        self.map_subscriber = self.create_subscription(OccupancyGrid, 'map', self.map_callback, qos_profile_sensor_data)
+        self.goal_subscriber = self.create_subscription(PoseStamped, 'goal', self.goal_callback, qos_profile_sensor_data)
 
         self.path_publisher = self.create_publisher(Path, "path", 10)
 
@@ -56,11 +56,15 @@ class GlobalPlanner(Node):
     def map_callback(self, map_msg: OccupancyGrid):
         self.map = GlobalMap(map_msg)
         self.update_ros_pos_from_tf()
+        self.show_map_info(map_msg)
         if self.check_ready():
             map_data = plot_map_helper(self.map, map_msg, self.mover.robot_pos, self.goal, self.curr_path)
             self.plot_queue.put(map_data)
     
     def update_ros_pos_from_tf(self):
+        """
+        Transformation function to update bot current position using base_link
+        """
         try:
             now = rclpy.time.Time()
             transform = self.tf_buffer.lookup_transform('map', 'base_link', now)
@@ -80,6 +84,19 @@ class GlobalPlanner(Node):
         except(LookupException, ConnectivityException, ExtrapolationException) as e:
             self.get_logger().error(f'Could not transform base_link to map: {e}')
     
+    def show_map_info(self, msg):
+        occ_bins = [-1, 0, 100, 101]
+        map_data = np.array(msg.data)
+        occ_counts = np.histogram(map_data, occ_bins)
+        total_bins = msg.info.width * msg.info.height
+        self.get_logger().info(f"Unmapped: {occ_counts[0][0]} | Unoccupied: {occ_counts[0][1]} | Occupied: {occ_counts[0][2]} | Total: {total_bins} ")
+        
+        known_map = map_data[map_data != -1]
+        min_value = known_map.min() if known_map.size > 0 else None
+        max_value = known_map.max() if known_map.size > 0 else None
+        mean_value = known_map.mean() if known_map.size > 0 else None
+        self.get_logger().info(f'Map callback: min={min_value},max={max_value}, mean={mean_value}')
+
     def check_ready(self):
         if self.map and self.mover and self.mover.robot_pos:
             self.planner_ready.set() # Signal that GlobalPlanner is ready
@@ -113,9 +130,9 @@ class GlobalPlanner(Node):
 
         path_list = find_astar_path(self.map, self.start, self.goal)
         if path_list:
-            self.curr_path = path_list
             self.get_logger().info(f"plan_path: Path found from astar, {len(path_list)} points")
             path_list = self.smooth_path_bspline(path_list)
+            self.curr_path = path_list
             
             # Publish path information for mover
             path_msg = self.convert_to_path(path_list)
@@ -128,10 +145,10 @@ class GlobalPlanner(Node):
 
     def smooth_path_bspline(self, path_list: list) -> list:
         """
-        Use B-spine algorithm to generate a smoother path between the given path
+        Use B-spline algorithm to generate a smoother path between the given path
         """
         if len(path_list) < 3:
-            self.get_logger().warn("Not enough ponts to complete B-spline")
+            self.get_logger().warn("smooth_path_spline: Not enough ponts to complete B-spline")
             return path_list
         
         x = [node.x for node in path_list]
@@ -151,6 +168,7 @@ class GlobalPlanner(Node):
 
         smoothed_path_list = [GlobalPlannerNode(x, y) for x, y in zip(x_fine, y_fine)]
 
+        self.get_logger().info(f"smooth_path_spline: Success {len(smoothed_path_list)} points")
         return smoothed_path_list
     
     def convert_to_path(self, path_list: list) -> Path:

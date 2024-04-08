@@ -1,5 +1,5 @@
-import rclpy
 from rclpy.node import Node
+from rclpy.qos import qos_profile_sensor_data
 from geometry_msgs.msg import PoseStamped
 
 from .global_map import GlobalMap
@@ -11,7 +11,7 @@ class FrontierExplorer(Node):
         self.map = global_map
         self.robot_pos = robot_pos
         
-        self.goal_publisher = self.create_publisher(PoseStamped, 'goal', 10)
+        self.goal_publisher = self.create_publisher(PoseStamped, 'goal', qos_profile_sensor_data)
 
         time_period = 3
         self.timer = self.create_timer(time_period, self.publish_goal)

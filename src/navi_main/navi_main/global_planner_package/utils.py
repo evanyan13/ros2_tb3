@@ -12,7 +12,7 @@ from geometry_msgs.msg import Pose
 # Package wide parameters
 pixel_tolerance = 1
 MAP_PATH = '/home/evanyan13/colcon_ws/map.csv'
-OCC_THRESHOLD = 41
+OCC_THRESHOLD = 31
 
 
 # code from https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/
@@ -138,7 +138,11 @@ def plot_map_helper(map, msg, robot_pos, goal, path):
     if path:
         print("Path being plotted")
         path_pixels = [map.coordinates_to_indices(node.x, node.y) for node in path]
-        draw.line(path_pixels, width=1)
+        for path_pixel in path_pixels:
+            x, y = path_pixel[0], path_pixel[1]
+            path_radius = 1
+            draw.ellipse([x - path_radius, y - path_radius,
+                           x + path_radius, y + path_radius])
 
     return img
     

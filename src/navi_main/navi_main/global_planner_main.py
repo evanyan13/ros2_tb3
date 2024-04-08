@@ -41,18 +41,20 @@ def main(args=None):
             while not global_planner.plot_queue.empty():
                 img = global_planner.plot_queue.get()
                 if img is not None:
-                    ax.imshow(img, cmap='gist_earth', origin='lower')
+                    ax.imshow(img, cmap='terrain', origin='lower')
                     plt.draw_all()
-                    plt.pause(0.0000001)
+                    plt.pause(0.0001)
     except KeyboardInterrupt:
         logger.info("KeyboardInterrupt received. STOPPING")
-        pass
+        global_mover.stop_moving()
     finally:
         csv = global_planner.map.generate_occupancy() # Generate occupancy map to csv
         logger.info(f"Occupancy Grid Generated {csv}")
 
+        global_mover.destroy_node()
         frontier_explorer.destroy_node()
-        global_planner.destroy_node()        
+        global_planner.destroy_node()
+
         rclpy.shutdown()
         logger.info("ROS Shutdown complete")
 

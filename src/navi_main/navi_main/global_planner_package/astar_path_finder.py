@@ -13,13 +13,8 @@ def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlanne
     goal_i, goal_j = map.coordinates_to_indices(goal.x, goal.y)
     start_cell = Cell(start_i, start_j)
     goal_cell = Cell(goal_i, goal_j)
-    start_oindices = map.get_occupancy_value_by_indices(start_i, start_j)
-    start_ocoord = map.get_occupancy_value_by_coordinates(start.x, start.y)
-    goal_oindices = map.get_occupancy_value_by_indices(goal_i, goal_j)
-    goal_ocoord = map.get_occupancy_value_by_coordinates(goal.x, goal.y)
 
     logger.info(f"Finding path ({start_i}, {start_j}) -> ({goal_i}, {goal_j}) ... ")
-    logger.info(f"Check occupancy value | Start: (i: {start_oindices} vs c: {start_ocoord}) | Goal: (i: {goal_oindices} vs c: {goal_ocoord})")
 
     start_cell.g = 0
     start_cell.h = start_cell.calculate_heuristic(goal_cell)
@@ -32,7 +27,6 @@ def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlanne
 
     while open_set:
         current_f, current = heapq.heappop(open_set)
-        # logger.info(f"Looking at node: ({current.i}, {current.j})")
 
         if (current.i, current.j) in visited_set:
             continue
@@ -41,7 +35,7 @@ def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlanne
             path = current.backtrack_path()
             path_nodes = [map.indices_to_node(i, j) for i, j in path]
             path_coord = [(node.x, node.y) for node in path_nodes]
-            logger.info(f"Path found (coord): {path_coord}")
+            logger.info(f"Path found: {len(path_coord)} points")
             return path_nodes
 
         visited_set.add((current.i, current.j))
