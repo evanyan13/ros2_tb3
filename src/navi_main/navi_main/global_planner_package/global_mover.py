@@ -71,14 +71,6 @@ class GlobalMover(Node):
         twist.angular.z = 0.0
         self.velocity_publisher.publish(twist) # A zero twist to stop the bot
 
-    def handle_navi_fail(self):
-        self.stop_moving()
-        self.planner.fail()
-
-    def complete_navi(self):
-        self.stop_moving()
-        self.planner.goal_reached()
-
     def follow_path(self, path: list):
         """
         Follows the given path by moving to each point sequentially.
@@ -88,13 +80,14 @@ class GlobalMover(Node):
 
         for node in path:
             if not rclpy.ok():
-                self.handle_navi_fail()
+                self.stop_moving()
+                self.planner.fail()
                 return
             # If an obstacle is encountered,
             # Move the bot back and recompute path
             if self.is_obstacle_ahead:
                 logger.warn("follow_path: Obstacle ahead.")
-                self.handle_navi_fail()
+                self.planner.fail()
                 self.move_back()
                 self.stop_moving()
                 self.planner.plan_path()
@@ -104,7 +97,7 @@ class GlobalMover(Node):
 
         # Reached goal
         self.stop_moving()
-        self.complete_navi()
+        self.planner.goal_reached()
 
     def move_back(self):
         """

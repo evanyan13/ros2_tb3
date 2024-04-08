@@ -72,6 +72,13 @@ class GlobalMap:
     def is_node_avail(self, node: GlobalPlannerNode) -> bool:
         i, j = self.coordinates_to_indices(node.x, node.y)
         return self.is_indice_avail(i, j)
+    
+    def dynamic_threshold(self):
+        free_values = [value for value in self.map.data.flatten() if value >= 0]
+        if not free_values:
+            return OCC_THRESHOLD  # Fallback
+        alternative = round(sum(free_values) / len(free_values))
+        return max(alternative, OCC_THRESHOLD)
 
     def find_frontiers(self):
         """

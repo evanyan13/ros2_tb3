@@ -38,7 +38,6 @@ def euler_from_quaternion(x, y, z, w):
 
     return roll_x, pitch_y, yaw_z # in radians
 
-
 def print_path(path: list):
     to_print = [(n.x, n.y) for n in path]
     print(f"[utils] Printing Path: {to_print}")
@@ -138,11 +137,12 @@ def plot_map_helper(map, msg, robot_pos, goal, path):
     if path:
         print("Path being plotted")
         path_pixels = [map.coordinates_to_indices(node.x, node.y) for node in path]
-        for path_pixel in path_pixels:
-            x, y = path_pixel[0], path_pixel[1]
-            path_radius = 1
-            draw.ellipse([x - path_radius, y - path_radius,
-                           x + path_radius, y + path_radius])
+        draw.point(path_pixels)
+        # for path_pixel in path_pixels:
+        #     x, y = path_pixel[0], path_pixel[1]
+        #     path_radius = 1
+        #     draw.ellipse([x - path_radius, y - path_radius,
+        #                    x + path_radius, y + path_radius])
 
     return img
     

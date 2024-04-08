@@ -1,3 +1,4 @@
+from statistics import mean
 import rclpy
 import numpy as np
 import threading
@@ -188,7 +189,6 @@ class GlobalPlanner(Node):
     def wait_for_map(self):
         while not self.map and rclpy.ok():
             rclpy.spin_once(self, timeout_sec=0.2)
-
 
 def main(args=None):
     rclpy.init(args=args)
