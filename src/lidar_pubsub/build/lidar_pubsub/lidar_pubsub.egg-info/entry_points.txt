@@ -1,4 +1,0 @@
-[console_scripts]
-listener = lidar_pubsub.subscriber_lidar_function:main
-talker = lidar_pubsub.publisher_lidar_function:main
-

@@ -12,6 +12,7 @@ navi_main.egg-info/top_level.txt
 navi_main.egg-info/zip-safe
 navi_main/global_planner_package/__init__.py
 navi_main/global_planner_package/astar_path_finder.py
+navi_main/global_planner_package/cell.py
 navi_main/global_planner_package/frontier_explorer.py
 navi_main/global_planner_package/global_map.py
 navi_main/global_planner_package/global_mover.py
