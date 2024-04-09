@@ -15,6 +15,7 @@ class LineFollower(Node):
         self.line_following = False
         self.sensor_left = 0
         self.sensor_right = 0
+	self.count = 0
 
     def setup(self):
         GPIO.setmode(GPIO.BCM)
@@ -24,25 +25,30 @@ class LineFollower(Node):
         GPIO.setup(self.IR_right,GPIO.IN)
 
     def color_callback(self,msg):
-        if msg.data == 'RED' and not self.line_following:
-            self.start_line_following()
+	if msg.data = 'RED':
+            self.count += 1
+                if self.count == 5 and not self.line_following:
+			print(f"{self.count} reds in a row and not line following, starting line following")
+                        self.start_line_following()
+                        self.count = 0
+        else:
+           self.count = 0
+
 
     def start_line_following(self):
         print("start_line_following called")
         self.line_following = True
         twist = Twist()
-        while True:
+        while True:   # edit here
             self.sensor_left = GPIO.input(self.IR_left)
             self.sensor_right = GPIO.input(self.IR_right)
-            if(self.sensor_left or self.sensor_right):
+            if self.sensor_left or self.sensor_right:
                 break
             else: 
-                #twist.linear.x = 0.05
-                #twist.angular.z = 0.1
-                #time.sleep(0.5)
-                #twist.angular.z = -0.1
-                #time.sleep(0.5)
-                #print("Wiggle")
+                twist.linear.x = 0.11
+                twist.angular.z = 0.0
+                self.publisher_cmd_vel.publish(twist)
+                print("Searching for black line")
         while self.line_following:
             self.sensor_left = GPIO.input(self.IR_left)
             self.sensor_right = GPIO.input(self.IR_right)
@@ -53,11 +59,11 @@ class LineFollower(Node):
             elif self.sensor_left and not self.sensor_right:
                 twist.angular.z = 0.2
                 twist.linear.x = 0.
-                print("Right in black")
+                print("Left in black, turning left")
             elif self.sensor_right and not self.sensor_left:
                 twist.angular.z = -0.2
                 twist.linear.x = 0.0
-                print("Left in black")
+                print("right in black, turning right")
             else:
                 print("both not in black")
                 self.check_end_line()
@@ -76,6 +82,7 @@ class LineFollower(Node):
         self.publisher_cmd_vel.publish(twist)
         self.get_logger().info(f"Twist: {twist.linear.x} & {twist.angular.z}")
         print("stopped")
+        time.sleep(1)
 
 def main(args=None):
     rclpy.init(args=args)
@@ -89,4 +96,4 @@ def main(args=None):
         rclpy.shutdown
 
 if __name__ == '__main__':
-    main()  
+    main() 
