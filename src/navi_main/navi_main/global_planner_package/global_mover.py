@@ -13,13 +13,11 @@ from sensor_msgs.msg import LaserScan
 
 from .global_node import GlobalPlannerNode
 
-move_tolerance = 0.1
-scan_tolerance_front = 0.5
-scan_tolerance_side = 0.5
-rotate_tolerance = 0.004
-linear_velocity = 0.10
-angular_velocity = 0.05
-move_back_cap = 0.4
+MOVE_TOL = 0.1
+LINEAR_VEL = 0.10
+ANGULAR_VEL = 0.05
+OBSTACLE_THRESHOLD = 0.10 # etres
+PATH_REFRESH = 5  # seconds
 logger = log.get_logger("global_mover")
 
 class GlobalMover(Node):
@@ -27,10 +25,9 @@ class GlobalMover(Node):
         super().__init__('global_mover')
         self.planner = planner
         self.robot_pos = None
-
-        self.path_deviation = 0.0
-        self.is_moving = False
-        self.is_obstacle_ahead = False
+        self.current_path = []
+        self.current_goal_index = 0
+        self.obstacle_detected = False
 
         self.last_update_time = self.get_clock().now()
         self.path_refresh_interval = Duration(seconds=5) 
@@ -40,149 +37,62 @@ class GlobalMover(Node):
 
         self.velocity_publisher = self.create_publisher(Twist, 'cmd_vel', 10)
 
+        # Timer for following the path
+        self.follow_path_timer = self.create_timer(0.1, self.follow_path)
+        # Timer for periodic path refresh
+        self.path_refresh_timer = self.create_timer(PATH_REFRESH, self.refresh_path)
+
     def path_callback(self, path_msg: Path):
         """
         Processing the incoming path and initiating navigation.
         """
-        node_path = [GlobalPlannerNode.from_pose(pose.pose) for pose in path_msg.poses]
-        logger.info(f"path_callback: Received path with {len(node_path)} points.")
-        self.last_update_time = self.get_clock().now()
+        self.current_path = path_msg.poses
+        self.current_goal_index = 0
+        # logger.info(f"path_callback: Received path with {len(self.current_path)} points.")
 
-        if node_path:
-            self.follow_path(node_path)
-        else:
-            self.handle_navi_fail()
-
-    def scan_callback(self, scan_data: LaserScan):
+    def scan_callback(self, scan_msg: LaserScan):
         """ 
-        Processes laser scan data to detect obstacles and adjust path deviation.
+        Processes laser scan data to detect obstacles
         """
-        if np.nanmin(scan_data.ranges[0:10] + scan_data.ranges[350:360]) < scan_tolerance_front:
-            self.is_obstacle_ahead = True
-        elif np.nanmin(scan_data.ranges[11:165]) < scan_tolerance_side:
-            self.path_deviation = -0.5
-        elif np.nanmin(scan_data.ranges[195:349]) < scan_tolerance_side:
-            self.path_deviation = 0.5
+        if min(scan_msg.ranges) < OBSTACLE_THRESHOLD:
+            self.obstacle_detected = True
+            self.refresh_path()
+            # logger.info(f"scan_callback: Obstacle encountered: {min(scan_msg.ranges)} < {OBSTACLE_THRESHOLD}")
         else:
-            self.path_deviation = 0.0
+            self.obstacle_detected = False
 
-    def follow_path(self, path: list):
+    def follow_path(self):
         """
         Follows the given path by moving to each point sequentially.
         """
-        self.is_moving = True
-        logger.info("follow_path: Starting to follow the path.")
-
-        for node in path:
-            if not rclpy.ok():
-                self.stop_moving()
-                self.planner.fail()
-                return
-            # If an obstacle is encountered,
-            # Move the bot back and recompute path
-            if self.is_obstacle_ahead:
-                logger.warn("follow_path: Obstacle ahead.")
-                self.planner.fail()
-                self.move_back()
-                self.stop_moving()
-                self.planner.plan_path()
-                return
-
-            self.move_to_point(node)
-
-        # Reached goal
-        self.stop_moving()
-        self.planner.goal_reached()
-
-    def move_back(self):
-        """
-        Moves the bot backward for a short distance when an obstacle is detected.
-        """
-        logger.warn("move_back: Moving back due to an obstacle.")
-        distance_moved = 0.0
-        twist_msg = Twist()
-        twist_msg.linear.x = -linear_velocity
-        t0 = self.get_clock().now()
-
-        while distance_moved < move_back_cap and rclpy.ok():
-            self.velocity_publisher.publish(twist_msg)
-            t1 = self.get_clock().now()
-            distance_moved = linear_velocity * ((t1 - t0).nanoseconds / 1e9)
-            rclpy.spin_once(self, timeout_sec=0.01)
+        if self.current_goal_index >= len(self.current_path):
+            return
         
-        self.is_obstacle_ahead = False
+        current_goal = self.current_path[self.current_goal_index].pose.position
+        distance_to_goal = self.calculate_distance(self.robot_pos, current_goal)
+        logger.info(f"follow_path: Following path.{current_goal.x, current_goal.y}")
 
-    def move_to_point(self, point: GlobalPlannerNode):
-        """
-        Moves the bot to the specified point
-        """
-        logger.info(f"move_to_point: Moving to point ({point.x}, {point.y})")        
-        twist_msg = Twist()
-        twist_msg.linear.x = linear_velocity # Moves the bot forward
-        loop_rate = self.create_rate(1000) # Create a rate to sleep at 1000 Hz
-
-        while self.robot_pos.calculate_distance(point) > move_tolerance:        
-            speed = angular_velocity * self.angular_difference(point)
-            twist_msg.angular.z = min(angular_velocity, speed) + self.path_deviation
-            self.velocity_publisher.publish(twist_msg)
-            loop_rate.sleep()
-
-        logger.info("move_to_point: Point reached")
-
-    def rotate_to_goal(self, goal: GlobalPlannerNode):
-        """
-        Rotates the bot to align with the goal orientation.
-        """
-        self.get_logger().info(f"rotate_to_goal: Rotate to align with goal ({goal.x}, {goal.y})") 
-        twist_msg = Twist()
-        loop_rate = self.create_rate(1000)
-
-        while abs(self.angular_difference(goal)) > rotate_tolerance:
-            if not rclpy.ok():
-                self.stop_moving()
-                return
-            
-            speed = angular_velocity * self.angular_difference(goal)
-            twist_msg.angular.z = min(angular_velocity, max(-angular_velocity, speed))
-            self.velocity_publisher.publish(twist_msg)
-            loop_rate.sleep()
-
-        self.velocity_publisher.publish(Twist())  # Stop the robot
-        logger.info(f"rotate_to_goal: Rotate complete") 
-    
-    def stop_moving(self):
-        """
-        Stops the bot movement by publishing a zero velocity.
-        """
-        self.is_moving = False
         twist = Twist()
-        twist.linear.x = 0.0
-        twist.angular.z = 0.0
-        self.velocity_publisher.publish(twist) # A zero twist to stop the bot
-
-    def angular_difference(self, point: GlobalPlannerNode) -> float:
-        """
-        Calcualtes the angle btw the current orientation of the bot and the direction to the target point
-        """
-        angle = atan2(point.y - self.robot_pos.y, point.x - self.robot_pos.x)\
-                    - self.robot_pos.theta
+        if self.obstacle_detected:
+            twist.linear.x = 0.0
+            twist.angular.z = ANGULAR_VEL
+            logger.info(f"follow_path: Obstacle encountered.")
+        elif distance_to_goal > MOVE_TOL:
+            twist.linear.x = LINEAR_VEL
+            twist.angular.z = 0.0
+            logger.info(f"follow_path: Moving forward.")
+        else:
+            # Current goal reached
+            self.current_goal_index += 1
         
-        # Normalising the angle to be within [-pi, pi]
-        if angle <= -pi:
-            angle += 2 * pi
-        elif angle > pi:
-            angle -= 2 * pi
-        
-        return angle
-    
-    def periodic_path_refresh(self):
-        while rclpy.ok():
-            current_time = self.get_clock().now()
-            if current_time - self.last_path_update_time >= self.path_refresh_interval:
-                self.request_new_path()
-            rclpy.sleep(1)  # Check interval
+        # Publish twist
+        self.velocity_publisher.publish(twist)
 
-    def request_new_path(self):
-        # Logic to request a new path from GlobalPlanner
+    def refresh_path(self):
+        # Instruct planner to generate new path
+        self.planner.fail()
         self.planner.plan_path()
-        self.last_path_update_time = self.get_clock().now()
+    
+    def calculate_distance(self, pos1, pos2):
+        return np.sqrt((pos1.x - pos2.x) ** 2 + (pos1.y - pos2.y) ** 2)
+    

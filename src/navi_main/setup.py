@@ -21,7 +21,6 @@ setup(
     entry_points={
         'console_scripts': [
             'navi_main = navi_main.global_planner_main:main',
-            'planner = navi_main.global_planner_package.global_planner:main',
         ],
     },
 )

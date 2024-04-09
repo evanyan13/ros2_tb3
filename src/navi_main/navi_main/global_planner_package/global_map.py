@@ -4,7 +4,7 @@ import numpy as np
 import scipy.stats
 from nav_msgs.msg import OccupancyGrid
 
-from .utils import MAP_PATH, OCC_THRESHOLD
+from .utils import MAP_PATH
 from .global_node import GlobalPlannerNode
 
 class GlobalMap:
@@ -26,7 +26,6 @@ class GlobalMap:
             [-1, 0, 100],
             default=-1  # Use -1 for values outside the defined bins
         )
-        print(cat_data)
         return cat_data.astype(np.int8)
 
     def coordinates_to_indices(self, x: float, y: float) -> tuple:

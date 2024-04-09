@@ -57,7 +57,7 @@ class GlobalPlanner(Node):
     def map_callback(self, map_msg: OccupancyGrid):
         self.map = GlobalMap(map_msg)
         self.update_ros_pos_from_tf()
-        self.show_map_info(map_msg)
+        # self.show_map_info(map_msg)
         if self.check_ready():
             map_data = plot_map_helper(self.map, map_msg, self.mover.robot_pos, self.goal, self.curr_path)
             self.plot_queue.put(map_data)
@@ -85,18 +85,18 @@ class GlobalPlanner(Node):
         except(LookupException, ConnectivityException, ExtrapolationException) as e:
             self.get_logger().error(f'Could not transform base_link to map: {e}')
     
-    def show_map_info(self, msg):
-        occ_bins = [-1, 0, 100, 101]
-        map_data = np.array(msg.data)
-        occ_counts = np.histogram(map_data, occ_bins)
-        total_bins = msg.info.width * msg.info.height
-        self.get_logger().info(f"Unmapped: {occ_counts[0][0]} | Unoccupied: {occ_counts[0][1]} | Occupied: {occ_counts[0][2]} | Total: {total_bins} ")
+    # def show_map_info(self, msg):
+    #     occ_bins = [-1, 0, 100, 101]
+    #     map_data = np.array(msg.data)
+    #     occ_counts = np.histogram(map_data, occ_bins)
+    #     total_bins = msg.info.width * msg.info.height
+    #     self.get_logger().info(f"Unmapped: {occ_counts[0][0]} | Unoccupied: {occ_counts[0][1]} | Occupied: {occ_counts[0][2]} | Total: {total_bins} ")
         
-        known_map = map_data[map_data != -1]
-        min_value = known_map.min() if known_map.size > 0 else None
-        max_value = known_map.max() if known_map.size > 0 else None
-        mean_value = known_map.mean() if known_map.size > 0 else None
-        self.get_logger().info(f'Map callback: min={min_value},max={max_value}, mean={mean_value}')
+    #     known_map = map_data[map_data != -1]
+    #     min_value = known_map.min() if known_map.size > 0 else None
+    #     max_value = known_map.max() if known_map.size > 0 else None
+    #     mean_value = known_map.mean() if known_map.size > 0 else None
+    #     self.get_logger().info(f'Map callback: min={min_value},max={max_value}, mean={mean_value}')
 
     def check_ready(self):
         if self.map and self.mover and self.mover.robot_pos:

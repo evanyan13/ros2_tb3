@@ -12,7 +12,6 @@ from geometry_msgs.msg import Pose
 # Package wide parameters
 pixel_tolerance = 1
 MAP_PATH = '/home/evanyan13/colcon_ws/map.csv'
-OCC_THRESHOLD = 31
 
 
 # code from https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/
