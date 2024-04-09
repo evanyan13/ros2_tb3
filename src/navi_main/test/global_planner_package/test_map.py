@@ -28,7 +28,7 @@ class TestMap(unittest.TestCase):
         self.grid.data = [-1, 0, 25, 100, -1,
                             0, 0, 50, 100, -1,
                             50, 66, 50, 100, -1,
-                            100, 100, 100, 67, -1,
+                            100, 100, 100, 49, -1,
                             -1, -1, -1, -1, -1]  # Sample grid data
         self.map_mock = GlobalMap(self.grid)
 
@@ -41,12 +41,12 @@ class TestMap(unittest.TestCase):
         self.assertEqual((cx, cy), (4, 2))
 
     def test_get_occupancy_value_by_indices(self):
-        self.assertEqual(self.map_mock.get_occupancy_value_by_indices(2, 1), 66)
-        self.assertEqual(self.map_mock.get_occupancy_value_by_indices(3, 3), 67)
+        self.assertEqual(self.map_mock.get_occupancy_value_by_indices(2, 1), 100)
+        self.assertEqual(self.map_mock.get_occupancy_value_by_indices(0, 2), 0)
 
     def test_get_occupancy_value_by_coordinate(self):
-        self.assertEqual(self.map_mock.get_occupancy_value_by_coordinates(4, 2), 66)
-        self.assertEqual(self.map_mock.get_occupancy_value_by_coordinates(6, 6), 67)
+        self.assertEqual(self.map_mock.get_occupancy_value_by_coordinates(4, 2), 100)
+        self.assertEqual(self.map_mock.get_occupancy_value_by_coordinates(6, 6), 0)
 
     def test_check_indice_valid(self):
         self.assertTrue(self.map_mock.is_indice_valid(*VALID_INDICES))

@@ -135,7 +135,6 @@ def plot_map_helper(map, msg, robot_pos, goal, path):
                     goal_x + pixel_radius, goal_y + pixel_radius])
 
     if path:
-        print("Path being plotted")
         path_pixels = [map.coordinates_to_indices(node.x, node.y) for node in path]
         draw.point(path_pixels)
         # for path_pixel in path_pixels:

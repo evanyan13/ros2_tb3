@@ -1,6 +1,7 @@
 import csv
 import os
 import numpy as np
+import scipy.stats
 from nav_msgs.msg import OccupancyGrid
 
 from .utils import MAP_PATH, OCC_THRESHOLD
@@ -15,6 +16,18 @@ class GlobalMap:
 
         # Convert OccupancyGrid data to 2D numpy array
         self.data = np.array(grid_map.data).reshape(self.height, self.width)
+        self.data = self.categorise_data(self.data)
+
+    def categorise_data(self, data):
+        occ_bins = [-1, 0, 50, 100]
+        bin_indices = np.digitize(data, bins=occ_bins, right=False)
+        cat_data = np.select(
+            [bin_indices == 1, bin_indices == 2, bin_indices == 3],
+            [-1, 0, 100],
+            default=-1  # Use -1 for values outside the defined bins
+        )
+        print(cat_data)
+        return cat_data.astype(np.int8)
 
     def coordinates_to_indices(self, x: float, y: float) -> tuple:
         """
