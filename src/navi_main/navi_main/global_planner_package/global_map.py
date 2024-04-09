@@ -75,7 +75,7 @@ class GlobalMap:
     def is_indice_avail(self, i: int, j: int):
         if self.is_indice_valid(i, j):
             value = self.get_occupancy_value_by_indices(i, j)
-            return value < OCC_THRESHOLD and value >= 0
+            return value == 0
         return False
         
     def is_node_valid(self, node: GlobalPlannerNode) -> bool:
@@ -86,12 +86,12 @@ class GlobalMap:
         i, j = self.coordinates_to_indices(node.x, node.y)
         return self.is_indice_avail(i, j)
     
-    def dynamic_threshold(self):
-        free_values = [value for value in self.map.data.flatten() if value >= 0]
-        if not free_values:
-            return OCC_THRESHOLD  # Fallback
-        alternative = round(sum(free_values) / len(free_values))
-        return max(alternative, OCC_THRESHOLD)
+    # def dynamic_threshold(self):
+    #     free_values = [value for value in self.map.data.flatten() if value >= 0]
+    #     if not free_values:
+    #         return OCC_THRESHOLD  # Fallback
+    #     alternative = round(sum(free_values) / len(free_values))
+    #     return max(alternative, OCC_THRESHOLD)
 
     def find_frontiers(self):
         """

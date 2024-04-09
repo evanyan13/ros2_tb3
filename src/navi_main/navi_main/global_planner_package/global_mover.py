@@ -1,12 +1,15 @@
 import rclpy
+import math
+import threading
 import numpy as np
+from math import atan2, pi
 from rclpy.node import Node
+from rclpy.duration import Duration
 from rclpy.qos import qos_profile_sensor_data
 import rclpy.logging as log
 from geometry_msgs.msg import Twist
 from nav_msgs.msg import Path
 from sensor_msgs.msg import LaserScan
-from math import atan2, pi
 
 from .global_node import GlobalPlannerNode
 
@@ -20,16 +23,17 @@ move_back_cap = 0.4
 logger = log.get_logger("global_mover")
 
 class GlobalMover(Node):
-
     def __init__(self, planner):
         super().__init__('global_mover')
-
-        self.robot_pos = None
-        self.path_deviation = 0.0
         self.planner = planner
+        self.robot_pos = None
 
+        self.path_deviation = 0.0
         self.is_moving = False
         self.is_obstacle_ahead = False
+
+        self.last_update_time = self.get_clock().now()
+        self.path_refresh_interval = Duration(seconds=5) 
 
         self.path_subscriber = self.create_subscription(Path, 'path', self.path_callback, qos_profile_sensor_data)
         self.scan_subscriber = self.create_subscription(LaserScan, 'scan', self.scan_callback, qos_profile_sensor_data)
@@ -42,6 +46,7 @@ class GlobalMover(Node):
         """
         node_path = [GlobalPlannerNode.from_pose(pose.pose) for pose in path_msg.poses]
         logger.info(f"path_callback: Received path with {len(node_path)} points.")
+        self.last_update_time = self.get_clock().now()
 
         if node_path:
             self.follow_path(node_path)
@@ -60,16 +65,6 @@ class GlobalMover(Node):
             self.path_deviation = 0.5
         else:
             self.path_deviation = 0.0
-    
-    def stop_moving(self):
-        """
-        Stops the bot movement by publishing a zero velocity.
-        """
-        self.is_moving = False
-        twist = Twist()
-        twist.linear.x = 0.0
-        twist.angular.z = 0.0
-        self.velocity_publisher.publish(twist) # A zero twist to stop the bot
 
     def follow_path(self, path: list):
         """
@@ -154,6 +149,16 @@ class GlobalMover(Node):
 
         self.velocity_publisher.publish(Twist())  # Stop the robot
         logger.info(f"rotate_to_goal: Rotate complete") 
+    
+    def stop_moving(self):
+        """
+        Stops the bot movement by publishing a zero velocity.
+        """
+        self.is_moving = False
+        twist = Twist()
+        twist.linear.x = 0.0
+        twist.angular.z = 0.0
+        self.velocity_publisher.publish(twist) # A zero twist to stop the bot
 
     def angular_difference(self, point: GlobalPlannerNode) -> float:
         """
@@ -169,3 +174,15 @@ class GlobalMover(Node):
             angle -= 2 * pi
         
         return angle
+    
+    def periodic_path_refresh(self):
+        while rclpy.ok():
+            current_time = self.get_clock().now()
+            if current_time - self.last_path_update_time >= self.path_refresh_interval:
+                self.request_new_path()
+            rclpy.sleep(1)  # Check interval
+
+    def request_new_path(self):
+        # Logic to request a new path from GlobalPlanner
+        self.planner.plan_path()
+        self.last_path_update_time = self.get_clock().now()
