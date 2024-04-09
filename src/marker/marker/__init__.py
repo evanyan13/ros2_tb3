@@ -9,7 +9,7 @@ class ColorSensor(Node):
         super().__init__('color_sensor')
         self.setup()
         self.publisher_color = self.create_publisher(String, 'color_info', 10)
-        self.create_timer(0.5, self.color_detect)
+        self.color_detect()
 
     def setup(self):
         GPIO.setmode(GPIO.BCM)
