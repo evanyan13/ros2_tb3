@@ -18,6 +18,7 @@ from .global_node import GlobalPlannerNode
 from .global_mover import GlobalMover
 from .utils import euler_from_quaternion, plot_map_helper
 
+PATH_REFRESH = 5
 
 class GlobalPlanner(Node):
     states = ['IDLE', 'PLANNING', 'NAVIGATING']
@@ -44,6 +45,8 @@ class GlobalPlanner(Node):
 
         self.tf_buffer = tf2_ros.Buffer()
         self.tf_listener = tf2_ros.TransformListener(self.tf_buffer, self)
+
+        self.path_refresh_timer = self.create_timer(PATH_REFRESH, self.plan_path)
 
         self.get_logger().info(f'init: GlobalPlanner initialised {self.state}')
 
@@ -81,50 +84,35 @@ class GlobalPlanner(Node):
             # Initialise current robot_pos to 0
             start_x, start_y = self.map.coordinates_to_indices(self.start.x, self.start.y)
             self.map.data[start_y][start_x] = 0
-
+        
         except(LookupException, ConnectivityException, ExtrapolationException) as e:
             self.get_logger().error(f'Could not transform base_link to map: {e}')
-    
-    # def show_map_info(self, msg):
-    #     occ_bins = [-1, 0, 100, 101]
-    #     map_data = np.array(msg.data)
-    #     occ_counts = np.histogram(map_data, occ_bins)
-    #     total_bins = msg.info.width * msg.info.height
-    #     self.get_logger().info(f"Unmapped: {occ_counts[0][0]} | Unoccupied: {occ_counts[0][1]} | Occupied: {occ_counts[0][2]} | Total: {total_bins} ")
-        
-    #     known_map = map_data[map_data != -1]
-    #     min_value = known_map.min() if known_map.size > 0 else None
-    #     max_value = known_map.max() if known_map.size > 0 else None
-    #     mean_value = known_map.mean() if known_map.size > 0 else None
-    #     self.get_logger().info(f'Map callback: min={min_value},max={max_value}, mean={mean_value}')
+
+    def goal_callback(self, pose_msg: PoseStamped):
+        self.goal = GlobalPlannerNode.from_pose(pose_msg.pose)
+        self.get_logger().info(f'goal_callback: Received new goal: ({self.goal.x}, {self.goal.y})')
 
     def check_ready(self):
         if self.map and self.mover and self.mover.robot_pos:
             self.planner_ready.set() # Signal that GlobalPlanner is ready
             return True
     
-    def goal_callback(self, pose_msg: PoseStamped):
-        self.goal = GlobalPlannerNode.from_pose(pose_msg.pose)
-        self.get_logger().info(f'goal_callback: Received new goal: ({self.goal.x}, {self.goal.y})')
-        if self.map and self.mover.robot_pos:
-            self.plan_path()
-        else:
-            self.wait_for_map()
-    
     def plan_path(self):
         """"
         Given map information, plan and publish the path from start node to end node
         """
-        if self.state != 'IDLE':
-            self.get_logger().warn("plan_path: Already planning or navigating")
-            return
-        
+        self.get_logger().warn(f"plan_path: State now {self.state}")
         if not self.map or not self.start or not self.goal:
             self.fail()
             self.get_logger().warn("plan_path: Map and nodes are not initialised properly")
             return
         
+        self.fail()
         self.start_planning()
+        if self.state != 'PLANNING':
+            self.get_logger().warn("plan_path: State is not PLANNING after start_planning call")
+            return
+    
         start_pt = (self.start.x, self.start.y)
         goal_pt = (self.goal.x, self.goal.y)
         self.get_logger().info(f"plan_path: Start path planning {start_pt, goal_pt}")
@@ -132,45 +120,46 @@ class GlobalPlanner(Node):
         path_list = find_astar_path(self.map, self.start, self.goal)
         if path_list:
             self.get_logger().info(f"plan_path: Path found from astar, {len(path_list)} points")
-            path_list = self.smooth_path_bspline(path_list)
+            # path_list = self.smooth_path_bspline(path_list)
             self.curr_path = path_list
             
             # Publish path information for mover
             path_msg = self.convert_to_path(path_list)
             self.path_publisher.publish(path_msg)
             self.get_logger().info("plan_path: Path published")
-            self.path_found()
+            if self.state == "PLANNING":
+                self.path_found()
         else:
             self.get_logger().warn("plan_path: No path found")
             self.fail()
 
-    def smooth_path_bspline(self, path_list: list) -> list:
-        """
-        Use B-spline algorithm to generate a smoother path between the given path
-        """
-        if len(path_list) < 3:
-            self.get_logger().warn("smooth_path_spline: Not enough ponts to complete B-spline")
-            return path_list
+    # def smooth_path_bspline(self, path_list: list) -> list:
+    #     """
+    #     Use B-spline algorithm to generate a smoother path between the given path
+    #     """
+    #     if len(path_list) < 3:
+    #         self.get_logger().warn("smooth_path_spline: Not enough ponts to complete B-spline")
+    #         return path_list
         
-        x = [node.x for node in path_list]
-        y = [node.y for node in path_list]
+    #     x = [node.x for node in path_list]
+    #     y = [node.y for node in path_list]
 
-        # Parameterisation variable
-        t = np.linspace(0, 1, len(path_list))
-        spline_degree = min(3, len(path_list) - 1)
-        data = np.array([x, y]).T
+    #     # Parameterisation variable
+    #     t = np.linspace(0, 1, len(path_list))
+    #     spline_degree = min(3, len(path_list) - 1)
+    #     data = np.array([x, y]).T
 
-        spl = make_interp_spline(t, data, k=spline_degree)
+    #     spl = make_interp_spline(t, data, k=spline_degree)
 
-        # Expand the number of points into more fine ones
-        t_fine = np.linspace(0, 1, num=max(30, len(path_list) * 3))
-        smooth_data = spl(t_fine)
-        x_fine, y_fine = smooth_data[:, 0], smooth_data[:, 1]
+    #     # Expand the number of points into more fine ones
+    #     t_fine = np.linspace(0, 1, num=max(30, len(path_list) * 3))
+    #     smooth_data = spl(t_fine)
+    #     x_fine, y_fine = smooth_data[:, 0], smooth_data[:, 1]
 
-        smoothed_path_list = [GlobalPlannerNode(x, y) for x, y in zip(x_fine, y_fine)]
+    #     smoothed_path_list = [GlobalPlannerNode(x, y) for x, y in zip(x_fine, y_fine)]
 
-        self.get_logger().info(f"smooth_path_spline: Success {len(smoothed_path_list)} points")
-        return smoothed_path_list
+    #     self.get_logger().info(f"smooth_path_spline: Success {len(smoothed_path_list)} points")
+    #     return smoothed_path_list
     
     def convert_to_path(self, path_list: list) -> Path:
         """
@@ -188,15 +177,27 @@ class GlobalPlanner(Node):
     
     def wait_for_map(self):
         while not self.map and rclpy.ok():
-            rclpy.spin_once(self, timeout_sec=0.2)
+            rclpy.spin_once(self, timeout_sec=0.5)
 
-def main(args=None):
-    rclpy.init(args=args)
-    node = GlobalPlanner()
-    rclpy.spin(node)
-    node.destroy_node()
-    rclpy.shutdown()
+    # def show_map_info(self, msg):
+    #     occ_bins = [-1, 0, 100, 101]
+    #     map_data = np.array(msg.data)
+    #     occ_counts = np.histogram(map_data, occ_bins)
+    #     total_bins = msg.info.width * msg.info.height
+    #     self.get_logger().info(f"Unmapped: {occ_counts[0][0]} | Unoccupied: {occ_counts[0][1]} | Occupied: {occ_counts[0][2]} | Total: {total_bins} ")
+        
+    #     known_map = map_data[map_data != -1]
+    #     min_value = known_map.min() if known_map.size > 0 else None
+    #     max_value = known_map.max() if known_map.size > 0 else None
+    #     mean_value = known_map.mean() if known_map.size > 0 else None
+    #     self.get_logger().info(f'Map callback: min={min_value},max={max_value}, mean={mean_value}')
 
+# def main(args=None):
+#     rclpy.init(args=args)
+#     node = GlobalPlanner()
+#     rclpy.spin(node)
+#     node.destroy_node()
+#     rclpy.shutdown()
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()

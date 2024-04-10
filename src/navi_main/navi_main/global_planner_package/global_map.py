@@ -7,6 +7,8 @@ from nav_msgs.msg import OccupancyGrid
 from .utils import MAP_PATH
 from .global_node import GlobalPlannerNode
 
+OCC_THRESHOLD = 50
+
 class GlobalMap:
     def __init__(self, grid_map: OccupancyGrid):
         self.width = grid_map.info.width
@@ -19,7 +21,8 @@ class GlobalMap:
         self.data = self.categorise_data(self.data)
 
     def categorise_data(self, data):
-        occ_bins = [-1, 0, 50, 100]
+        threshold = self.dynamic_threshold()
+        occ_bins = [-1, 0, OCC_THRESHOLD, 100]
         bin_indices = np.digitize(data, bins=occ_bins, right=False)
         cat_data = np.select(
             [bin_indices == 1, bin_indices == 2, bin_indices == 3],
@@ -85,12 +88,13 @@ class GlobalMap:
         i, j = self.coordinates_to_indices(node.x, node.y)
         return self.is_indice_avail(i, j)
     
-    # def dynamic_threshold(self):
-    #     free_values = [value for value in self.map.data.flatten() if value >= 0]
-    #     if not free_values:
-    #         return OCC_THRESHOLD  # Fallback
-    #     alternative = round(sum(free_values) / len(free_values))
-    #     return max(alternative, OCC_THRESHOLD)
+    def dynamic_threshold(self):
+        free_values = [value for value in self.data.flatten() if value >= 0]
+        if not free_values:
+            return OCC_THRESHOLD  # Fallback
+        alternative = round(sum(free_values) / len(free_values))
+        if -1 <= alternative <= 100:
+            return max(alternative, OCC_THRESHOLD)
 
     def find_frontiers(self):
         """
