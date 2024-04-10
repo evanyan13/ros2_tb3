@@ -29,9 +29,6 @@ class GlobalMover(Node):
         self.current_goal_index = 0
         self.obstacle_detected = False
 
-        self.last_update_time = self.get_clock().now()
-        self.path_refresh_interval = Duration(seconds=5) 
-
         self.path_subscriber = self.create_subscription(Path, 'path', self.path_callback, qos_profile_sensor_data)
         self.scan_subscriber = self.create_subscription(LaserScan, 'scan', self.scan_callback, qos_profile_sensor_data)
 
@@ -46,7 +43,7 @@ class GlobalMover(Node):
         """
         Processing the incoming path and initiating navigation.
         """
-        self.current_path = path_msg.poses
+        self.current_path = [(pose.pose.position.x, pose.pose.position.y) for pose in path_msg.poses]
         self.current_goal_index = 0
         # logger.info(f"path_callback: Received path with {len(self.current_path)} points.")
 
@@ -54,10 +51,8 @@ class GlobalMover(Node):
         """ 
         Processes laser scan data to detect obstacles
         """
-        if min(scan_msg.ranges) < OBSTACLE_THRESHOLD:
+        if np.nanmin(scan_msg.ranges) < OBSTACLE_THRESHOLD:
             self.obstacle_detected = True
-            self.refresh_path()
-            # logger.info(f"scan_callback: Obstacle encountered: {min(scan_msg.ranges)} < {OBSTACLE_THRESHOLD}")
         else:
             self.obstacle_detected = False
 
@@ -65,34 +60,51 @@ class GlobalMover(Node):
         """
         Follows the given path by moving to each point sequentially.
         """
-        if self.current_goal_index >= len(self.current_path):
+        if self.obstacle_detected or self.current_goal_index >= len(self.current_path):
+            self.handle_obstacle()
             return
-        
-        current_goal = self.current_path[self.current_goal_index].pose.position
-        distance_to_goal = self.calculate_distance(self.robot_pos, current_goal)
-        logger.info(f"follow_path: Following path.{current_goal.x, current_goal.y}")
 
-        twist = Twist()
+        current_goal = self.current_path[self.current_goal_index]
+        self.move_to_point(current_goal)
+
+    def handle_obstacle(self):
         if self.obstacle_detected:
-            twist.linear.x = 0.0
-            twist.angular.z = ANGULAR_VEL
-            logger.info(f"follow_path: Obstacle encountered.")
-        elif distance_to_goal > MOVE_TOL:
-            twist.linear.x = LINEAR_VEL
-            twist.angular.z = 0.0
-            logger.info(f"follow_path: Moving forward.")
-        else:
-            # Current goal reached
+            self.send_velocity(0.0, 0.0)
+            self.refresh_path()
+            
+    def move_to_point(self, goal):
+        # Control the robot to move to the next point in the path
+        distance_to_goal = math.hypot(self.robot_pos.x - goal[0], self.robot_pos.y - goal[1])
+        if distance_to_goal < MOVE_TOL:
             self.current_goal_index += 1
-        
-        # Publish twist
-        self.velocity_publisher.publish(twist)
+            if self.current_goal_index >= len(self.current_path):
+                self.send_velocity(0, 0)  # Stop if path is complete
+                return
+
+        target_heading = math.atan2(goal[1] - self.robot_pos.y, goal[0] - self.robot_pos.x)
+        heading_error = self.normalise_angle(target_heading - self.robot_pos.theta)
+
+        linear = LINEAR_VEL
+        angular = ANGULAR_VEL * heading_error
+
+        self.send_velocity(linear, angular)
 
     def refresh_path(self):
         # Instruct planner to generate new path
         self.planner.fail()
         self.planner.plan_path()
     
-    def calculate_distance(self, pos1, pos2):
-        return np.sqrt((pos1.x - pos2.x) ** 2 + (pos1.y - pos2.y) ** 2)
+    def send_velocity(self, linear, angular):
+        twist = Twist()
+        twist.linear.x = linear
+        twist.angular.z = angular
+        self.velocity_publisher.publish(twist)
+    
+    def normalise_angle(self, angle):
+        # Normalize the angle to be between -pi and pi
+        while angle > math.pi:
+            angle -= 2 * math.pi
+        while angle < -math.pi:
+            angle += 2 * math.pi
+        return angle
     
