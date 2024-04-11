@@ -26,13 +26,15 @@ class LineFollower(Node):
 
     def color_callback(self,msg):
         twist = Twist()
-        if msg.data == 'RED':
+        if msg.data == 'WHITE':
+            print("White detected")
+            raise KeyboardInterrupt
+        elif msg.data == 'RED':
             self.count += 1
-            twist.linear.x = 0.02
+            twist.linear.x = 0.01
             twist.angular.z = 0.0
             self.publisher_cmd_vel.publish(twist)
-            self.get_logger().info(f"Twist: {twist.linear.x} & {twist.angular.z}")
-            if self.count == 3 and not self.line_following:
+            if self.count == 5 and not self.line_following:
                 print(f"{self.count} reds in a row and not line following, starting line following")
                 self.start_line_following()
                 self.count = 0
@@ -46,7 +48,7 @@ class LineFollower(Node):
         print("start_line_following called")
         self.line_following = True
         twist = Twist()
-        while True:
+        while self.line_following:
             self.sensor_left = GPIO.input(self.IR_left)
             self.sensor_right = GPIO.input(self.IR_right)
             if self.sensor_left or self.sensor_right:
@@ -89,10 +91,10 @@ class LineFollower(Node):
         twist = Twist()
         twist.linear.x = 0.0
         twist.angular.z = 0.0
-        self.publisher_cmd_vel.publish(twist)
         time.sleep(1)
-        self.get_logger().info(f"Twist: {twist.linear.x} & {twist.angular.z}")
+        self.publisher_cmd_vel.publish(twist)
         print("stopped")
+        self.get_logger().info(f"Twist: {twist.linear.x} & {twist.angular.z}")
 
 def main(args=None):
     rclpy.init(args=args)
@@ -105,4 +107,4 @@ def main(args=None):
         rclpy.shutdown
 
 if __name__ == '__main__':
-    main() 
+    main()  

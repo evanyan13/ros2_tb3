@@ -9,7 +9,7 @@ class ColorSensor(Node):
         super().__init__('color_sensor')
         self.setup()
         self.publisher_color = self.create_publisher(String, 'color_info', 10)
-        self.color_detect()
+        self.create_timer(0, self.color_detect)
 
     def setup(self):
         GPIO.setmode(GPIO.BCM)
@@ -49,15 +49,23 @@ class ColorSensor(Node):
             print(f"Red:{r}, Green:{g}, Blue:{b}")
             # Larger the half period, larger the period, lower the frequency, lower the intensity for the particular colour.
             # Smaller the half period, smaller the period, higher the frequency, higher the intensity for the particular colour.
+            if r > 5000 and g > 6000 and b > 4500:
+                color_val.data = "BLACK"
+                break
+            if r < 2500 and g < 2500 and b < 2000:
+                color_val.data = "WHITE"
+                break
             if (b < g) and (b < r): 
-                color_val.data = "BLUE"
-            elif (g < b) and (g < r): 
+                color_val.data = "BLUE/GROUND"
+                break
+            if (g < b) and (g < r): 
                 color_val.data = "GREEN"
-            elif (r < g) and (r < b): 
+                break
+            if (r < g) and (r < b): 
                 color_val.data = "RED"
-            time.sleep(1)
-            self.publisher_color.publish(color_val)
-            self.get_logger().info(f"Published colour: {color_val.data}")
+                break
+        self.publisher_color.publish(color_val)
+        self.get_logger().info(f"Published colour: {color_val.data}")
 
 def main(args=None):
     rclpy.init(args=args)
@@ -70,4 +78,6 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+
+
 
