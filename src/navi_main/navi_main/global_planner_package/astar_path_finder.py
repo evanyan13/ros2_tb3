@@ -1,78 +1,59 @@
 import heapq
-from .global_map import GlobalMap
-from .global_planner_node import GlobalPlannerNode
+import rclpy.logging as log
 
+from .global_map import GlobalMap
+from .global_node import GlobalPlannerNode
+from .cell import Cell
+from .utils import plot_path_node
+
+logger = log.get_logger("find_astar_path")
 
 def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlannerNode) -> list:
-    """
-    Find path from start to goal node using Astar Algorithm
-    """
-    # Check if start and goal nodes are valid
-    if not (map.is_node_valid(start) and map.is_node_valid(goal)):
-        print("Start or goal node is invalid")
-        return []
+    start_i, start_j = map.coordinates_to_indices(start.x, start.y)
+    goal_i, goal_j = map.coordinates_to_indices(goal.x, goal.y)
+    start_cell = Cell(start_i, start_j)
+    goal_cell = Cell(goal_i, goal_j)
 
-    # Check if start and goal nodes are avail
-    if not map.is_node_avail(start) or  not map.is_node_avail(goal):
-        print("Start or goal node is occupied")
-        return []
-    
-    # Check if are at the destination
-    if start.equals(goal):
-        print("We are already at the destination")
-        return []
+    logger.info(f"Finding path ({start_i}, {start_j}) -> ({goal_i}, {goal_j}) ... ")
 
-    open_nodes = []
-    open_set = set()
+    start_cell.g = 0
+    start_cell.h = start_cell.calculate_heuristic(goal_cell)
+    start_cell.f = start_cell.h
+
+    open_set = []
+    heapq.heappush(open_set, (start_cell.f, start_cell))
     visited_set = set()
+    cells = {(start_cell.i, start_cell.j): start_cell}
 
-    start.g = 0
-    start.h = start.calculate_distance(goal)
-    start.f = start.g + start.h
-    heapq.heappush(open_nodes, (start.f, start))
-    open_set.add((start.x, start.y))
- 
-    while open_nodes:
-        _, current_node = heapq.heappop(open_nodes)
-        open_set.remove((current_node.x, current_node.y))
-        print(f"\nProcessing Node: ({current_node.x}, {current_node.y}), f: {current_node.f}")
+    while open_set:
+        current_f, current = heapq.heappop(open_set)
 
-        # Skip if current node has been visited before
-        if (current_node.x, current_node.y) in visited_set:
+        if (current.i, current.j) in visited_set:
             continue
 
-        # Return when current node is the goal
-        if current_node.equals(goal):
-            print(f"Goal reached: ({current_node.x}, {current_node.y})")
-            return current_node.backtrack_path()
+        if current == goal_cell:
+            path = current.backtrack_path()
+            path_nodes = [map.indices_to_node(i, j) for i, j in path]
+            path_coord = [(node.x, node.y) for node in path_nodes]
+            logger.info(f"Path found: {len(path_coord)} points")
+            return path_nodes
 
-        visited_set.add((current_node.x, current_node.y))
+        visited_set.add((current.i, current.j))
+        neighbours = current.get_neighbours(map)
 
-        for neighbour in current_node.generate_neighbours(map.resolution):
-            n_index = neighbour.x, neighbour.y
-            print(f"Checking neighbour: {n_index}")
-            if n_index in visited_set:
+        for neighbour in neighbours:
+            if (neighbour.i, neighbour.j) in visited_set:
                 continue
 
-            if map.is_node_valid(neighbour) and map.is_node_avail(neighbour):
-                g_new = current_node.g + current_node.calculate_distance(neighbour)
-                h_new = neighbour.calculate_distance(goal)
-                f_new = g_new + h_new
+            tentative_g = current.g + 1
+            if tentative_g < neighbour.g:
+                neighbour.parent = current
+                neighbour.g = tentative_g
+                neighbour.h = neighbour.calculate_heuristic(goal_cell)
+                neighbour.f = neighbour.g + neighbour.h
 
-                if (f_new < neighbour.f) or n_index not in open_set:
-                    neighbour.g = g_new
-                    neighbour.h = h_new
-                    neighbour.f = f_new
-                    neighbour.parent = current_node
-
-                    if n_index not in open_set:
-                        heapq.heappush(open_nodes, (neighbour.f, neighbour))
-                        open_set.add(n_index)
-                    else:
-                        visited_set.add(n_index)
-
-    print("Path not found")
-    return []
-
-def print_path(path: list):
-    print([(n.x, n.y) for n in path])
+                cells[(neighbour.i, neighbour.j)] = neighbour
+                heapq.heappush(open_set, (neighbour.f, neighbour))
+    
+    logger.info(f"No path found")
+    return None

@@ -1,1 +1,0 @@
-/home/evanyan13/colcon_ws/src/navi_main/setup.py
