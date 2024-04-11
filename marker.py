@@ -9,11 +9,14 @@ class Marker(Node):
     def __init__(self):
         super().__init__('line_follower')
         self.setup()
-        self.count = 0
+        self.count_red = 0
+        self.count_white = 0
         self.colour = ""
         self.sensor_left = 0
         self.sensor_right = 0
         self.publisher_cmd_vel = self.create_publisher(Twist, 'cmd_vel', 10)
+        self.publisher_enter_state = self.create_publisher(String,'enter_state',10)
+        self.check_red_white()
 
     def setup(self):
         GPIO.setmode(GPIO.BCM)
@@ -33,7 +36,7 @@ class Marker(Node):
         GPIO.output(self.s3, a1) 
         # Give the sensor some time to adjust
         time.sleep(0.1) 
-        # Wait for a full cycle (this will make sure we only count full cycles)
+        # Wait for a full cycle (this will make sure we only count_red full cycles)
         GPIO.wait_for_edge(self.out, GPIO.FALLING)
         # Measuring the time it takes for the output square wave to change from max value to min value
         # Basically measuring how long one half of the period of the square wave is 
@@ -65,22 +68,35 @@ class Marker(Node):
         if (r < g) and (r < b): 
             return  "RED"
 
-    def check_red(self):
+    def check_red_white(self):
         twist = Twist()
+        string = String()
         self.colour = self.color_detect()
         print(self.colour)
         if self.colour == "RED":
-            self.count += 1
+            self.count_red += 1
             twist.linear.x = 0.01
             twist.angular.z = 0.0
             self.publisher_cmd_vel.publish(twist)
-            if self.count == 3:
-                print(f"{self.count} reds in a row and not line following, starting line following")
+            if self.count_red == 3:
+                print(f"{self.count_red} reds in a row and not line following, starting line following")
                 self.start_line_following()
-                self.count = 0
+                self.count_red = 0
+                self.count_white = 0
+        elif self.colour == 'WHITE':
+            self.count_white += 1
+            if self.count_white == 3:
+                twist.linear.x = 0.0
+                twist.angular.z = 0.0
+                self.publisher_cmd_vel.publish(twist)
+                string.data = 'checkpoint reached'
+                self.publisher_enter_state.publish(string)
+                self.count_red = 0
         else:
-            self.count = 0
-        print(self.count)
+            self.count_red = 0
+            self.count_white = 0
+        print("red ",self.count_red)
+        print("white ", self.count_white)
         print("//////////////////////////////////////////////////")
 
     def start_line_following(self):
@@ -116,7 +132,7 @@ class Marker(Node):
             else:
                 print("Both not in black")
                 # lol
-        raise KeyboardInterrupt
+        #raise KeyboardInterrupt
 
     def stop_line_following(self):
         twist = Twist()
@@ -130,12 +146,11 @@ def main(args=None):
     rclpy.init(args=args)
     marker = Marker()
     try:
-        while True:
-            marker.check_red()
+        rclpy.spin(marker)
     except KeyboardInterrupt:
         marker.stop_line_following()
-        marker.destroy_node()
-        rclpy.shutdown
+        #marker.destroy_node()
+        #rclpy.shutdown
 
 if __name__ == '__main__':
     main() 
