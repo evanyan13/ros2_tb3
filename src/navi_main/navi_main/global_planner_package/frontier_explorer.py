@@ -2,14 +2,12 @@ from rclpy.node import Node
 from rclpy.qos import qos_profile_sensor_data
 from geometry_msgs.msg import PoseStamped
 
-from .global_map import GlobalMap
-from .global_node import GlobalPlannerNode
+from .global_planner import GlobalPlanner
 
 class FrontierExplorer(Node):
-    def __init__(self, global_map: GlobalMap, robot_pos: GlobalPlannerNode):
+    def __init__(self, global_planner: GlobalPlanner):
         super().__init__('frontier_explorer')
-        self.map = global_map
-        self.robot_pos = robot_pos
+        self.global_planner = global_planner
         
         self.goal_publisher = self.create_publisher(PoseStamped, 'goal', qos_profile_sensor_data)
 
@@ -18,18 +16,21 @@ class FrontierExplorer(Node):
 
     def publish_goal(self):
         self.get_logger().info("Attempting to publish goal...")
-        if not self.map or not self.robot_pos:
+        current_map = self.global_planner.map
+        current_robot_pos = self.global_planner.mover.robot_pos
+
+        if not current_map or not current_robot_pos:
             self.get_logger().warn("publish_goal: STOPPED Map / robot_pos not initialised")
             return
         
-        frontiers = self.map.find_frontiers()
+        frontiers = current_map.find_frontiers()
         if not frontiers:
             self.get_logger().warn("publish_goal: No frontiers found")
             return
 
-        bot_x, bot_y = self.map.coordinates_to_indices(self.robot_pos.x, self.robot_pos.y)
+        bot_x, bot_y = current_map.coordinates_to_indices(current_robot_pos.x, current_robot_pos.y)
         furtherest_frontier = max(frontiers, key=lambda point: (point[0] - bot_x)**2 + (point[1] - bot_y)**2)
-        goal_pose = self.map.indices_to_coordinates(furtherest_frontier[0], furtherest_frontier[1])
+        goal_pose = current_map.indices_to_coordinates(furtherest_frontier[0], furtherest_frontier[1])
 
         # closet_frontier = min(frontiers, key=lambda point: (point[0] - bot_x)**2 + (point[1] - bot_y)**2)
         # goal_pose = self.map.indices_to_coordinates(closet_frontier[0], closet_frontier[1])

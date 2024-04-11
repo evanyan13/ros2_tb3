@@ -1,7 +1,8 @@
 import rclpy
 import threading
-import time
+import numpy as np
 import matplotlib.pyplot as plt
+from scipy.ndimage import rotate
 from rclpy.executors import MultiThreadedExecutor
 import rclpy.logging as log
 
@@ -21,7 +22,7 @@ def main(args=None):
     if not is_ready:
         logger.error("GlobalPlanner not ready")
 
-    frontier_explorer = FrontierExplorer(global_planner.map, global_planner.mover.robot_pos)
+    frontier_explorer = FrontierExplorer(global_planner)
     global_mover = global_planner.mover
 
     executor = MultiThreadedExecutor()
@@ -41,6 +42,7 @@ def main(args=None):
             while not global_planner.plot_queue.empty():
                 img = global_planner.plot_queue.get()
                 if img is not None:
+                    rotated_img = rotate(img, np.degrees(-90.0), reshape=True)
                     ax.imshow(img, cmap='terrain', origin='lower')
                     plt.draw_all()
                     plt.pause(0.0001)

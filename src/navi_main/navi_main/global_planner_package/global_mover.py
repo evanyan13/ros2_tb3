@@ -57,21 +57,23 @@ class GlobalMover(Node):
         """
         Follows the given path by moving to each point sequentially.
         """
+        if not self.current_path:
+            return
+        
         if self.obstacle_detected:
             logger.info(f"Obstacle detected, adjusting position")
             self.adjust_obstacle()
             return
 
-        if not self.current_path:
-            if self.current_goal_index >= len(self.current_path):
-                logger.info("End of path reached")
-                self.stop_moving()
-                self.reset_path()
-                return
-
-        current_goal = self.current_path[self.current_goal_index]
-        self.move_to_point(current_goal)
-            
+        if self.current_goal_index >= len(self.current_path):
+            logger.info("End of path reached")
+            self.stop_moving()
+            self.reset_path()
+            return
+        else:
+            current_goal = self.current_path[self.current_goal_index]
+            self.move_to_point(current_goal)
+        
     def move_to_point(self, goal):
         # if self.current_goal_index >= len(self.current_path):
         #     self.stop_moving()  # Stop if path is complete
