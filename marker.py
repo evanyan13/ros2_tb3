@@ -16,6 +16,7 @@ class Marker(Node):
         self.sensor_right = 0
         self.publisher_cmd_vel = self.create_publisher(Twist, 'cmd_vel', 10)
         self.publisher_enter_state = self.create_publisher(String,'enter_state',10)
+        self.x = 0.01
         self.check_red_white()
 
     def setup(self):
@@ -57,25 +58,25 @@ class Marker(Node):
         print(f"Red:{r}, Green:{g}, Blue:{b}")
         # Larger the half period, larger the period, lower the frequency, lower the intensity for the particular colour.
         # Smaller the half period, smaller the period, higher the frequency, higher the intensity for the particular colour.
-        if r > 5000 and g > 6000 and b > 4500:
-            return "BLACK"
-        if r < 2500 and g < 2500 and b < 2000:
-            return  "WHITE"
+        if r < 500 and g < 400 and b < 400:
+            return "WHITE"
+        if (r < g) and (r < b):
+            return  "RED"
         if (b < g) and (b < r): 
-            return  "BLUE/FLOOR"
+            return  "BLUE"
         if (g < b) and (g < r): 
             return  "GREEN"
-        if (r < g) and (r < b): 
-            return  "RED"
 
     def check_red_white(self):
         twist = Twist()
         string = String()
         self.colour = self.color_detect()
+        self.sensor_left = GPIO.input(self.IR_left)
+        self.sensor_right = GPIO.input(self.IR_right)
         print(self.colour)
-        if self.colour == "RED":
+        if self.colour == "RED" and (not self.sensor_left and not self.sensor_right):
             self.count_red += 1
-            twist.linear.x = 0.01
+            twist.linear.x = self.x
             twist.angular.z = 0.0
             self.publisher_cmd_vel.publish(twist)
             if self.count_red == 3:
@@ -107,7 +108,7 @@ class Marker(Node):
             if self.sensor_left or self.sensor_right:
                 break
             else: 
-                twist.linear.x = 0.02
+                twist.linear.x = 2 * self.x
                 twist.angular.z = 0.0
                 self.publisher_cmd_vel.publish(twist)
                 print("Searching for black line")
@@ -115,7 +116,7 @@ class Marker(Node):
             self.sensor_left = GPIO.input(self.IR_left)
             self.sensor_right = GPIO.input(self.IR_right)
             if  self.sensor_left and self.sensor_right:
-                twist.linear.x = 0.04
+                twist.linear.x = self.x * 2.5
                 twist.angular.z = 0.0
                 print("Both in black, moving forward")
                 self.publisher_cmd_vel.publish(twist)
