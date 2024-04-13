@@ -151,7 +151,6 @@ class Marker(Node):
         #raise KeyboardInterrupt
 
     def stop_line_following(self):
-        line_follow_count =
         twist = Twist()
         twist.linear.x = 0.0
         twist.angular.z = 0.0
