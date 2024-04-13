@@ -5,6 +5,8 @@ from std_msgs.msg import String
 import RPi.GPIO as GPIO
 import time
 
+line_follow_count = 0
+
 class Marker(Node):
     def __init__(self):
         super().__init__('line_follower')
@@ -16,6 +18,7 @@ class Marker(Node):
         self.sensor_right = 0
         self.publisher_cmd_vel = self.create_publisher(Twist, 'cmd_vel', 10)
         self.publisher_enter_state = self.create_publisher(String,'enter_state',10)
+        self.subcribe_check_2 = self.create_subscription(String,'check_2',self.check_red_white(),10)
         self.x = 0.01
         self.check_red_white()
 
@@ -67,7 +70,9 @@ class Marker(Node):
         if (g < b) and (g < r): 
             return  "GREEN"
 
-    def check_red_white(self):
+    def check_red_white(self,msg):
+        if msg.data == 'checkpoint 2':
+            self.check_2 = 'reached'
         twist = Twist()
         string = String()
         self.colour = self.color_detect()
@@ -87,12 +92,22 @@ class Marker(Node):
         elif self.colour == 'WHITE':
             self.count_white += 1
             if self.count_white == 3:
-                twist.linear.x = 0.0
-                twist.angular.z = 0.0
-                self.publisher_cmd_vel.publish(twist)
-                string.data = 'checkpoint reached'
-                self.publisher_enter_state.publish(string)
-                self.count_red = 0
+                if self.check_2 == 'reached':
+                    twist.linear.x = 0.0
+                    twist.angular.z = 0.0
+                    self.publisher_cmd_vel.publish(twist)
+                    string.data = 'start launch sequence'
+                    self.publisher_enter_state.publish(string)
+                    self.count_red = 0
+                    self.count_white = 0
+                else:
+                    twist.linear.x = 0.0
+                    twist.angular.z = 0.0
+                    self.publisher_cmd_vel.publish(twist)
+                    string.data = 'checkpoint reached'
+                    self.publisher_enter_state.publish(string)
+                    self.count_red = 0
+                    self.count_white = 0
         else:
             self.count_red = 0
             self.count_white = 0
@@ -136,6 +151,7 @@ class Marker(Node):
         #raise KeyboardInterrupt
 
     def stop_line_following(self):
+        line_follow_count =
         twist = Twist()
         twist.linear.x = 0.0
         twist.angular.z = 0.0
