@@ -4,10 +4,8 @@ import numpy as np
 import scipy.stats
 from nav_msgs.msg import OccupancyGrid
 
-from .utils import MAP_PATH
+from .utils import MAP_PATH, OCC_BIN
 from .global_node import GlobalPlannerNode
-
-OCC_THRESHOLD = 50
 
 class GlobalMap:
     def __init__(self, grid_map: OccupancyGrid):
@@ -21,9 +19,9 @@ class GlobalMap:
         self.data = self.categorise_data(self.data)
 
     def categorise_data(self, data):
-        threshold = self.dynamic_threshold()
-        occ_bins = [-1, 0, OCC_THRESHOLD, 100]
+        occ_bins = [-1, 0, OCC_BIN, 100]
         bin_indices = np.digitize(data, bins=occ_bins, right=False)
+
         cat_data = np.select(
             [bin_indices == 1, bin_indices == 2, bin_indices == 3],
             [-1, 0, 100],
@@ -87,35 +85,7 @@ class GlobalMap:
     def is_node_avail(self, node: GlobalPlannerNode) -> bool:
         i, j = self.coordinates_to_indices(node.x, node.y)
         return self.is_indice_avail(i, j)
-    
-    def dynamic_threshold(self):
-        free_values = [value for value in self.data.flatten() if value >= 0]
-        if not free_values:
-            return OCC_THRESHOLD  # Fallback
-        alternative = round(sum(free_values) / len(free_values))
-        if -1 <= alternative <= 100:
-            return max(alternative, OCC_THRESHOLD)
 
-    def find_frontiers(self):
-        """
-        Find available frontiers in current data
-        """
-        unknown_value = -1
-        frontiers = []
-        moves = [(0, 1), (1, 1), (1, 0), (1, -1),
-                (0, -1), (-1, -1), (-1, 0), (-1, 1)]
-
-        for y in range(1, self.height - 1):
-            for x in range(1, self.width - 1):
-                if self.data[y, x] == unknown_value:
-                    neighbours = [(y + dy, x + dx) for dy, dx in moves]
-
-                    for ny, nx in neighbours:
-                        if self.is_indice_avail(nx, ny):
-                            frontiers.append((nx, ny))
-                            break
-        return frontiers
-    
     def generate_occupancy(self):
         """
         Export occupancy grid data as csv to MAP_PATHs

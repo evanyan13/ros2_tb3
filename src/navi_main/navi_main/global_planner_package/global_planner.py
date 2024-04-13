@@ -16,9 +16,7 @@ from .astar_path_finder import find_astar_path
 from .global_map import GlobalMap
 from .global_node import GlobalPlannerNode
 from .global_mover import GlobalMover
-from .utils import euler_from_quaternion, plot_map_helper
-
-PATH_REFRESH = 5
+from .utils import euler_from_quaternion, PATH_REFRESH
 
 class GlobalPlanner(Node):
     states = ['IDLE', 'PLANNING', 'NAVIGATING']
@@ -30,7 +28,7 @@ class GlobalPlanner(Node):
         self.start = None
         self.goal = None
         self.curr_path = None
-        self.plot_queue = queue.Queue()
+        # self.plot_queue = queue.Queue()
         self.planner_ready = threading.Event()
 
         self.mover = GlobalMover(self)
@@ -60,10 +58,10 @@ class GlobalPlanner(Node):
     def map_callback(self, map_msg: OccupancyGrid):
         self.map = GlobalMap(map_msg)
         self.update_ros_pos_from_tf()
-        # self.show_map_info(map_msg)
-        if self.check_ready():
-            map_data = plot_map_helper(self.map, map_msg, self.mover.robot_pos, self.goal, self.curr_path)
-            self.plot_queue.put(map_data)
+        self.check_ready()
+        # if self.check_ready():
+            # map_data = plot_map_helper(self.map, self.mover.robot_pos, self.goal, self.curr_path)
+            # self.plot_queue.put(map_data)
     
     def update_ros_pos_from_tf(self):
         """
@@ -178,26 +176,3 @@ class GlobalPlanner(Node):
     def wait_for_map(self):
         while not self.map and rclpy.ok():
             rclpy.spin_once(self, timeout_sec=0.5)
-
-    # def show_map_info(self, msg):
-    #     occ_bins = [-1, 0, 100, 101]
-    #     map_data = np.array(msg.data)
-    #     occ_counts = np.histogram(map_data, occ_bins)
-    #     total_bins = msg.info.width * msg.info.height
-    #     self.get_logger().info(f"Unmapped: {occ_counts[0][0]} | Unoccupied: {occ_counts[0][1]} | Occupied: {occ_counts[0][2]} | Total: {total_bins} ")
-        
-    #     known_map = map_data[map_data != -1]
-    #     min_value = known_map.min() if known_map.size > 0 else None
-    #     max_value = known_map.max() if known_map.size > 0 else None
-    #     mean_value = known_map.mean() if known_map.size > 0 else None
-    #     self.get_logger().info(f'Map callback: min={min_value},max={max_value}, mean={mean_value}')
-
-# def main(args=None):
-#     rclpy.init(args=args)
-#     node = GlobalPlanner()
-#     rclpy.spin(node)
-#     node.destroy_node()
-#     rclpy.shutdown()
-
-# if __name__ == '__main__':
-#     main()

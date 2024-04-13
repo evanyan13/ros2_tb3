@@ -1,8 +1,11 @@
+from statistics import mean
 from rclpy.node import Node
 from rclpy.qos import qos_profile_sensor_data
 from geometry_msgs.msg import PoseStamped
 
 from .global_planner import GlobalPlanner
+from .global_map import GlobalMap
+from .utils import EXPLORER_STEPS
 
 class FrontierExplorer(Node):
     def __init__(self, global_planner: GlobalPlanner):
@@ -14,6 +17,27 @@ class FrontierExplorer(Node):
         time_period = 3
         self.timer = self.create_timer(time_period, self.publish_goal)
 
+    def find_frontiers(self, map: GlobalMap):
+        """
+        Find available frontiers in current data
+        """
+        obstacle = 100
+        frontiers = []
+        step = EXPLORER_STEPS
+        moves = [(0, step), (step, step), (step, 0), (step, -step),
+                (0, -step), (-step, -step), (-step, 0), (-step, step)]
+
+        for y in range(1, map.height - 1):
+            for x in range(1, map.width - 1):
+                if map.data[y, x] == obstacle:
+                    neighbours = [(y + dy, x + dx) for dy, dx in moves]
+
+                    for ny, nx in neighbours:
+                        if map.is_indice_avail(nx, ny):
+                            frontiers.append((nx, ny))
+                            break
+        return frontiers
+
     def publish_goal(self):
         self.get_logger().info("Attempting to publish goal...")
         current_map = self.global_planner.map
@@ -23,7 +47,7 @@ class FrontierExplorer(Node):
             self.get_logger().warn("publish_goal: STOPPED Map / robot_pos not initialised")
             return
         
-        frontiers = current_map.find_frontiers()
+        frontiers = self.find_frontiers(current_map)
         if not frontiers:
             self.get_logger().warn("publish_goal: No frontiers found")
             return
@@ -33,7 +57,7 @@ class FrontierExplorer(Node):
         goal_pose = current_map.indices_to_coordinates(furtherest_frontier[0], furtherest_frontier[1])
 
         # closet_frontier = min(frontiers, key=lambda point: (point[0] - bot_x)**2 + (point[1] - bot_y)**2)
-        # goal_pose = self.map.indices_to_coordinates(closet_frontier[0], closet_frontier[1])
+        # goal_pose = current_map.indices_to_coordinates(closet_frontier[0], closet_frontier[1])
 
         goal_msg = PoseStamped()
         goal_msg.header.stamp = self.get_clock().now().to_msg()

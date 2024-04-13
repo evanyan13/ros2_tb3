@@ -31,21 +31,10 @@ def main(args=None):
     executor.add_node(global_mover)
     logger.info("MultiThreadedExecutor created")
 
-    plt.ion()
-    figure, ax = plt.subplots()
-
     try:
         logger.info("Start executor spin")
         while rclpy.ok():
-            rclpy.spin_once(global_planner, executor=executor, timeout_sec=0.1)
-
-            while not global_planner.plot_queue.empty():
-                img = global_planner.plot_queue.get()
-                if img is not None:
-                    rotated_img = rotate(img, np.degrees(-90.0), reshape=True)
-                    ax.imshow(img, cmap='terrain', origin='lower')
-                    plt.draw_all()
-                    plt.pause(0.0001)
+            rclpy.spin_once(global_planner, executor=executor, timeout_sec=0.01)
     except KeyboardInterrupt:
         logger.info("KeyboardInterrupt received. STOPPING")
         global_mover.stop_moving()

@@ -11,12 +11,8 @@ from geometry_msgs.msg import Twist
 from nav_msgs.msg import Path
 from sensor_msgs.msg import LaserScan
 
-MOVE_TOL = 0.1
-LINEAR_VEL = 0.1
-ANGULAR_VEL = 0.05
-OBSTACLE_THRESHOLD = 0.20 # metres
-PATH_REFRESH = 5  # seconds
-LOOKAHEAD_DIST = 1.0
+from .utils import MOVE_TOL, LINEAR_VEL, ANGULAR_VEL, OBSTACLE_THRESHOLD, LOOKAHEAD_DIST, FRONT_ANGLE
+
 logger = log.get_logger("global_mover")
 
 class GlobalMover(Node):
@@ -34,7 +30,7 @@ class GlobalMover(Node):
         self.velocity_publisher = self.create_publisher(Twist, 'cmd_vel', 10)
 
         # Timer for following the path
-        self.follow_path_timer = self.create_timer(1, self.follow_path)
+        self.follow_path_timer = self.create_timer(0.1, self.follow_path)
 
     def path_callback(self, path_msg: Path):
         """
@@ -48,7 +44,19 @@ class GlobalMover(Node):
         """ 
         Processes laser scan data to detect obstacles
         """
-        if np.nanmin(scan_msg.ranges) < OBSTACLE_THRESHOLD:
+        num_scans = len(scan_msg.ranges)
+        front_scan_index_range = int(num_scans * FRONT_ANGLE / (2 * 360))
+
+        middle_index = num_scans // 2
+
+        # Get frontal ranges
+        start_index = max(middle_index - front_scan_index_range, 0)
+        end_index = min(middle_index + front_scan_index_range, num_scans)
+
+        frontal_ranges = scan_msg.ranges[start_index:end_index]
+
+        # Check if any of the frontal ranges are below the threshold
+        if any(r < OBSTACLE_THRESHOLD for r in frontal_ranges if not np.isnan(r)):
             self.obstacle_detected = True
         else:
             self.obstacle_detected = False
@@ -75,26 +83,6 @@ class GlobalMover(Node):
             self.move_to_point(current_goal)
         
     def move_to_point(self, goal):
-        # if self.current_goal_index >= len(self.current_path):
-        #     self.stop_moving()  # Stop if path is complete
-        #     return
-        
-        # lookahead_point = self.get_lookahead_point(LOOKAHEAD_DIST)
-
-        # if lookahead_point is None:
-        #     logger.info("No valid lookahead point found, stopping")
-        #     self.stop_moving()
-        #     return
-    
-        # istance_to_lookahead = math.hypot(lookahead_point[0] - self.robot_pos.x, lookahead_point[1] - self.robot_pos.y)
-        # target_heading = math.atan2(lookahead_point[1] - self.robot_pos.y, lookahead_point[0] - self.robot_pos.x)
-        # heading_error = self.normalise_angle(target_heading - self.robot_pos.theta)
-
-        # linear = LINEAR_VEL
-        # angular = ANGULAR_VEL * heading_error
-
-        # logger.info(f"Moving to lookahead point {lookahead_point}")
-        # self.send_velocity(linear, angular)
         # Control the robot to move to the next point in the path
         distance_to_goal = math.hypot(goal[0] - self.robot_pos.x, goal[1] - self.robot_pos.y)
         target_heading = math.atan2(goal[1] - self.robot_pos.y, goal[0] - self.robot_pos.x)
@@ -139,7 +127,7 @@ class GlobalMover(Node):
             threading.Timer(5.0, self.follow_path).start()
         else:
             logger.info("Obstacle still detected, checking further")
-            self.send_velocity(LINEAR_VEL, 0.0)
+            self.send_velocity(-LINEAR_VEL, 0.0)
             threading.Timer(5.0, self.adjust_obstacle).start()
     
     def send_velocity(self, linear, angular):
