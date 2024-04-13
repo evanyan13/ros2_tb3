@@ -44,19 +44,26 @@ class GlobalMover(Node):
         """ 
         Processes laser scan data to detect obstacles
         """
-        num_scans = len(scan_msg.ranges)
-        front_scan_index_range = int(num_scans * FRONT_ANGLE / (2 * 360))
+        laser_range = np.array(scan_msg.ranges)
+        laser_range[laser_range == 0] = np.nan
 
-        middle_index = num_scans // 2
+        num_ranges = len(laser_range)
+        degrees_per_index = 270 / num_ranges
+        center_index = num_ranges // 2
+        indices_per_side = int((FRONT_ANGLE / 2) / degrees_per_index)
 
-        # Get frontal ranges
-        start_index = max(middle_index - front_scan_index_range, 0)
-        end_index = min(middle_index + front_scan_index_range, num_scans)
+        # Get indices for the front sector
+        rear_left_sector = laser_range[:indices_per_side]
+        rear_right_sector = laser_range[-indices_per_side:]
 
-        frontal_ranges = scan_msg.ranges[start_index:end_index]
+        min_distance_left = np.nanmin(rear_left_sector)
+        min_distance_right = np.nanmin(rear_right_sector)
 
-        # Check if any of the frontal ranges are below the threshold
-        if any(r < OBSTACLE_THRESHOLD for r in frontal_ranges if not np.isnan(r)):
+        # Get the minimum distance in the front sector
+        min_distance = min(min_distance_left, min_distance_right)
+
+        # Log information about obstacles in the front sector
+        if min_distance < OBSTACLE_THRESHOLD:
             self.obstacle_detected = True
         else:
             self.obstacle_detected = False
@@ -72,8 +79,7 @@ class GlobalMover(Node):
             logger.info(f"Obstacle detected, adjusting position")
             self.adjust_obstacle()
             return
-
-        if self.current_goal_index >= len(self.current_path):
+        elif self.current_goal_index >= len(self.current_path):
             logger.info("End of path reached")
             self.stop_moving()
             self.reset_path()
@@ -104,46 +110,30 @@ class GlobalMover(Node):
         # logger.info(f"Moving to point {goal}")
         self.send_velocity(linear, angular)
 
-    # def adjust_obstacle(self):
-    #     self.stop_moving()
-    #     # Rotate towards the next point or away from obstacle
-    #     if self.current_goal_index < len(self.current_path):
-    #         current_goal = self.current_path[self.current_goal_index]
-    #         target_heading = math.atan2(current_goal[1] - self.robot_pos.y, current_goal[0] - self.robot_pos.x)
-    #         heading_error = self.normalise_angle(target_heading - self.robot_pos.theta)
-            
-    #         # Rotate in the direction of heading error
-    #         angular_speed = -ANGULAR_VEL * 2 if heading_error > 0 else ANGULAR_VEL * 2
-    #         self.send_velocity(0.0, angular_speed)
-    #         logger.info(f"Published rotation: {angular_speed}")
-    #         # Allow some time for rotation, then recheck or resume movement
-    #         threading.Timer(10.0, self.check_obstacle_clear).start() # seconds
-
     def adjust_obstacle(self):
+        self.stop_moving()
         self.send_velocity(-LINEAR_VEL, 0.0)
         threading.Timer(2.0, self.rotate_bot).start()
 
     def rotate_bot(self):
         if self.current_goal_index < len(self.current_path):
-            current_goal = self.current_path[self.current_goal_index]
-            target_heading = atan2(current_goal[1] - self.robot_pos.y, current_goal[0] - self.robot_pos.x)
+            final_goal = self.current_path[self.current_goal_index]
+            target_heading = atan2(final_goal[1] - self.robot_pos.y, final_goal[0] - self.robot_pos.x)
             heading_error = self.normalise_angle(target_heading - self.robot_pos.theta)
             
             # Choose direction to rotate based on the heading error
             angular_speed = ANGULAR_VEL if heading_error > 0 else -ANGULAR_VEL
             self.send_velocity(0.0, angular_speed)
-            threading.Timer(5.0, self.check_obstacle_clear).start()
+            threading.Timer(2.0, self.check_obstacle_clear).start()
     
     def check_obstacle_clear(self):
         self.stop_moving()
         # Check if the obstacle is still detected
         if not self.obstacle_detected:
-            logger.info("Obstacle cleared, resuming path")
-            threading.Timer(0.1, self.follow_path).start()
+            self.follow_path()
         else:
             logger.info("Obstacle still detected, checking further")
-            self.send_velocity(-LINEAR_VEL, 0.0)
-            threading.Timer(0.1, self.adjust_obstacle).start()
+            self.rotate_bot()
     
     def send_velocity(self, linear, angular):
         twist = Twist()
@@ -152,7 +142,7 @@ class GlobalMover(Node):
         self.velocity_publisher.publish(twist)
     
     def reset_path(self):
-        self.planner.plan_path() 
+        self.planner.plan_path()
         # rclpy.spin_once(self.planner, timeout_sec=3.0)
 
     def stop_moving(self):
@@ -166,4 +156,16 @@ class GlobalMover(Node):
         while angle < -math.pi:
             angle += 2 * math.pi
         return angle
+
+def main(args=None):
+    rclpy.init(args=args)
+    mover = GlobalMover()
+    rclpy.spin(mover)
+    mover.destroy_node()
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+    
+
     

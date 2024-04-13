@@ -45,8 +45,8 @@ class Cell:
         Get neighbours of 
         """
         neighbours = []
-        directions = [(1, 0), (0, 1), (-1, 0), (0, -1),
-                      (1, 1), (-1, -1), (1, -1), (-1, 1)]
+        directions = [(0, 1), (1, 1), (-1, 1), (1, 0),
+                      (-1, 0), (1, -1), (-1, -1), (0, -1)]
         
         for di, dj in directions:
             ni, nj = self.i + di, self.j + dj

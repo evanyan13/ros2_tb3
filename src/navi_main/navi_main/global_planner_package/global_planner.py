@@ -37,7 +37,7 @@ class GlobalPlanner(Node):
         self.get_logger().info(f'init: States initialised {self.state}')
 
         self.map_subscriber = self.create_subscription(OccupancyGrid, 'map', self.map_callback, qos_profile_sensor_data)
-        self.goal_subscriber = self.create_subscription(PoseStamped, '/move_base_simple/goal', self.goal_callback, qos_profile_sensor_data)
+        self.goal_subscriber = self.create_subscription(PoseStamped, 'goal', self.goal_callback, qos_profile_sensor_data)
 
         self.path_publisher = self.create_publisher(Path, "path", 10)
 

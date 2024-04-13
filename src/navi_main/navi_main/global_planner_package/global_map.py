@@ -5,7 +5,7 @@ import threading
 from scipy.ndimage import binary_dilation
 from nav_msgs.msg import OccupancyGrid
 
-from .utils import MAP_PATH, UNEXPLORED, FREE, OCC_BIN, BUFFER, OBSTACLE, ROBOT_RADIUS
+from .utils import MAP_PATH, UNEXPLORED, FREE, OCC_BIN, OBSTACLE, ROBOT_RADIUS
 from .global_node import GlobalPlannerNode
 
 class GlobalMap:
@@ -32,7 +32,7 @@ class GlobalMap:
         return cat_data.astype(np.int8)
     
     def add_obstacle_buffer(self):
-        buffer_size = int(ROBOT_RADIUS / self.resolution * (2 / 3))
+        buffer_size = int(ROBOT_RADIUS / self.resolution / 2)
         new_data = np.copy(self.data)
 
         for y in range(self.height):
@@ -47,8 +47,7 @@ class GlobalMap:
                     # Set the cells within the buffer zone to a specific value
                     for by in range(min_y, max_y):
                         for bx in range(min_x, max_x):
-                            if new_data[by][bx] != OBSTACLE:
-                                new_data[by][bx] = BUFFER  # Mark as a buffer zone
+                                new_data[by][bx] = OBSTACLE
 
         return new_data
 
@@ -127,7 +126,6 @@ class GlobalMap:
             writer = csv.writer(csvfile)
             for row in self.orginial_data:
                 writer.writerow(row)
-        
 
     def print_map(self, start, end):
         if start == end:

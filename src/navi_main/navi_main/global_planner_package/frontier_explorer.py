@@ -5,14 +5,14 @@ from geometry_msgs.msg import PoseStamped
 
 from .global_planner import GlobalPlanner
 from .global_map import GlobalMap
-from .utils import EXPLORER_STEPS
+from .utils import EXPLORER_STEPS, OBSTACLE
 
 class FrontierExplorer(Node):
     def __init__(self, global_planner: GlobalPlanner):
         super().__init__('frontier_explorer')
         self.global_planner = global_planner
         
-        self.goal_publisher = self.create_publisher(PoseStamped, '/move_base_simple/goal', qos_profile_sensor_data)
+        self.goal_publisher = self.create_publisher(PoseStamped, 'goal', qos_profile_sensor_data)
 
         time_period = 3
         self.timer = self.create_timer(time_period, self.publish_goal)
@@ -21,7 +21,6 @@ class FrontierExplorer(Node):
         """
         Find available frontiers in current data
         """
-        obstacle = 100
         frontiers = []
         step = EXPLORER_STEPS
         moves = [(0, step), (step, step), (step, 0), (step, -step),
@@ -29,7 +28,7 @@ class FrontierExplorer(Node):
 
         for y in range(1, map.height - 1):
             for x in range(1, map.width - 1):
-                if map.data[y, x] == obstacle:
+                if map.data[y, x] == OBSTACLE:
                     neighbours = [(y + dy, x + dx) for dy, dx in moves]
 
                     for ny, nx in neighbours:
