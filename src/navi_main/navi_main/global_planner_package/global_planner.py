@@ -37,7 +37,7 @@ class GlobalPlanner(Node):
         self.get_logger().info(f'init: States initialised {self.state}')
 
         self.map_subscriber = self.create_subscription(OccupancyGrid, 'map', self.map_callback, qos_profile_sensor_data)
-        self.goal_subscriber = self.create_subscription(PoseStamped, 'goal', self.goal_callback, qos_profile_sensor_data)
+        self.goal_subscriber = self.create_subscription(PoseStamped, '/move_base_simple/goal', self.goal_callback, qos_profile_sensor_data)
 
         self.path_publisher = self.create_publisher(Path, "path", 10)
 
@@ -57,11 +57,11 @@ class GlobalPlanner(Node):
 
     def map_callback(self, map_msg: OccupancyGrid):
         self.map = GlobalMap(map_msg)
-        self.update_ros_pos_from_tf()
-        self.check_ready()
-        # if self.check_ready():
-            # map_data = plot_map_helper(self.map, self.mover.robot_pos, self.goal, self.curr_path)
-            # self.plot_queue.put(map_data)
+        if self.map and self.map.data is not None:
+            self.update_ros_pos_from_tf()
+            self.check_ready()
+        else:
+            self.get_logger().warn("Map data is not fully initialized yet.")
     
     def update_ros_pos_from_tf(self):
         """
@@ -99,7 +99,7 @@ class GlobalPlanner(Node):
         """"
         Given map information, plan and publish the path from start node to end node
         """
-        self.get_logger().warn(f"plan_path: State now {self.state}")
+        # self.get_logger().warn(f"plan_path: State now {self.state}")
         if not self.map or not self.start or not self.goal:
             self.fail()
             self.get_logger().warn("plan_path: Map and nodes are not initialised properly")
@@ -113,18 +113,18 @@ class GlobalPlanner(Node):
     
         start_pt = (self.start.x, self.start.y)
         goal_pt = (self.goal.x, self.goal.y)
-        self.get_logger().info(f"plan_path: Start path planning {start_pt, goal_pt}")
+        # self.get_logger().info(f"plan_path: Start path planning {start_pt, goal_pt}")
 
         path_list = find_astar_path(self.map, self.start, self.goal)
         if path_list:
-            self.get_logger().info(f"plan_path: Path found from astar, {len(path_list)} points")
+            # self.get_logger().info(f"plan_path: Path found from astar, {len(path_list)} points")
             # path_list = self.smooth_path_bspline(path_list)
             self.curr_path = path_list
             
             # Publish path information for mover
             path_msg = self.convert_to_path(path_list)
             self.path_publisher.publish(path_msg)
-            self.get_logger().info("plan_path: Path published")
+            # self.get_logger().info("plan_path: Path published")
             if self.state == "PLANNING":
                 self.path_found()
         else:

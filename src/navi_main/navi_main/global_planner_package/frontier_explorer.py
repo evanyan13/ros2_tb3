@@ -12,7 +12,7 @@ class FrontierExplorer(Node):
         super().__init__('frontier_explorer')
         self.global_planner = global_planner
         
-        self.goal_publisher = self.create_publisher(PoseStamped, 'goal', qos_profile_sensor_data)
+        self.goal_publisher = self.create_publisher(PoseStamped, '/move_base_simple/goal', qos_profile_sensor_data)
 
         time_period = 3
         self.timer = self.create_timer(time_period, self.publish_goal)
@@ -39,7 +39,7 @@ class FrontierExplorer(Node):
         return frontiers
 
     def publish_goal(self):
-        self.get_logger().info("Attempting to publish goal...")
+        # self.get_logger().info("Attempting to publish goal...")
         current_map = self.global_planner.map
         current_robot_pos = self.global_planner.mover.robot_pos
 
@@ -67,4 +67,4 @@ class FrontierExplorer(Node):
         goal_msg.pose.orientation.w = 1.0
 
         self.goal_publisher.publish(goal_msg)
-        self.get_logger().info(f"Published new goal: ({goal_msg.pose.position.x}, {goal_msg.pose.position.y})")
+        # self.get_logger().info(f"Published new goal: ({goal_msg.pose.position.x}, {goal_msg.pose.position.y})")

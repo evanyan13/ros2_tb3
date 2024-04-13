@@ -4,7 +4,6 @@ import threading
 import numpy as np
 from math import atan2, pi
 from rclpy.node import Node
-from rclpy.duration import Duration
 from rclpy.qos import qos_profile_sensor_data
 import rclpy.logging as log
 from geometry_msgs.msg import Twist
@@ -30,6 +29,7 @@ class GlobalMover(Node):
         self.velocity_publisher = self.create_publisher(Twist, 'cmd_vel', 10)
 
         # Timer for following the path
+        logger.info(f"----------MOVING----------")
         self.follow_path_timer = self.create_timer(0.1, self.follow_path)
 
     def path_callback(self, path_msg: Path):
@@ -101,34 +101,49 @@ class GlobalMover(Node):
         # This ensures the robot slows down if it needs to turn sharply
         linear = LINEAR_VEL * max(0, 1 - 2 * abs(heading_error) / pi)
 
-        logger.info(f"Moving to point {goal}")
+        # logger.info(f"Moving to point {goal}")
         self.send_velocity(linear, angular)
 
+    # def adjust_obstacle(self):
+    #     self.stop_moving()
+    #     # Rotate towards the next point or away from obstacle
+    #     if self.current_goal_index < len(self.current_path):
+    #         current_goal = self.current_path[self.current_goal_index]
+    #         target_heading = math.atan2(current_goal[1] - self.robot_pos.y, current_goal[0] - self.robot_pos.x)
+    #         heading_error = self.normalise_angle(target_heading - self.robot_pos.theta)
+            
+    #         # Rotate in the direction of heading error
+    #         angular_speed = -ANGULAR_VEL * 2 if heading_error > 0 else ANGULAR_VEL * 2
+    #         self.send_velocity(0.0, angular_speed)
+    #         logger.info(f"Published rotation: {angular_speed}")
+    #         # Allow some time for rotation, then recheck or resume movement
+    #         threading.Timer(10.0, self.check_obstacle_clear).start() # seconds
+
     def adjust_obstacle(self):
-        self.stop_moving()
-        # Rotate towards the next point or away from obstacle
+        self.send_velocity(-LINEAR_VEL, 0.0)
+        threading.Timer(2.0, self.rotate_bot).start()
+
+    def rotate_bot(self):
         if self.current_goal_index < len(self.current_path):
             current_goal = self.current_path[self.current_goal_index]
-            target_heading = math.atan2(current_goal[1] - self.robot_pos.y, current_goal[0] - self.robot_pos.x)
+            target_heading = atan2(current_goal[1] - self.robot_pos.y, current_goal[0] - self.robot_pos.x)
             heading_error = self.normalise_angle(target_heading - self.robot_pos.theta)
             
-            # Rotate in the direction of heading error
-            angular_speed = -ANGULAR_VEL * 2 if heading_error > 0 else ANGULAR_VEL * 2
+            # Choose direction to rotate based on the heading error
+            angular_speed = ANGULAR_VEL if heading_error > 0 else -ANGULAR_VEL
             self.send_velocity(0.0, angular_speed)
-            logger.info(f"Published rotation: {angular_speed}")
-            # Allow some time for rotation, then recheck or resume movement
-            threading.Timer(10.0, self.check_obstacle_clear).start() # seconds
+            threading.Timer(5.0, self.check_obstacle_clear).start()
     
     def check_obstacle_clear(self):
         self.stop_moving()
         # Check if the obstacle is still detected
         if not self.obstacle_detected:
             logger.info("Obstacle cleared, resuming path")
-            threading.Timer(5.0, self.follow_path).start()
+            threading.Timer(0.1, self.follow_path).start()
         else:
             logger.info("Obstacle still detected, checking further")
             self.send_velocity(-LINEAR_VEL, 0.0)
-            threading.Timer(5.0, self.adjust_obstacle).start()
+            threading.Timer(0.1, self.adjust_obstacle).start()
     
     def send_velocity(self, linear, angular):
         twist = Twist()

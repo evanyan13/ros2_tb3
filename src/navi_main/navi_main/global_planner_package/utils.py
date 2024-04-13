@@ -11,10 +11,15 @@ from geometry_msgs.msg import Pose
 
 # Package wide parameters
 pixel_tolerance = 1
-MAP_PATH = '/home/evanyan13/colcon_ws/map.csv'
+MAP_PATH = '/home/evanyan13/colcon_ws/'
 
 # map
 OCC_BIN = 30
+UNEXPLORED = -1
+FREE = 0
+BUFFER = 90
+OBSTACLE = 100
+ROBOT_RADIUS = 0.20 # metres
 
 # explorer
 EXPLORER_STEPS = 3
