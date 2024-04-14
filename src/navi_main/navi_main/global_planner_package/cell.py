@@ -1,5 +1,7 @@
 import math
 
+from .utils import EXPLORER_STEPS
+
 class Cell:
     def __init__(self, i, j, parent=None) -> None:
         self.i = i
@@ -40,13 +42,14 @@ class Cell:
     def __hash__(self):
         return hash((self.i, self.j))
     
-    def get_neighbours(self, map):
+    def get_neighbours_cells(self, map):
         """
         Get neighbours of 
         """
         neighbours = []
-        directions = [(0, 1), (1, 1), (-1, 1), (1, 0),
-                      (-1, 0), (1, -1), (-1, -1), (0, -1)]
+        step = EXPLORER_STEPS
+        directions = [(0, step), (step, step), (step, 0), (step, -step),
+                (0, -step), (-step, -step), (-step, 0), (-step, step)]
         
         for di, dj in directions:
             ni, nj = self.i + di, self.j + dj

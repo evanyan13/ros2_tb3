@@ -14,7 +14,7 @@ pixel_tolerance = 1
 MAP_PATH = '/home/evanyan13/colcon_ws/'
 
 # map
-OCC_BIN = 50
+OCC_BIN = 51
 UNEXPLORED = -1
 FREE = 0
 OBSTACLE = 100
@@ -28,11 +28,12 @@ PATH_REFRESH = 5  # seconds
 
 # global_mover
 MOVE_TOL = 0.1
-LINEAR_VEL = 0.15
-ANGULAR_VEL = 0.075
-OBSTACLE_THRESHOLD = 0.30 # metres
+LINEAR_VEL = 0.20
+ANGULAR_VEL = 0.1
+STOP_DISTANCE = 0.30 # metres
 LOOKAHEAD_DIST = 1.0
-FRONT_ANGLE = 30.0
+FRONT_ANGLE = 30
+FRONT_ANGLES = range(-FRONT_ANGLE, FRONT_ANGLE + 1, 1)
 
 
 # code from https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/
