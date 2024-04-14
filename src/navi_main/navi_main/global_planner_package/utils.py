@@ -11,7 +11,29 @@ from geometry_msgs.msg import Pose
 
 # Package wide parameters
 pixel_tolerance = 1
-MAP_PATH = '/home/evanyan13/colcon_ws/map.csv'
+MAP_PATH = '/home/evanyan13/colcon_ws/'
+
+# map
+OCC_BIN = 51
+UNEXPLORED = -1
+FREE = 0
+OBSTACLE = 100
+ROBOT_RADIUS = 0.20 # metres
+
+# explorer
+EXPLORER_STEPS = 1
+
+# planner
+PATH_REFRESH = 5  # seconds
+
+# global_mover
+MOVE_TOL = 0.1
+LINEAR_VEL = 0.20
+ANGULAR_VEL = 0.1
+STOP_DISTANCE = 0.30 # metres
+LOOKAHEAD_DIST = 1.0
+FRONT_ANGLE = 30
+FRONT_ANGLES = range(-FRONT_ANGLE, FRONT_ANGLE + 1, 1)
 
 
 # code from https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/
@@ -103,44 +125,32 @@ def plot_path_node(map, start, goal, path):
     plt.show()
 
 
-def plot_map_helper(map, msg, robot_pos, goal, path):
-    # create numpy array
-    occdata = np.array(msg.data)
-    # compute histogram to identify bins with -1, values between 0 and below 50, 
-    # and values between 50 and 100. The binned_statistic function will also
-    # return the bin numbers so we can use that easily to create the image 
-    occ_bins = [-1, 0, 50, 100]
-    occ_counts, edges, binnum = scipy.stats.binned_statistic(occdata, np.nan, statistic='count', bins=occ_bins)
+# def plot_map_helper(map, robot_pos, goal, path):
+#     odata = map.data.flatten()
+#     occ_bins = [-1, 0, OCC_BIN, 100]
+#     occ_counts, edges, binnum = scipy.stats.binned_statistic(odata, odata, statistic='count', bins=occ_bins)
+#     odata = np.uint8(binnum.reshape(map.height, map.width) * 255 / binnum.max())
 
-    grid_x, grid_y= map.coordinates_to_indices(robot_pos.x, robot_pos.y)
+#     # set current robot location to 0
+#     grid_x, grid_y= map.coordinates_to_indices(robot_pos.x, robot_pos.y)
+#     odata[grid_y][grid_x] = 0
+#     # create image from 2D array using PIL
+#     img = Image.fromarray(odata, 'L')
+#     draw = ImageDraw.Draw(img)
 
-    # binnum go from 1 to 3 so we can use uint8
-    # convert into 2D array using column order
-    odata = np.uint8(binnum.reshape(msg.info.height,msg.info.width))
-
-    # set current robot location to 0
-    odata[grid_y][grid_x] = 0
-    # create image from 2D array using PIL
-    img = Image.fromarray(odata)
-    draw = ImageDraw.Draw(img)
-
-    pixel_radius = 2
-    draw.ellipse([grid_x - pixel_radius, grid_y - pixel_radius,
-                  grid_x + pixel_radius, grid_y + pixel_radius])
+#     pixel_radius = 2
+#     draw.ellipse([grid_x - pixel_radius, grid_y - pixel_radius,
+#                   grid_x + pixel_radius, grid_y + pixel_radius])
     
-    if goal:
-        goal_x, goal_y = map.coordinates_to_indices(goal.x, goal.y)
-        draw.ellipse([goal_x - pixel_radius, goal_y - pixel_radius,
-                    goal_x + pixel_radius, goal_y + pixel_radius])
+#     if goal:
+#         goal_x, goal_y = map.coordinates_to_indices(goal.x, goal.y)
+#         draw.ellipse([goal_x - pixel_radius, goal_y - pixel_radius,
+#                     goal_x + pixel_radius, goal_y + pixel_radius])
 
-    if path:
-        path_pixels = [map.coordinates_to_indices(node.x, node.y) for node in path]
-        draw.point(path_pixels)
-        # for path_pixel in path_pixels:
-        #     x, y = path_pixel[0], path_pixel[1]
-        #     path_radius = 1
-        #     draw.ellipse([x - path_radius, y - path_radius,
-        #                    x + path_radius, y + path_radius])
+#     if path:
+#         path_pixels = [map.coordinates_to_indices(node.x, node.y) for node in path]
+#         draw.point(path_pixels)
 
-    return img
+#     return img
+
     

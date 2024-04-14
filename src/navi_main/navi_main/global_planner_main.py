@@ -8,6 +8,7 @@ import rclpy.logging as log
 
 from navi_main.global_planner_package.frontier_explorer import FrontierExplorer
 from navi_main.global_planner_package.global_planner import GlobalPlanner
+from navi_main.global_planner_package.grid_cell import GridCellsPublisher
 
 logger = log.get_logger("global_planner_main")
 
@@ -24,39 +25,30 @@ def main(args=None):
 
     frontier_explorer = FrontierExplorer(global_planner)
     global_mover = global_planner.mover
+    grid_cells_publisher = GridCellsPublisher()
 
     executor = MultiThreadedExecutor()
     executor.add_node(global_planner)
     executor.add_node(frontier_explorer)
     executor.add_node(global_mover)
+    executor.add_node(grid_cells_publisher)
     logger.info("MultiThreadedExecutor created")
-
-    plt.ion()
-    figure, ax = plt.subplots()
 
     try:
         logger.info("Start executor spin")
         while rclpy.ok():
-            rclpy.spin_once(global_planner, executor=executor, timeout_sec=0.1)
-
-            while not global_planner.plot_queue.empty():
-                img = global_planner.plot_queue.get()
-                if img is not None:
-                    rotated_img = rotate(img, np.degrees(-90.0), reshape=True)
-                    ax.imshow(img, cmap='terrain', origin='lower')
-                    plt.draw_all()
-                    plt.pause(0.0001)
+            if is_ready:
+                executor.spin()
     except KeyboardInterrupt:
         logger.info("KeyboardInterrupt received. STOPPING")
         global_mover.stop_moving()
     finally:
-        csv = global_planner.map.generate_occupancy() # Generate occupancy map to csv
-        logger.info(f"Occupancy Grid Generated {csv}")
+        global_planner.map.generate_occupancy() # Generate occupancy map to csv
 
         global_mover.destroy_node()
         frontier_explorer.destroy_node()
         global_planner.destroy_node()
-
+        executor.shutdown()
         rclpy.shutdown()
         logger.info("ROS Shutdown complete")
 

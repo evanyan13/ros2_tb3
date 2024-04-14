@@ -4,7 +4,6 @@ import rclpy.logging as log
 from .global_map import GlobalMap
 from .global_node import GlobalPlannerNode
 from .cell import Cell
-from .utils import plot_path_node
 
 logger = log.get_logger("find_astar_path")
 
@@ -35,14 +34,16 @@ def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlanne
             path = current.backtrack_path()
             path_nodes = [map.indices_to_node(i, j) for i, j in path]
             path_coord = [(node.x, node.y) for node in path_nodes]
-            logger.info(f"Path found: {len(path_coord)} points")
             return path_nodes
 
         visited_set.add((current.i, current.j))
-        neighbours = current.get_neighbours(map)
+        neighbours = current.get_neighbours_cells(map)
 
         for neighbour in neighbours:
             if (neighbour.i, neighbour.j) in visited_set:
+                continue
+
+            if not (map.is_indice_avail(neighbour.i, neighbour.j)):
                 continue
 
             tentative_g = current.g + 1
@@ -54,6 +55,5 @@ def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlanne
 
                 cells[(neighbour.i, neighbour.j)] = neighbour
                 heapq.heappush(open_set, (neighbour.f, neighbour))
-    
-    logger.info(f"No path found")
+
     return None

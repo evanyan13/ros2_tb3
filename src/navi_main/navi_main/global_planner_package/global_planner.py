@@ -16,9 +16,7 @@ from .astar_path_finder import find_astar_path
 from .global_map import GlobalMap
 from .global_node import GlobalPlannerNode
 from .global_mover import GlobalMover
-from .utils import euler_from_quaternion, plot_map_helper
-
-PATH_REFRESH = 5
+from .utils import euler_from_quaternion, PATH_REFRESH
 
 class GlobalPlanner(Node):
     states = ['IDLE', 'PLANNING', 'NAVIGATING']
@@ -30,7 +28,7 @@ class GlobalPlanner(Node):
         self.start = None
         self.goal = None
         self.curr_path = None
-        self.plot_queue = queue.Queue()
+        # self.plot_queue = queue.Queue()
         self.planner_ready = threading.Event()
 
         self.mover = GlobalMover(self)
@@ -59,11 +57,11 @@ class GlobalPlanner(Node):
 
     def map_callback(self, map_msg: OccupancyGrid):
         self.map = GlobalMap(map_msg)
-        self.update_ros_pos_from_tf()
-        # self.show_map_info(map_msg)
-        if self.check_ready():
-            map_data = plot_map_helper(self.map, map_msg, self.mover.robot_pos, self.goal, self.curr_path)
-            self.plot_queue.put(map_data)
+        if self.map and self.map.data is not None:
+            self.update_ros_pos_from_tf()
+            self.check_ready()
+        else:
+            self.get_logger().warn("Map data is not fully initialized yet.")
     
     def update_ros_pos_from_tf(self):
         """
@@ -101,7 +99,7 @@ class GlobalPlanner(Node):
         """"
         Given map information, plan and publish the path from start node to end node
         """
-        self.get_logger().warn(f"plan_path: State now {self.state}")
+        # self.get_logger().warn(f"plan_path: State now {self.state}")
         if not self.map or not self.start or not self.goal:
             self.fail()
             self.get_logger().warn("plan_path: Map and nodes are not initialised properly")
@@ -115,18 +113,18 @@ class GlobalPlanner(Node):
     
         start_pt = (self.start.x, self.start.y)
         goal_pt = (self.goal.x, self.goal.y)
-        self.get_logger().info(f"plan_path: Start path planning {start_pt, goal_pt}")
+        # self.get_logger().info(f"plan_path: Start path planning {start_pt, goal_pt}")
 
         path_list = find_astar_path(self.map, self.start, self.goal)
         if path_list:
-            self.get_logger().info(f"plan_path: Path found from astar, {len(path_list)} points")
+            # self.get_logger().info(f"plan_path: Path found from astar, {len(path_list)} points")
             # path_list = self.smooth_path_bspline(path_list)
             self.curr_path = path_list
             
             # Publish path information for mover
             path_msg = self.convert_to_path(path_list)
             self.path_publisher.publish(path_msg)
-            self.get_logger().info("plan_path: Path published")
+            # self.get_logger().info("plan_path: Path published")
             if self.state == "PLANNING":
                 self.path_found()
         else:
@@ -178,26 +176,3 @@ class GlobalPlanner(Node):
     def wait_for_map(self):
         while not self.map and rclpy.ok():
             rclpy.spin_once(self, timeout_sec=0.5)
-
-    # def show_map_info(self, msg):
-    #     occ_bins = [-1, 0, 100, 101]
-    #     map_data = np.array(msg.data)
-    #     occ_counts = np.histogram(map_data, occ_bins)
-    #     total_bins = msg.info.width * msg.info.height
-    #     self.get_logger().info(f"Unmapped: {occ_counts[0][0]} | Unoccupied: {occ_counts[0][1]} | Occupied: {occ_counts[0][2]} | Total: {total_bins} ")
-        
-    #     known_map = map_data[map_data != -1]
-    #     min_value = known_map.min() if known_map.size > 0 else None
-    #     max_value = known_map.max() if known_map.size > 0 else None
-    #     mean_value = known_map.mean() if known_map.size > 0 else None
-    #     self.get_logger().info(f'Map callback: min={min_value},max={max_value}, mean={mean_value}')
-
-# def main(args=None):
-#     rclpy.init(args=args)
-#     node = GlobalPlanner()
-#     rclpy.spin(node)
-#     node.destroy_node()
-#     rclpy.shutdown()
-
-# if __name__ == '__main__':
-#     main()
