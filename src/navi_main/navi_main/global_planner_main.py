@@ -8,7 +8,6 @@ import rclpy.logging as log
 
 from navi_main.global_planner_package.frontier_explorer import FrontierExplorer
 from navi_main.global_planner_package.global_planner import GlobalPlanner
-from navi_main.global_planner_package.grid_cell import GridCellsPublisher
 
 logger = log.get_logger("global_planner_main")
 
@@ -25,13 +24,11 @@ def main(args=None):
 
     frontier_explorer = FrontierExplorer(global_planner)
     global_mover = global_planner.mover
-    grid_cells_publisher = GridCellsPublisher()
 
     executor = MultiThreadedExecutor()
     executor.add_node(global_planner)
     executor.add_node(frontier_explorer)
     executor.add_node(global_mover)
-    executor.add_node(grid_cells_publisher)
     logger.info("MultiThreadedExecutor created")
 
     try:

@@ -124,8 +124,8 @@ class GlobalPlanner(Node):
             path_list = find_astar_path(self.map, self.start, self.goal)
             if path_list:
                 # Publish path information for mover
-                smoothed_path = self.smooth_path_bspline(path_list)
-                path_msg = self.convert_to_path(smoothed_path)
+                # smoothed_path = self.smooth_path_bspline(path_list)
+                path_msg = self.convert_to_path(path_list)
                 self.path_publisher.publish(path_msg)
                 logger.info(f"plan_path: Published new path")
                 self.last_path_time = current_time
@@ -137,36 +137,36 @@ class GlobalPlanner(Node):
                 logger.warn("plan_path: No path found")
                 self.fail()
     
-    def smooth_path_bspline(self, path_list):
-        if len(path_list) < 3:
-            logger.warn("smooth_path_spline: Not enough points to complete B-spline")
-            return path_list
+    # def smooth_path_bspline(self, path_list):
+    #     if len(path_list) < 3:
+    #         logger.warn("smooth_path_spline: Not enough points to complete B-spline")
+    #         return path_list
 
-        x = [node.x for node in path_list]
-        y = [node.y for node in path_list]
+    #     x = [node.x for node in path_list]
+    #     y = [node.y for node in path_list]
 
-        # Parameterisation variable
-        t = np.linspace(0, 1, len(path_list))
-        spline_degree = min(3, len(path_list) - 1)  # B-spline degree: cubic is common
-        data = np.array([x, y]).T
+    #     # Parameterisation variable
+    #     t = np.linspace(0, 1, len(path_list))
+    #     spline_degree = min(3, len(path_list) - 1)  # B-spline degree: cubic is common
+    #     data = np.array([x, y]).T
 
-        spl = make_interp_spline(t, data, k=spline_degree)
+    #     spl = make_interp_spline(t, data, k=spline_degree)
 
-        # Expand the number of points into more fine ones
-        t_fine = np.linspace(0, 1, num=max(30, len(path_list) * 5))  # increase density of points
-        smooth_data = spl(t_fine)
-        x_fine, y_fine = smooth_data[:, 0], smooth_data[:, 1]
+    #     # Expand the number of points into more fine ones
+    #     t_fine = np.linspace(0, 1, num=max(30, len(path_list) * 5))  # increase density of points
+    #     smooth_data = spl(t_fine)
+    #     x_fine, y_fine = smooth_data[:, 0], smooth_data[:, 1]
 
-        smoothed_path_list = []
-        for x, y in zip(x_fine, y_fine):
-            # Convert from world coordinates to grid indices
-            ix, iy = self.map.coordinates_to_indices(x, y)
-            # Check if the node is within a free space
-            if self.map.is_indice_valid(ix, iy) and self.map.is_indice_avail(ix, iy):  # Assuming `is_free` checks if the occupancy grid value is 0
-                smoothed_path_list.append(GlobalPlannerNode(x, y))
+    #     smoothed_path_list = []
+    #     for x, y in zip(x_fine, y_fine):
+    #         # Convert from world coordinates to grid indices
+    #         ix, iy = self.map.coordinates_to_indices(x, y)
+    #         # Check if the node is within a free space
+    #         if self.map.is_indice_valid(ix, iy) and self.map.is_indice_avail(ix, iy):  # Assuming `is_free` checks if the occupancy grid value is 0
+    #             smoothed_path_list.append(GlobalPlannerNode(x, y))
 
-        logger.info(f"smooth_path_spline: Processed {len(smoothed_path_list)} valid points out of {len(x_fine)} smoothed points")
-        return smoothed_path_list
+    #     logger.info(f"smooth_path_spline: Processed {len(smoothed_path_list)} valid points out of {len(x_fine)} smoothed points")
+    #     return smoothed_path_list
     
     def convert_to_path(self, path_list: list) -> Path:
         """
