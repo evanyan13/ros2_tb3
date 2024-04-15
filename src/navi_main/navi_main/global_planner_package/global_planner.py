@@ -3,7 +3,7 @@ import rclpy
 import numpy as np
 import threading
 import tf2_ros
-import queue
+import rclpy.logging as log
 from transitions import Machine
 from rclpy.node import Node
 from rclpy.qos import qos_profile_sensor_data
@@ -16,7 +16,9 @@ from .astar_path_finder import find_astar_path
 from .global_map import GlobalMap
 from .global_node import GlobalPlannerNode
 from .global_mover import GlobalMover
-from .utils import euler_from_quaternion, PATH_REFRESH
+from .utils import euler_from_quaternion, PATH_REFRESH, MOVER_PATH_REFRESH
+
+logger = log.get_logger("global_planner")
 
 class GlobalPlanner(Node):
     states = ['IDLE', 'PLANNING', 'NAVIGATING']
@@ -27,14 +29,14 @@ class GlobalPlanner(Node):
         self.map = None
         self.start = None
         self.goal = None
-        self.curr_path = None
-        # self.plot_queue = queue.Queue()
         self.planner_ready = threading.Event()
+        self.first_path = True
+        self.last_path_time = self.get_clock().now().nanoseconds * 1e-9
 
         self.mover = GlobalMover(self)
 
         self.initialise_state()
-        self.get_logger().info(f'init: States initialised {self.state}')
+        logger.info(f'init: States initialised {self.state}')
 
         self.map_subscriber = self.create_subscription(OccupancyGrid, 'map', self.map_callback, qos_profile_sensor_data)
         self.goal_subscriber = self.create_subscription(PoseStamped, 'goal', self.goal_callback, qos_profile_sensor_data)
@@ -46,7 +48,7 @@ class GlobalPlanner(Node):
 
         self.path_refresh_timer = self.create_timer(PATH_REFRESH, self.plan_path)
 
-        self.get_logger().info(f'init: GlobalPlanner initialised {self.state}')
+        logger.info(f'init: GlobalPlanner initialised {self.state}')
 
     def initialise_state(self):
         self.machine = Machine(model=self, states=GlobalPlanner.states, initial='IDLE')
@@ -61,7 +63,7 @@ class GlobalPlanner(Node):
             self.update_ros_pos_from_tf()
             self.check_ready()
         else:
-            self.get_logger().warn("Map data is not fully initialized yet.")
+            logger.warn("Map data is not fully initialized yet.")
     
     def update_ros_pos_from_tf(self):
         """
@@ -84,11 +86,11 @@ class GlobalPlanner(Node):
             self.map.data[start_y][start_x] = 0
         
         except(LookupException, ConnectivityException, ExtrapolationException) as e:
-            self.get_logger().error(f'Could not transform base_link to map: {e}')
+            logger.error(f'Could not transform base_link to map: {e}')
 
     def goal_callback(self, pose_msg: PoseStamped):
         self.goal = GlobalPlannerNode.from_pose(pose_msg.pose)
-        self.get_logger().info(f'goal_callback: Received new goal: ({self.goal.x}, {self.goal.y})')
+        # logger.info(f'goal_callback: Received new goal: ({self.goal.x}, {self.goal.y})')
 
     def check_ready(self):
         if self.map and self.mover and self.mover.robot_pos:
@@ -99,37 +101,42 @@ class GlobalPlanner(Node):
         """"
         Given map information, plan and publish the path from start node to end node
         """
-        # self.get_logger().warn(f"plan_path: State now {self.state}")
         if not self.map or not self.start or not self.goal:
             self.fail()
-            self.get_logger().warn("plan_path: Map and nodes are not initialised properly")
+            logger.warn("plan_path: Map and nodes are not initialised properly")
             return
         
-        self.fail()
-        self.start_planning()
-        if self.state != 'PLANNING':
-            self.get_logger().warn("plan_path: State is not PLANNING after start_planning call")
-            return
-    
-        start_pt = (self.start.x, self.start.y)
-        goal_pt = (self.goal.x, self.goal.y)
-        # self.get_logger().info(f"plan_path: Start path planning {start_pt, goal_pt}")
+        current_time = self.get_clock().now().nanoseconds * 1e-9
+        current_path_time = current_time - self.last_path_time
 
-        path_list = find_astar_path(self.map, self.start, self.goal)
-        if path_list:
-            # self.get_logger().info(f"plan_path: Path found from astar, {len(path_list)} points")
-            # path_list = self.smooth_path_bspline(path_list)
-            self.curr_path = path_list
-            
-            # Publish path information for mover
-            path_msg = self.convert_to_path(path_list)
-            self.path_publisher.publish(path_msg)
-            # self.get_logger().info("plan_path: Path published")
-            if self.state == "PLANNING":
-                self.path_found()
-        else:
-            self.get_logger().warn("plan_path: No path found")
+        if current_path_time > MOVER_PATH_REFRESH or self.first_path:
             self.fail()
+            self.start_planning()
+            
+            if self.state != 'PLANNING':
+                logger.warn("plan_path: State is not PLANNING after start_planning call")
+                return
+        
+            start_pt = (self.start.x, self.start.y)
+            goal_pt = (self.goal.x, self.goal.y)
+            # self.get_logger().info(f"plan_path: Start path planning {start_pt, goal_pt}")
+
+            path_list = find_astar_path(self.map, self.start, self.goal)
+            if path_list:
+                # Publish path information for mover
+                path_msg = self.convert_to_path(path_list)
+                self.path_publisher.publish(path_msg)
+                logger.info(f"plan_path: Published new path")
+                self.last_path_time = current_time
+                # self.get_logger().info("plan_path: Path published")
+                if self.state == "PLANNING":
+                    self.path_found()
+                    self.first_path = False
+            else:
+                logger.warn("plan_path: No path found")
+                self.fail()
+        else:
+            logger.info(f"plan_path: No updating path yet. Current path time: {current_path_time}")
 
     # def smooth_path_bspline(self, path_list: list) -> list:
     #     """
