@@ -83,13 +83,13 @@ class GlobalMover(Node):
             
             if self.obstacle_detected:
                 logger.info(f"follow_path: Obstacle detected, adjusting position")
-                self.follow_path = False
+                self.following_path = False
                 self.adjust_obstacle()
                 return
 
             if self.current_goal_index >= len(self.current_path):
                 logger.info("follow_path: End of path reached")
-                self.follow_path = False
+                self.following_path = False
                 self.stop_moving()
                 self.reset_path()
             else:
@@ -193,7 +193,7 @@ class GlobalMover(Node):
         if not self.obstacle_detected:
             logger.info("Obstacle cleared, resuming path")
             self.reset_path()
-            self.follow_path = True
+            self.following_path = True
             threading.Timer(1.0, self.follow_path).start()
         else:
             logger.info("Obstacle still detected, checking further")
