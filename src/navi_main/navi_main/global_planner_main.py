@@ -8,7 +8,7 @@ import rclpy.logging as log
 
 from navi_main.global_planner_package.frontier_explorer import FrontierExplorer
 from navi_main.global_planner_package.global_planner import GlobalPlanner
-from navi_main.global_planner_package.grid_cell import GridCellsPublisher
+from navi_main.global_planner_package.mover_manager import MoverManager
 
 logger = log.get_logger("global_planner_main")
 
@@ -16,6 +16,9 @@ def main(args=None):
     rclpy.init(args=args)
     
     global_planner = GlobalPlanner()
+    mover_manager = MoverManager(global_planner)
+    global_planner.set_mover_manager(mover_manager)
+
     # Spin GlobalPlanner in a separate thread to start processing callbacks
     threading.Thread(target=spin_node_in_thread, args=(global_planner,), daemon=True).start()
     
@@ -23,15 +26,13 @@ def main(args=None):
     if not is_ready:
         logger.error("GlobalPlanner not ready")
 
+    logger.info("GlobalPlanner READY")
     frontier_explorer = FrontierExplorer(global_planner)
-    global_mover = global_planner.mover
-    grid_cells_publisher = GridCellsPublisher()
 
     executor = MultiThreadedExecutor()
     executor.add_node(global_planner)
     executor.add_node(frontier_explorer)
-    executor.add_node(global_mover)
-    executor.add_node(grid_cells_publisher)
+    executor.add_node(mover_manager)
     logger.info("MultiThreadedExecutor created")
 
     try:
@@ -41,14 +42,13 @@ def main(args=None):
                     executor.spin()
     except KeyboardInterrupt:
         logger.info("KeyboardInterrupt received. STOPPING")
-        global_mover.stop_moving()
-    finally:
         global_planner.map.generate_occupancy() # Generate occupancy map to csv
-
-        global_mover.destroy_node()
+        mover_manager.on_shutdown()
+        mover_manager.destroy_node()
         frontier_explorer.destroy_node()
         global_planner.destroy_node()
         executor.shutdown()
+    finally:
         rclpy.shutdown()
         logger.info("ROS Shutdown complete")
 

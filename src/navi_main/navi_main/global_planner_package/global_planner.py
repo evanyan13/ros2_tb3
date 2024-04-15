@@ -15,7 +15,7 @@ from tf2_ros import LookupException, ConnectivityException, ExtrapolationExcepti
 from .astar_path_finder import find_astar_path
 from .global_map import GlobalMap
 from .global_node import GlobalPlannerNode
-from .global_mover import GlobalMover
+from .mover_manager import MoverManager
 from .utils import euler_from_quaternion, PATH_REFRESH, MOVER_PATH_REFRESH
 
 logger = log.get_logger("global_planner")
@@ -29,11 +29,11 @@ class GlobalPlanner(Node):
         self.map = None
         self.start = None
         self.goal = None
-        self.planner_ready = threading.Event()
+        self.mover_manager = None
         self.first_path = True
-        self.last_path_time = self.get_clock().now().nanoseconds * 1e-9
 
-        self.mover = GlobalMover(self)
+        self.planner_ready = threading.Event()
+        self.last_path_time = self.get_clock().now().nanoseconds * 1e-9
 
         self.initialise_state()
         logger.info(f'init: States initialised {self.state}')
@@ -78,8 +78,9 @@ class GlobalPlanner(Node):
             _, _, yaw = euler_from_quaternion(rotation.x, rotation.y, rotation.z, rotation.w)
 
             # Update the robot's current position
-            self.mover.robot_pos = GlobalPlannerNode(translation.x, translation.y, yaw)
-            self.start = self.mover.robot_pos
+            self.mover_manager.robot_pos = GlobalPlannerNode(translation.x, translation.y, yaw)
+            self.mover_manager.update_robot_pos()
+            self.start = self.mover_manager.robot_pos
 
             # Initialise current robot_pos to 0
             start_x, start_y = self.map.coordinates_to_indices(self.start.x, self.start.y)
@@ -93,9 +94,13 @@ class GlobalPlanner(Node):
         # logger.info(f'goal_callback: Received new goal: ({self.goal.x}, {self.goal.y})')
 
     def check_ready(self):
-        if self.map and self.mover and self.mover.robot_pos:
+        if self.map and self.mover_manager and self.mover_manager.robot_pos:
             self.planner_ready.set() # Signal that GlobalPlanner is ready
             return True
+        
+    def set_mover_manager(self, mover_manager):
+        self.mover_manager = mover_manager
+        logger.info("Mover Manager set for Global Planner")
     
     def plan_path(self):
         """"
@@ -117,8 +122,6 @@ class GlobalPlanner(Node):
                 logger.warn("plan_path: State is not PLANNING after start_planning call")
                 return
         
-            # start_pt = (self.start.x, self.start.y)
-            # goal_pt = (self.goal.x, self.goal.y)
             # self.get_logger().info(f"plan_path: Start path planning {start_pt, goal_pt}")
 
             path_list = find_astar_path(self.map, self.start, self.goal)

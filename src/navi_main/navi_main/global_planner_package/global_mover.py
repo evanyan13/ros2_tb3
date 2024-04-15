@@ -12,15 +12,16 @@ from geometry_msgs.msg import Twist
 from nav_msgs.msg import Path
 from sensor_msgs.msg import LaserScan
 
-from .utils import MOVE_TOL, LINEAR_VEL, ANGULAR_VEL, STOP_DISTANCE, FRONT_ANGLE, MOVER_PATH_REFRESH
+from .utils import MOVE_TOL, LINEAR_VEL, ANGULAR_VEL, STOP_DISTANCE, FRONT_ANGLE
 
 logger = log.get_logger("global_mover")
 
 class GlobalMover(Node):
-    def __init__(self, planner):
+    def __init__(self, robot_pos, planner):
         super().__init__('global_mover')
+        self.is_active = False
         self.planner = planner
-        self.robot_pos = None
+        self.robot_pos = robot_pos
         self.current_path = []
         self.current_goal_index = 0
         self.laser_range = np.array([])
@@ -28,10 +29,11 @@ class GlobalMover(Node):
         self.following_path = True
 
         self.path_subscriber = self.create_subscription(Path, 'path', self.path_callback, qos_profile_sensor_data)
-        self.scan_subscriber = self.create_subscription(LaserScan, 'scan', self.scan_callback, qos_profile_sensor_data)
+        self.global_scan_subscriber = self.create_subscription(LaserScan, 'scan', self.scan_callback, qos_profile_sensor_data)
 
-        self.velocity_publisher = self.create_publisher(Twist, 'cmd_vel', 10)
+        self.global_vel_publisher = self.create_publisher(Twist, 'cmd_vel', 10)
 
+        self.follow_path_timer = None
         # self.follow_path_timer = self.create_timer(1, self.follow_path)
 
     def path_callback(self, path_msg: Path):
@@ -42,7 +44,7 @@ class GlobalMover(Node):
         logger.info(f"path_callback: Received new path: {len(new_path)} vs {len(self.current_path)}.")
         self.current_path = new_path
         self.current_goal_index = 0
-        self.follow_path()
+        # self.follow_path()
 
     def scan_callback(self, scan_msg: LaserScan):
         """ 
@@ -97,7 +99,7 @@ class GlobalMover(Node):
                 self.move_to_point(current_goal)
                 # logger.info("follow_path: Following path")
 
-        threading.Timer(1.0, self.follow_path).start()
+        self.follow_path_timer = threading.Timer(1.0, self.follow_path).start()
         
     def move_to_point(self, goal):
         dy = goal[1] - self.robot_pos.y
@@ -161,7 +163,7 @@ class GlobalMover(Node):
         # set the direction to rotate
         twist.angular.z = c_change_dir * ANGULAR_VEL
         # start rotation
-        self.velocity_publisher.publish(twist)
+        self.global_vel_publisher.publish(twist)
 
         # we will use the c_dir_diff variable to see if we can stop rotating
         c_dir_diff = c_change_dir
@@ -185,7 +187,7 @@ class GlobalMover(Node):
         # set the rotation speed to 0
         twist.angular.z = 0.0
         # stop the rotation
-        self.velocity_publisher.publish(twist)
+        self.global_vel_publisher.publish(twist)
         self.stop_moving()
     
     def check_obstacle_clear(self):
@@ -204,7 +206,7 @@ class GlobalMover(Node):
         twist.linear.x = linear
         twist.angular.z = angular
         time.sleep(1)
-        self.velocity_publisher.publish(twist)
+        self.global_vel_publisher.publish(twist)
     
     def reset_path(self):
         self.planner.plan_path()
@@ -222,4 +224,9 @@ class GlobalMover(Node):
             angle += 2 * math.pi
         return angle
     
+    def on_shutdown(self):
+        self.stop_moving()
+        self.is_active = False
+        if self.follow_path_timer:
+            self.follow_path_timer.cancel()    
     

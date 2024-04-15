@@ -40,7 +40,7 @@ class FrontierExplorer(Node):
     def publish_goal(self):
         # self.get_logger().info("Attempting to publish goal...")
         current_map = self.global_planner.map
-        current_robot_pos = self.global_planner.mover.robot_pos
+        current_robot_pos = self.global_planner.mover_manager.robot_pos
 
         if not current_map or not current_robot_pos:
             self.get_logger().warn("publish_goal: STOPPED Map / robot_pos not initialised")
