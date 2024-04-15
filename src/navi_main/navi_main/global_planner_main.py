@@ -36,9 +36,9 @@ def main(args=None):
 
     try:
         logger.info("Start executor spin")
-        while rclpy.ok():
-            if is_ready:
-                executor.spin()
+        if is_ready:
+            while rclpy.ok():
+                    executor.spin()
     except KeyboardInterrupt:
         logger.info("KeyboardInterrupt received. STOPPING")
         global_mover.stop_moving()

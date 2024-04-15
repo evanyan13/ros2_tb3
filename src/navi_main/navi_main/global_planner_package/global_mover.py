@@ -25,14 +25,14 @@ class GlobalMover(Node):
         self.current_goal_index = 0
         self.laser_range = np.array([])
         self.obstacle_detected = False
+        self.following_path = True
 
         self.path_subscriber = self.create_subscription(Path, 'path', self.path_callback, qos_profile_sensor_data)
         self.scan_subscriber = self.create_subscription(LaserScan, 'scan', self.scan_callback, qos_profile_sensor_data)
 
         self.velocity_publisher = self.create_publisher(Twist, 'cmd_vel', 10)
-        
-        # Timer for following the path
-        self.follow_path_timer = self.create_timer(1, self.follow_path)
+
+        # self.follow_path_timer = self.create_timer(1, self.follow_path)
 
     def path_callback(self, path_msg: Path):
         """
@@ -71,27 +71,33 @@ class GlobalMover(Node):
             self.adjust_obstacle()
         else:
             self.obstacle_detected = False
+        # logger.info(f"scan_callback: CALLBACK {self.obstacle_detected}")
 
     def follow_path(self):
         """
         Follows the given path by moving to each point sequentially.
         """
-        if not self.current_path:
-            return
-        
-        if self.obstacle_detected:
-            logger.info(f"Obstacle detected, adjusting position")
-            self.adjust_obstacle()
-            return
+        if self.follow_path:
+            if not self.current_path:
+                return
+            
+            if self.obstacle_detected:
+                logger.info(f"follow_path: Obstacle detected, adjusting position")
+                self.follow_path = False
+                self.adjust_obstacle()
+                return
 
-        if self.current_goal_index >= len(self.current_path):
-            logger.info("End of path reached")
-            self.stop_moving()
-            self.reset_path()
-            return
-        else:
-            current_goal = self.current_path[self.current_goal_index]
-            self.move_to_point(current_goal)
+            if self.current_goal_index >= len(self.current_path):
+                logger.info("follow_path: End of path reached")
+                self.follow_path = False
+                self.stop_moving()
+                self.reset_path()
+            else:
+                current_goal = self.current_path[self.current_goal_index]
+                self.move_to_point(current_goal)
+                # logger.info("follow_path: Following path")
+
+        threading.Timer(1.0, self.follow_path).start()
         
     def move_to_point(self, goal):
         dy = goal[1] - self.robot_pos.y
@@ -102,9 +108,7 @@ class GlobalMover(Node):
 
         if distance_to_goal < MOVE_TOL:
             self.current_goal_index += 1
-            if self.current_goal_index >= len(self.current_path):
-                self.stop_moving()  # Stop if path is complete
-                return
+            return
 
         linear = LINEAR_VEL
         angular = ANGULAR_VEL * heading_error
@@ -112,11 +116,11 @@ class GlobalMover(Node):
         # This ensures the robot slows down if it needs to turn sharply
         linear = LINEAR_VEL * max(0, 1 - 2 * abs(heading_error) / pi)
 
-        # logger.info(f"Moving to point {goal}")
+        logger.info(f"Moving to point ({goal[0]:.2f}, {goal[1]:.2f})")
         self.send_velocity(linear, angular)
 
     def adjust_obstacle(self):
-        self.get_logger().info('In pick_direction')
+        self.get_logger().info('Adjusting to obstacle')
         if self.laser_range.size != 0:
             # use nanargmax as there are nan's in laser_range added to replace 0's
             lr2i = np.nanargmax(self.laser_range)
@@ -127,25 +131,12 @@ class GlobalMover(Node):
 
         # rotate to that direction
         self.rotatebot(float(lr2i))
+        logger.info("Complete rotation")
         self.send_velocity(LINEAR_VEL, 0.0)
         self.check_obstacle_clear()
 
-        # self.stop_moving()
-        # # Rotate towards the next point or away from obstacle
-        # if self.current_goal_index < len(self.current_path):
-        #     current_goal = self.current_path[self.current_goal_index]
-        #     target_heading = atan2(current_goal[1] - self.robot_pos.y, current_goal[0] - self.robot_pos.x)
-        #     heading_error = self.normalise_angle(target_heading - self.robot_pos.theta)
-            
-        #     # Rotate in the direction of heading error
-        #     angular_speed = -ANGULAR_VEL * 2 if heading_error > 0 else ANGULAR_VEL * 2
-        #     self.send_velocity(0.0, angular_speed)
-        #     logger.info(f"Published rotation: {angular_speed}")
-        #     # Allow some time for rotation, then recheck or resume movement
-        #     threading.Timer(5.0, self.check_obstacle_clear).start() # seconds
-
     def rotatebot(self, rot_angle):
-        # self.get_logger().info('In rotatebot')
+        self.get_logger().info('In rotatebot')
         # create Twist object
         twist = Twist()
         
@@ -179,29 +170,30 @@ class GlobalMover(Node):
         # becomes -1.0, and vice versa
         while(c_change_dir * c_dir_diff > 0):
             # allow the callback functions to run
-            rclpy.spin_once(self)
-            current_yaw = self.yaw
+            # rclpy.spin_once(self)
+            current_yaw = self.robot_pos.theta
             # convert the current yaw to complex form
             c_yaw = complex(math.cos(current_yaw),math.sin(current_yaw))
-            # self.get_logger().info('Current Yaw: %f' % math.degrees(current_yaw))
+            self.get_logger().info('Current Yaw: %f' % math.degrees(current_yaw))
             # get difference in angle between current and target
             c_change = c_target_yaw / c_yaw
             # get the sign to see if we can stop
             c_dir_diff = np.sign(c_change.imag)
-            # self.get_logger().info('c_change_dir: %f c_dir_diff: %f' % (c_change_dir, c_dir_diff))
+            self.get_logger().info('c_change_dir: %f c_dir_diff: %f' % (c_change_dir, c_dir_diff))
 
         logger.info('End Yaw: %f' % math.degrees(current_yaw))
         # set the rotation speed to 0
         twist.angular.z = 0.0
         # stop the rotation
         self.velocity_publisher.publish(twist)
+        self.stop_moving()
     
     def check_obstacle_clear(self):
-        self.stop_moving()
         # Check if the obstacle is still detected
         if not self.obstacle_detected:
             logger.info("Obstacle cleared, resuming path")
             self.reset_path()
+            self.follow_path = True
             threading.Timer(1.0, self.follow_path).start()
         else:
             logger.info("Obstacle still detected, checking further")
@@ -215,7 +207,8 @@ class GlobalMover(Node):
         self.velocity_publisher.publish(twist)
     
     def reset_path(self):
-        self.planner.plan_path() 
+        self.planner.plan_path()
+        # rclpy.spin_once(self)
 
     def stop_moving(self):
         self.send_velocity(0.0, 0.0)
