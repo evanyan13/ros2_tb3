@@ -15,7 +15,7 @@ from tf2_ros import LookupException, ConnectivityException, ExtrapolationExcepti
 from .astar_path_finder import find_astar_path
 from .global_map import GlobalMap
 from .global_node import GlobalPlannerNode
-from .global_mover import GlobalMover
+from .mover import Mover
 from .utils import euler_from_quaternion, PATH_REFRESH, MOVER_PATH_REFRESH
 
 logger = log.get_logger("global_planner")
@@ -33,7 +33,7 @@ class GlobalPlanner(Node):
         self.first_path = True
         self.last_path_time = self.get_clock().now().nanoseconds * 1e-9
 
-        self.mover = GlobalMover(self)
+        self.mover = Mover(self)
 
         self.initialise_state()
         logger.info(f'init: States initialised {self.state}')
