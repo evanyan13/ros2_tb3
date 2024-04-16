@@ -16,13 +16,16 @@ def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlanne
     logger.info(f"Finding path ({start_i}, {start_j}) -> ({goal_i}, {goal_j}) ... ")
 
     start_cell.g = 0
-    start_cell.h = start_cell.calculate_heuristic(goal_cell)
+    start_cell.h = start_cell.calculate_heuristic_cell(goal_cell)
     start_cell.f = start_cell.h
+    start_cell.parent = None
 
     open_set = []
     heapq.heappush(open_set, (start_cell.f, start_cell))
     visited_set = set()
     cells = {(start_cell.i, start_cell.j): start_cell}
+
+    turning_cost = 2
 
     while open_set:
         current_f, current = heapq.heappop(open_set)
@@ -33,24 +36,33 @@ def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlanne
         if current == goal_cell:
             path = current.backtrack_path()
             path_nodes = [map.indices_to_node(i, j) for i, j in path]
-            path_coord = [(node.x, node.y) for node in path_nodes]
             return path_nodes
 
         visited_set.add((current.i, current.j))
         neighbours = current.get_neighbours_cells(map)
 
         for neighbour in neighbours:
-            if (neighbour.i, neighbour.j) in visited_set:
+            if (neighbour.i, neighbour.j) in visited_set or not map.is_indice_avail(neighbour.i, neighbour.j):
                 continue
 
-            if not (map.is_indice_avail(neighbour.i, neighbour.j)):
-                continue
+            # Determine if there is a turn
+            if current.parent:
+                parent_direction = (current.i - current.parent.i, current.j - current.parent.j)
+                current_direction = (neighbour.i - current.i, neighbour.j - current.j)
+                print(f"parent direcion : {parent_direction}, current_direction: {current_direction}")
+                if parent_direction != current_direction:
+                    turn_cost = turning_cost
+                else:
+                    turn_cost = 0
+            else:
+                turn_cost = 0
 
-            tentative_g = current.g + 1
-            if tentative_g < neighbour.g:
+            tentative_g = current.g + 1 + turn_cost
+            print(f"tentative_g {tentative_g} turning cost: {turn_cost}")
+            if (neighbour.i, neighbour.j) not in cells or tentative_g < neighbour.g:
                 neighbour.parent = current
                 neighbour.g = tentative_g
-                neighbour.h = neighbour.calculate_heuristic(goal_cell)
+                neighbour.h = neighbour.calculate_heuristic_cell(goal_cell)
                 neighbour.f = neighbour.g + neighbour.h
 
                 cells[(neighbour.i, neighbour.j)] = neighbour

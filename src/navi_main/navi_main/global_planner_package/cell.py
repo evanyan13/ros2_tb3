@@ -11,7 +11,7 @@ class Cell:
         self.h = 0.0
         self.f = float('inf')
     
-    def calculate_heuristic(self, goal):
+    def calculate_heuristic_cell(self, goal):
         """
         Returns euclidean distance btw two nodes
         """
@@ -48,8 +48,8 @@ class Cell:
         """
         neighbours = []
         step = EXPLORER_STEPS
-        directions = [(0, step), (step, step), (step, 0), (step, -step),
-                (0, -step), (-step, -step), (-step, 0), (-step, step)]
+        directions = [(step, 0), (0, -step), (-step, 0), (0, step),
+                      (step, step), (step, -step), (-step, step), (-step, -step)]
         
         for di, dj in directions:
             ni, nj = self.i + di, self.j + dj

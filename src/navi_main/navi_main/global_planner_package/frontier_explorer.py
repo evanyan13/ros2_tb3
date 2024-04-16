@@ -23,8 +23,8 @@ class FrontierExplorer(Node):
         """
         frontiers = []
         step = EXPLORER_STEPS
-        moves = [(0, step), (step, step), (step, 0), (step, -step),
-                (0, -step), (-step, -step), (-step, 0), (-step, step)]
+        moves = [(step, 0), (0, -step), (-step, 0), (0, step),
+                      (step, step), (step, -step), (-step, step), (-step, -step)]
 
         for y in range(1, map.height - 1):
             for x in range(1, map.width - 1):

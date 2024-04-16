@@ -80,7 +80,7 @@ class GlobalMap:
         i = int(i)
         j = int(j)
         if self.is_indice_valid(i, j):
-            return self.data[i, j]
+            return self.data[j, i]
         return -1 # Unkown value
 
     def get_occupancy_value_by_coordinates(self, x: float, y: float) -> int:
@@ -135,7 +135,7 @@ class GlobalMap:
         for i in range(self.height):
             row = '|'
             for j in range(self.width):
-                curr_index = self.data[i, j]
+                curr_index = self.data[j, i]
                 if curr_index == -1: # Unknown
                     char = '?'
                 elif curr_index == 100: # Obstacle
