@@ -23,12 +23,12 @@ def main(args=None):
         logger.error("GlobalPlanner not ready")
 
     frontier_explorer = FrontierExplorer(global_planner)
-    global_mover = global_planner.mover
+    mover = global_planner.mover
 
     executor = MultiThreadedExecutor()
     executor.add_node(global_planner)
     executor.add_node(frontier_explorer)
-    executor.add_node(global_mover)
+    executor.add_node(mover)
     logger.info("MultiThreadedExecutor created")
 
     try:
@@ -41,11 +41,11 @@ def main(args=None):
                     break
     except KeyboardInterrupt:
         logger.info("KeyboardInterrupt received. STOPPING")
-        global_mover.on_shutdown()
+        mover.stop_moving()
     finally:
         global_planner.map.generate_occupancy() # Generate occupancy map to csv
 
-        global_mover.destroy_node()
+        mover.destroy_node()
         frontier_explorer.destroy_node()
         global_planner.destroy_node()
         executor.shutdown()

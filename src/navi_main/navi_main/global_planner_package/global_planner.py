@@ -17,12 +17,12 @@ from .astar_path_finder import find_astar_path
 from .global_map import GlobalMap
 from .global_node import GlobalPlannerNode
 from .mover import Mover
-from .utils import euler_from_quaternion, PATH_REFRESH, MOVER_PATH_REFRESH, SIMP_STEPS
+from .utils import euler_from_quaternion, PATH_REFRESH, MOVER_PATH_REFRESH
 
 logger = log.get_logger("global_planner")
 
 class GlobalPlanner(Node):
-    states = ['IDLE', 'PLANNING', 'NAVIGATING']
+    states = ['IDLE', 'PLANNING', 'NAVIGATING_LOCAL', 'NAVIGATING_GLOBAL']
     
     def __init__(self):
         super().__init__('global_planner')
@@ -37,7 +37,7 @@ class GlobalPlanner(Node):
 
         self.mover = Mover(self)
 
-        self.initialise_state()
+        self.initialise_states()
         logger.info(f'init: States initialised {self.state}')
 
         self.map_subscriber = self.create_subscription(OccupancyGrid, 'map', self.map_callback, qos_profile_sensor_data)
@@ -53,11 +53,12 @@ class GlobalPlanner(Node):
 
         logger.info(f'init: GlobalPlanner initialised {self.state}')
 
-    def initialise_state(self):
+    def initialise_states(self):
         self.machine = Machine(model=self, states=GlobalPlanner.states, initial='IDLE')
         self.machine.add_transition(trigger='start_planning', source='IDLE', dest='PLANNING')
-        self.machine.add_transition(trigger='path_found', source='PLANNING', dest='NAVIGATING')
-        self.machine.add_transition(trigger='goal_reached', source='NAVIGATING', dest='IDLE')
+        self.machine.add_transition(trigger='switch_to_local', source='*', dest='NAVIGATING_LOCAL')
+        self.machine.add_transition(trigger='switch_to_global', source='*', dest='NAVIGATING_GLOBAL')
+        self.machine.add_transition(trigger='goal_reached', source='*', dest='IDLE')
         self.machine.add_transition(trigger='fail', source='*', dest='IDLE')
 
     def map_callback(self, map_msg: OccupancyGrid):
@@ -108,7 +109,7 @@ class GlobalPlanner(Node):
     def check_shutdown(self):
         return self.shutdown_requested
     
-    def plan_path(self):
+    def plan_path(self, reset_path=False):
         """"
         Given map information, plan and publish the path from start node to end node
         """
@@ -120,7 +121,7 @@ class GlobalPlanner(Node):
         current_time = self.get_clock().now().nanoseconds * 1e-9
         current_path_time = current_time - self.last_path_time
 
-        if current_path_time > MOVER_PATH_REFRESH or self.first_path:
+        if current_path_time > MOVER_PATH_REFRESH or self.first_path or reset_path:
             self.fail()
             self.start_planning()
             
@@ -131,7 +132,6 @@ class GlobalPlanner(Node):
             path_list = find_astar_path(self.map, self.start, self.goal)
             if path_list:
                 # Publish path information for mover
-                # smoothed_path = self.smooth_path_bspline(path_list)
                 waypoints = self.get_waypoints(path_list)
                 path_msg = self.convert_to_path(waypoints)
                 self.path_publisher.publish(path_msg)
@@ -139,11 +139,11 @@ class GlobalPlanner(Node):
                 self.last_path_time = current_time
                 # self.get_logger().info("plan_path: Path published")
                 if self.state == "PLANNING":
-                    self.path_found()
+                    self.switch_to_global()
                     self.first_path = False
             else:
                 logger.warn("plan_path: No path found")
-                self.fail()
+                self.switch_to_local()
     
     def get_waypoints(self, path_list):
         waypoints = [path_list[0]] # Add the first node

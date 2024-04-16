@@ -49,7 +49,7 @@ def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlanne
             if current.parent:
                 parent_direction = (current.i - current.parent.i, current.j - current.parent.j)
                 current_direction = (neighbour.i - current.i, neighbour.j - current.j)
-                print(f"parent direcion : {parent_direction}, current_direction: {current_direction}")
+                # print(f"parent direcion : {parent_direction}, current_direction: {current_direction}")
                 if parent_direction != current_direction:
                     turn_cost = turning_cost
                 else:
@@ -58,7 +58,7 @@ def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlanne
                 turn_cost = 0
 
             tentative_g = current.g + 1 + turn_cost
-            print(f"tentative_g {tentative_g} turning cost: {turn_cost}")
+            # print(f"tentative_g {tentative_g} turning cost: {turn_cost}")
             if (neighbour.i, neighbour.j) not in cells or tentative_g < neighbour.g:
                 neighbour.parent = current
                 neighbour.g = tentative_g
