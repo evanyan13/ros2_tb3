@@ -16,7 +16,7 @@ from .astar_path_finder import find_astar_path
 from .global_map import GlobalMap
 from .global_node import GlobalPlannerNode
 from .mover import Mover
-from .utils import euler_from_quaternion, PATH_REFRESH, MOVER_PATH_REFRESH
+from .utils import euler_from_quaternion, PATH_REFRESH, MOVER_PATH_REFRESH, SIMP_STEPS
 
 logger = log.get_logger("global_planner")
 
@@ -116,15 +116,12 @@ class GlobalPlanner(Node):
             if self.state != 'PLANNING':
                 logger.warn("plan_path: State is not PLANNING after start_planning call")
                 return
-        
-            # start_pt = (self.start.x, self.start.y)
-            # goal_pt = (self.goal.x, self.goal.y)
-            # self.get_logger().info(f"plan_path: Start path planning {start_pt, goal_pt}")
 
             path_list = find_astar_path(self.map, self.start, self.goal)
             if path_list:
                 # Publish path information for mover
                 # smoothed_path = self.smooth_path_bspline(path_list)
+                path_list = self.simplify_path(path_list)
                 path_msg = self.convert_to_path(path_list)
                 self.path_publisher.publish(path_msg)
                 logger.info(f"plan_path: Published new path")
@@ -168,6 +165,15 @@ class GlobalPlanner(Node):
     #     logger.info(f"smooth_path_spline: Processed {len(smoothed_path_list)} valid points out of {len(x_fine)} smoothed points")
     #     return smoothed_path_list
     
+    def simplify_path(self, path_list):
+        steps = SIMP_STEPS
+        simplified_path = path_list[::steps]
+        if path_list[-1] not in simplified_path:
+            simplified_path.append(path_list[-1])
+        
+        return simplified_path
+
+
     def convert_to_path(self, path_list: list) -> Path:
         """
         Take in a list of path points and convert it to path with PoseStamped

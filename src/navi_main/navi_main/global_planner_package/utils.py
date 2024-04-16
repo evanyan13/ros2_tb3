@@ -24,18 +24,29 @@ ROBOT_RADIUS = 0.20 # metres
 EXPLORER_STEPS = 1
 
 # planner
-PATH_REFRESH = 5  # seconds
+PATH_REFRESH = 5.0  # seconds
 MOVER_PATH_REFRESH = 60
+SIMP_STEPS = 10
+MOVER_REFRESH = 3.0
 
+# Actual bot
 # global_mover
+# MOVE_TOL = 0.10
+# LINEAR_VEL = 0.15
+# ANGULAR_VEL = 0.10
+# STOP_DISTANCE = 0.25 # metres
+# LOOKAHEAD_DIST = 1.0
+# FRONT_ANGLE = 30
+# FRONT_ANGLES = range(-FRONT_ANGLE, FRONT_ANGLE + 1, 1)
+
+# Gazebo
 MOVE_TOL = 0.10
 LINEAR_VEL = 0.10
 ANGULAR_VEL = 0.05
 STOP_DISTANCE = 0.20 # metres
 LOOKAHEAD_DIST = 1.0
-FRONT_ANGLE = 30
+FRONT_ANGLE = 45
 FRONT_ANGLES = range(-FRONT_ANGLE, FRONT_ANGLE + 1, 1)
-
 
 # code from https://automaticaddison.com/how-to-convert-a-quaternion-into-euler-angles-in-python/
 def euler_from_quaternion(x, y, z, w):

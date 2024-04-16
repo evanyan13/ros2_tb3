@@ -12,7 +12,7 @@ from geometry_msgs.msg import Twist
 from nav_msgs.msg import Path
 from sensor_msgs.msg import LaserScan
 
-from .utils import MOVE_TOL, LINEAR_VEL, ANGULAR_VEL, STOP_DISTANCE, FRONT_ANGLE, MOVER_PATH_REFRESH
+from .utils import MOVE_TOL, LINEAR_VEL, ANGULAR_VEL, STOP_DISTANCE, FRONT_ANGLE, MOVER_REFRESH
 
 logger = log.get_logger("global_mover")
 
@@ -31,15 +31,20 @@ class Mover(Node):
 
         self.path_subscriber = self.create_subscription(Path, 'path', self.path_callback, qos_profile_sensor_data)
         self.scan_subscriber = self.create_subscription(LaserScan, 'scan', self.scan_callback, qos_profile_sensor_data)
-
         self.velocity_publisher = self.create_publisher(Twist, 'cmd_vel', 10)
 
-        self.local_mover_timer = threading.Timer(1.0, self.spin_local_mover)
+        self.local_mover_timer = threading.Timer(MOVER_REFRESH, self.spin_local_mover)
+        self.global_mover_timer = threading.Timer(MOVER_REFRESH, self.follow_global_path)
         self.local_mover_timer.start()
-
-        self.global_mover_timer = threading.Timer(1.0, self.follow_global_path)
-
-        # self.follow_global_path_timer = self.create_timer(1, self.follow_global_path)
+        
+    def safe_start_timer(self, timer_attribute, duration, method):
+        existing_timer = getattr(self, timer_attribute, None)
+        if existing_timer and existing_timer.is_alive():
+            existing_timer.cancel()
+        new_timer = threading.Timer(duration, method)
+        setattr(self, timer_attribute, new_timer)
+        new_timer.start()
+        logger.info(f"Started Timer {timer_attribute}")
 
     def path_callback(self, path_msg: Path):
         """
@@ -50,7 +55,7 @@ class Mover(Node):
         self.current_path = new_path
         self.current_goal_index = 0
         self.global_mover_ready = True
-        self.follow_global_path()
+        self.safe_start_timer('global_mover_timer', MOVER_REFRESH, self.follow_global_path)
 
     def scan_callback(self, scan_msg: LaserScan):
         """ 
@@ -82,8 +87,12 @@ class Mover(Node):
         # logger.info(f"scan_callback: CALLBACK {self.obstacle_detected}")
     
     def spin_local_mover(self):
-        if self.robot_pos != None:
+        if self.robot_pos:
             if not self.global_mover_ready:
+                if self.obstacle_detected:
+                    self.adjust_obstacle()
+                    return
+                
                 if self.laser_range.size != 0:
                     # use nanargmax as there are nan's in laser_range added to replace 0's
                     lr2i = np.nanargmax(self.laser_range)
@@ -96,8 +105,7 @@ class Mover(Node):
                 self.rotatebot(float(lr2i))
                 self.send_velocity(LINEAR_VEL, 0.0)
             else:
-                self.local_mover_timer.cancel()
-                self.global_mover_timer.start()
+                self.safe_start_timer('global_mover_timer', MOVER_REFRESH, self.follow_global_path)
 
     def follow_global_path(self):
         """
@@ -117,14 +125,14 @@ class Mover(Node):
                 logger.info("follow_global_path: End of path reached")
                 self.following_path = False
                 self.stop_moving()
-                self.local_mover_timer.start()
+                self.safe_start_timer('local_mover_timer', MOVER_REFRESH, self.spin_local_mover)
                 self.reset_path()
             else:
                 current_goal = self.current_path[self.current_goal_index]
                 self.move_to_point(current_goal)
                 # logger.info("follow_global_path: Following path")
 
-        self.global_mover_timer.start()
+        self.safe_start_timer('global_mover_timer', MOVER_REFRESH, self.follow_global_path)
         
     def move_to_point(self, goal):
         dy = goal[1] - self.robot_pos.y
@@ -240,6 +248,13 @@ class Mover(Node):
     def stop_moving(self):
         self.send_velocity(0.0, 0.0)
         self.planner.fail()
+
+    def on_shutdown(self):
+        if self.local_mover_timer.is_alive():
+            self.local_mover_timer.cancel()
+        if self.global_mover_timer.is_alive():
+            self.global_mover_timer.cancel()
+        self.stop_moving()
     
     def normalise_angle(self, angle):
         # Normalize the angle to be between -pi and pi

@@ -38,7 +38,7 @@ def main(args=None):
                     executor.spin()
     except KeyboardInterrupt:
         logger.info("KeyboardInterrupt received. STOPPING")
-        global_mover.stop_moving()
+        global_mover.on_shutdown()
     finally:
         global_planner.map.generate_occupancy() # Generate occupancy map to csv
 
