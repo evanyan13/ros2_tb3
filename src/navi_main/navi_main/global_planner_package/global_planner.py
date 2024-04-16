@@ -9,6 +9,7 @@ from rclpy.node import Node
 from rclpy.qos import qos_profile_sensor_data
 from geometry_msgs.msg import PoseStamped
 from nav_msgs.msg import OccupancyGrid, Path
+from std_msgs.msg import String
 from scipy.interpolate import make_interp_spline
 from tf2_ros import LookupException, ConnectivityException, ExtrapolationException
 
@@ -32,6 +33,7 @@ class GlobalPlanner(Node):
         self.planner_ready = threading.Event()
         self.first_path = True
         self.last_path_time = self.get_clock().now().nanoseconds * 1e-9
+        self.shutdown_requested = False
 
         self.mover = Mover(self)
 
@@ -40,6 +42,7 @@ class GlobalPlanner(Node):
 
         self.map_subscriber = self.create_subscription(OccupancyGrid, 'map', self.map_callback, qos_profile_sensor_data)
         self.goal_subscriber = self.create_subscription(PoseStamped, 'goal', self.goal_callback, qos_profile_sensor_data)
+        self.stop_subscriber = self.create_subscription(String, 'enter_state', self.handle_stop_command, qos_profile_sensor_data)
 
         self.path_publisher = self.create_publisher(Path, "path", 10)
 
@@ -92,10 +95,18 @@ class GlobalPlanner(Node):
         self.goal = GlobalPlannerNode.from_pose(pose_msg.pose)
         # logger.info(f'goal_callback: Received new goal: ({self.goal.x}, {self.goal.y})')
 
+    def handle_stop_command(self, msg: String):
+        if msg.data == 'Stop Nav':
+            logger.info("Stopping navigation as instructed.")
+            self.shutdown_requested = True
+
     def check_ready(self):
         if self.map and self.mover and self.mover.robot_pos:
             self.planner_ready.set() # Signal that GlobalPlanner is ready
             return True
+    
+    def check_shutdown(self):
+        return self.shutdown_requested
     
     def plan_path(self):
         """"

@@ -35,7 +35,10 @@ def main(args=None):
         logger.info("Start executor spin")
         if is_ready:
             while rclpy.ok():
-                    executor.spin()
+                executor.spin_once()
+                if global_planner.check_shutdown():
+                    logger.info("Shutdown signal received, STOPPING NAVI")
+                    break
     except KeyboardInterrupt:
         logger.info("KeyboardInterrupt received. STOPPING")
         global_mover.on_shutdown()
