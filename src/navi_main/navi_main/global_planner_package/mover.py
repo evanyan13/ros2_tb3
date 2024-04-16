@@ -25,6 +25,7 @@ class Mover(Node):
         self.current_goal_index = 0
         self.laser_range = np.array([])
         self.obstacle_detected = False
+        self.new_path = False
 
         self.path_subscriber = self.create_subscription(Path, 'path', self.path_callback, qos_profile_sensor_data)
         self.scan_subscriber = self.create_subscription(LaserScan, 'scan', self.scan_callback, qos_profile_sensor_data)
@@ -40,7 +41,7 @@ class Mover(Node):
         logger.info(f"path_callback: Received new path: {len(new_path)} vs {len(self.current_path)}.")
         self.current_path = new_path
         self.current_goal_index = 0
-        self.global_mover_ready = True
+        self.new_path = True
         self.planner.switch_to_global()
         # self.safe_start_timer('global_mover_timer', MOVER_REFRESH, self.follow_global_path)
 
@@ -106,7 +107,10 @@ class Mover(Node):
         """
         Follows the given path by moving to each point sequentially.
         """
+        self.new_path = False
+        
         if not self.current_path:
+            logger.info(f"No current path received")
             return
         
         if self.obstacle_detected:
@@ -121,10 +125,17 @@ class Mover(Node):
             self.reset_path()
         else:
             current_goal = self.current_path[self.current_goal_index]
+            logger.info("follow_global_path: Following path")
             self.move_to_point(current_goal)
-            # logger.info("follow_global_path: Following path")
         
     def move_to_point(self, goal):
+        """
+        Point and shoot approach
+        """
+        if self.robot_pos is None:
+            logger.error("Robot position not initialised")
+            return
+
         dy = goal[1] - self.robot_pos.y
         dx = goal[0] - self.robot_pos.x
         distance_to_goal = hypot(dx, dy)
@@ -133,15 +144,33 @@ class Mover(Node):
 
         if distance_to_goal < MOVE_TOL:
             self.current_goal_index += 1
+            logger.info(f"Waypoint reached. Moving to waypoint index {self.current_goal_index}")
             return
 
-        # Moderate linear velocity based on how aligned we are to the goal direction
-        # This ensures the robot slows down if it needs to turn sharply
-        linear = LINEAR_VEL * max(0, 1 - 2 * abs(heading_error) / pi)
-        angular = ANGULAR_VEL * heading_error
-
-        logger.info(f"Moving to point ({goal[0]:.2f}, {goal[1]:.2f})")
-        self.send_velocity(linear, angular)
+        while distance_to_goal >= MOVE_TOL or abs(heading_error) > np.radians(1.5):
+            if self.obstacle_detected:
+                self.adjust_obstacle()
+            
+            if self.new_path:
+                break
+            
+            if abs(heading_error) > np.radians(1):
+                logger.info(f"Robot not aligned, rotating... {abs(heading_error)}")
+                self.rotatebot(heading_error)
+                # Update heading_error after each rotation
+                dy = goal[1] - self.robot_pos.y
+                dx = goal[0] - self.robot_pos.x
+                target_heading = atan2(dy, dx)
+                heading_error = self.normalise_angle(target_heading - self.robot_pos.theta)
+            else:
+                logger.info("Robot aligned. Moving forward.")
+                linear = LINEAR_VEL * (1 - 2 * abs(heading_error) / pi)
+                angular = 0.0  # No rotation needed, robot is aligned
+                self.send_velocity(linear, angular)
+                # Update distance_to_goal after each movement
+                dy = goal[1] - self.robot_pos.y
+                dx = goal[0] - self.robot_pos.x
+                distance_to_goal = hypot(dx, dy)
 
     def adjust_obstacle(self):
         self.get_logger().info('Adjusting to obstacle')
@@ -157,6 +186,7 @@ class Mover(Node):
         self.rotatebot(float(lr2i))
         logger.info("Complete rotation")
         self.send_velocity(LINEAR_VEL, 0.0)
+        time.sleep(1)
         self.check_obstacle_clear()
 
     def rotatebot(self, rot_angle):
@@ -220,7 +250,7 @@ class Mover(Node):
             self.planner.switch_to_global()
         else:
             logger.info("Obstacle still detected, checking further")
-            self.planner.adjust_obstacle()
+            self.adjust_obstacle()
     
     def send_velocity(self, linear, angular):
         twist = Twist()
