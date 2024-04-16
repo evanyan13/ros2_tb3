@@ -1,5 +1,7 @@
 import math
 
+from .utils import EXPLORER_STEPS
+
 class Cell:
     def __init__(self, i, j, parent=None) -> None:
         self.i = i
@@ -9,7 +11,7 @@ class Cell:
         self.h = 0.0
         self.f = float('inf')
     
-    def calculate_heuristic(self, goal):
+    def calculate_heuristic_cell(self, goal):
         """
         Returns euclidean distance btw two nodes
         """
@@ -40,13 +42,14 @@ class Cell:
     def __hash__(self):
         return hash((self.i, self.j))
     
-    def get_neighbours(self, map):
+    def get_neighbours_cells(self, map):
         """
         Get neighbours of 
         """
         neighbours = []
-        directions = [(1, 0), (0, 1), (-1, 0), (0, -1),
-                      (1, 1), (-1, -1), (1, -1), (-1, 1)]
+        step = EXPLORER_STEPS
+        directions = [(step, 0), (0, -step), (-step, 0), (0, step),
+                      (step, step), (step, -step), (-step, step), (-step, -step)]
         
         for di, dj in directions:
             ni, nj = self.i + di, self.j + dj
