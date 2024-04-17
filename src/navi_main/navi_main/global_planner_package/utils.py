@@ -25,9 +25,7 @@ EXPLORER_STEPS = 1
 
 # planner
 PATH_REFRESH = 5.0  # seconds
-MOVER_PATH_REFRESH = 60
-SIMP_STEPS = 10
-MOVER_REFRESH = 1.0
+MOVER_PATH_REFRESH = 180.0
 
 # Actual bot
 # global_mover
