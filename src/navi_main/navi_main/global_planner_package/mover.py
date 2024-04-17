@@ -54,9 +54,8 @@ class Mover(Node):
         self.laser_range[self.laser_range == 0] = np.nan
         
         self.update_scan()
-
+    
     def update_scan(self):
-        logger.info("Updating scan...")
         if self.laser_range.size == 0:
             return
         
@@ -79,9 +78,7 @@ class Mover(Node):
             self.obstacle_detected = True
         else:
             self.obstacle_detected = False
-        
-        logger.info(f"Scan updated {min_distance}")
-    
+            
     def manage_mover(self):
         """
         Determine the navigation mode based on planner's state and execute appropriate methods
@@ -119,6 +116,8 @@ class Mover(Node):
         Follows the given path by moving to each point sequentially.
         """
         self.new_path = False
+        if self.new_path:
+            self.manage_mover()
         
         if not self.current_path:
             logger.info(f"No current path received")
@@ -126,7 +125,7 @@ class Mover(Node):
         
         self.update_scan()
         if self.obstacle_detected:
-            logger.info(f"global_mover: Obstacle detected, adjusting position")
+            logger.info(f"global_mover: Obstacle detected, ROTATING")
             self.adjust_obstacle()
             return
 
@@ -156,19 +155,20 @@ class Mover(Node):
 
         if distance_to_goal < MOVE_TOL:
             self.current_goal_index += 1
-            logger.info(f"Waypoint reached. Moving to waypoint index {self.current_goal_index}")
+            logger.info(f"move_to_point: Waypoint reached. Moving to waypoint index {self.current_goal_index}")
             return
 
         while distance_to_goal >= MOVE_TOL or abs(heading_error) > np.radians(1.5):
             self.update_scan()
             if self.obstacle_detected:
                 self.adjust_obstacle()
+                break
             
             if self.new_path:
                 break
             
             if abs(heading_error) > np.radians(1):
-                logger.info(f"Robot not aligned, rotating... {abs(heading_error)}")
+                logger.info(f"move_to_point: Robot not aligned, rotating...")
                 self.rotatebot(heading_error)
                 # Update heading_error after each rotation
                 dy = goal[1] - self.robot_pos.y
@@ -176,7 +176,7 @@ class Mover(Node):
                 target_heading = atan2(dy, dx)
                 heading_error = self.normalise_angle(target_heading - self.robot_pos.theta)
             else:
-                logger.info("Robot aligned. Moving forward.")
+                logger.info("move_to_point: Robot aligned. Moving forward.")
                 linear = LINEAR_VEL * (1 - 2 * abs(heading_error) / pi)
                 angular = 0.0  # No rotation needed, robot is aligned
                 self.send_velocity(linear, angular)
