@@ -32,6 +32,7 @@ class Mover(Node):
         self.velocity_publisher = self.create_publisher(Twist, 'cmd_vel', 10)
 
         self.navi_timer = self.create_timer(0.01, self.manage_mover)
+        # self.path_refresh_timer = self.create_timer(0.1, self.update_scan)
 
     def path_callback(self, path_msg: Path):
         """
@@ -42,7 +43,7 @@ class Mover(Node):
         self.current_path = new_path
         self.current_goal_index = 0
         self.new_path = True
-        self.planner.switch_to_global()
+        self.manage_mover()
         # self.safe_start_timer('global_mover_timer', MOVER_REFRESH, self.follow_global_path)
 
     def scan_callback(self, scan_msg: LaserScan):
@@ -51,6 +52,13 @@ class Mover(Node):
         """
         self.laser_range = np.array(scan_msg.ranges)
         self.laser_range[self.laser_range == 0] = np.nan
+        
+        self.update_scan()
+
+    def update_scan(self):
+        logger.info("Updating scan...")
+        if self.laser_range.size == 0:
+            return
         
         num_ranges = len(self.laser_range)
         degrees_per_index = 270 / num_ranges
@@ -71,6 +79,8 @@ class Mover(Node):
             self.obstacle_detected = True
         else:
             self.obstacle_detected = False
+        
+        logger.info(f"Scan updated {min_distance}")
     
     def manage_mover(self):
         """
@@ -86,6 +96,7 @@ class Mover(Node):
     def spin_local_mover(self):
         if self.robot_pos:
             # if not self.global_mover_ready:
+            self.update_scan()
             if self.obstacle_detected:
                 logger.info(f"local_mover: Obstacle detected, adjusting position")
                 self.adjust_obstacle()
@@ -113,6 +124,7 @@ class Mover(Node):
             logger.info(f"No current path received")
             return
         
+        self.update_scan()
         if self.obstacle_detected:
             logger.info(f"global_mover: Obstacle detected, adjusting position")
             self.adjust_obstacle()
@@ -148,6 +160,7 @@ class Mover(Node):
             return
 
         while distance_to_goal >= MOVE_TOL or abs(heading_error) > np.radians(1.5):
+            self.update_scan()
             if self.obstacle_detected:
                 self.adjust_obstacle()
             
@@ -186,7 +199,6 @@ class Mover(Node):
         self.rotatebot(float(lr2i))
         logger.info("Complete rotation")
         self.send_velocity(LINEAR_VEL, 0.0)
-        time.sleep(1)
         self.check_obstacle_clear()
 
     def rotatebot(self, rot_angle):
@@ -240,14 +252,15 @@ class Mover(Node):
         twist.angular.z = 0.0
         # stop the rotation
         self.velocity_publisher.publish(twist)
-        self.stop_moving()
     
     def check_obstacle_clear(self):
         # Check if the obstacle is still detected
+        self.update_scan()
         if not self.obstacle_detected:
             logger.info("Obstacle cleared, resuming path")
             self.reset_path()
             self.planner.switch_to_global()
+            self.manage_mover()
         else:
             logger.info("Obstacle still detected, checking further")
             self.adjust_obstacle()

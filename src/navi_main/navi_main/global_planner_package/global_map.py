@@ -32,7 +32,7 @@ class GlobalMap:
         return cat_data.astype(np.int8)
     
     def add_obstacle_buffer(self):
-        buffer_size = int(ROBOT_RADIUS / self.resolution / 2)
+        buffer_size = int(ROBOT_RADIUS / self.resolution * 2 / 3)
         new_data = np.copy(self.data)
 
         for y in range(self.height):
