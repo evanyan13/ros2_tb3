@@ -26,6 +26,7 @@ def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlanne
     cells = {(start_cell.i, start_cell.j): start_cell}
 
     turning_cost = 2
+    wall_penalty = 2
 
     while open_set:
         current_f, current = heapq.heappop(open_set)
@@ -57,7 +58,16 @@ def find_astar_path(map: GlobalMap, start: GlobalPlannerNode, goal: GlobalPlanne
             else:
                 turn_cost = 0
 
-            tentative_g = current.g + 1 + turn_cost
+            # Determine if there is a wall nearby
+            wall_cost = 0
+            for di in range(-1, 2):
+                for dj in range(-1, 2):
+                    ni, nj = neighbour.i + di, neighbour.j + dj
+                    if not map.is_indice_avail(ni, nj):
+                        wall_cost += wall_penalty / (abs(di) + abs(dj) + 1)
+
+            tentative_g = current.g + 1 + turn_cost + wall_cost
+
             # print(f"tentative_g {tentative_g} turning cost: {turn_cost}")
             if (neighbour.i, neighbour.j) not in cells or tentative_g < neighbour.g:
                 neighbour.parent = current
