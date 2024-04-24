@@ -141,11 +141,7 @@ class PostRequest(Node):
             elif response.status_code == 400: 
                 resp_data = response.json() 
                 print("Error:",resp_data['data']['message']) 
-                self.post_call_state = string_msg 
-                break 
-            elif response.status_code == 400: 
-                resp_data = response.json() 
-                print("Error:",resp_data['data']['message']) 
+                string_msg = resp_data['data']['message'] 
                 self.post_call_state = string_msg 
                 break 
 
